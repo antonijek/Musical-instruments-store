@@ -7,8 +7,7 @@ import { Container } from "@mui/material";
 function App() {
   return (
     <BrowserRouter>
-      <header>Header</header>
-      <Container maxWidth="lg" sx={{ backgroundColor: "red" }}>
+      <Container maxWidth="lg">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
