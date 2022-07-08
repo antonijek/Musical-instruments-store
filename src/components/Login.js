@@ -1,7 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Box, TextField, Button, Typography, Link } from "@mui/material";
 import Modal from "./Modal";
+
 const Login = () => {
   const [form, setForm] = useState({ email: "", pass: "" });
   const [error, setError] = useState({ email: false, pass: false });
@@ -36,19 +37,21 @@ const Login = () => {
 
   const closeModal = () => {
     setOpen(false);
+    setForm({ pass: "", email: "" });
+    setError({ pass: false, email: false });
   };
-  console.log(open);
+
   return (
     <div>
       <Box
         noValidate
         component="form"
         sx={{
-          width: { xs: "90%", sm: "60%", md: "40%" },
+          width: { xs: "90%", sm: "60%", md: "30%" },
           mx: "auto",
-          mt: "20%",
+          mt: { xs: "20%", md: "10%" },
           boxShadow: { md: "20px 20px 50px #9E9E9E" },
-          p: 2,
+          p: { xs: 2, md: 8 },
         }}
       >
         <Typography
@@ -62,7 +65,7 @@ const Login = () => {
         </Typography>
         <TextField
           onChange={(e) => checkError(e)}
-          sx={{ mb: "10%" }}
+          sx={{ mb: { xs: "10%", md: "6%" } }}
           fullWidth
           type="email"
           label="Email"
@@ -71,6 +74,7 @@ const Login = () => {
           name="email"
           error={error.email}
           helperText={error.email ? "Incorrect email." : ""}
+          value={form.email}
         />
         <br />
         <TextField
@@ -83,6 +87,7 @@ const Login = () => {
           required
           name="pass"
           error={error.pass}
+          value={form.pass}
           helperText={
             error.pass
               ? "Must contain 8 or more characters, at least one  number, one uppercase and lowercase letter."
@@ -100,7 +105,12 @@ const Login = () => {
           Log in
         </Button>
 
-        <Link component="button" underline="hover" onClick={openModal}>
+        <Link
+          href="#"
+          underline="hover"
+          onClick={openModal}
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
           {"Forgot password?"}
         </Link>
         <Link
