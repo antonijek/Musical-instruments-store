@@ -13,7 +13,7 @@ const Login = () => {
     let res = patern.test(form.email);
     return !res;
   };
-
+  
   const checkPass = (e) => {
     let patern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     let res = patern.test(form.pass);
