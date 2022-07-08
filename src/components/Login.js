@@ -1,45 +1,18 @@
 import React from "react";
-import { useState } from "react";
 import { Box, TextField, Button, Typography, Link } from "@mui/material";
 import Modal from "./Modal";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", pass: "" });
-  const [error, setError] = useState({ email: false, pass: false });
-  const [open, setOpen] = useState(false);
-
-  const checkEmail = (e) => {
-    let patern =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let res = patern.test(form.email);
-    return !res;
-  };
-
-  const checkPass = (e) => {
-    let patern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    let res = patern.test(form.pass);
-    return !res;
-  };
-  const checkForm = (e) => {
-    e.preventDefault();
-    setError({ pass: checkPass(), email: checkEmail() });
-  };
-
-  const checkError = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError({ ...error, [e.target.name]: false });
-  };
-
-  const openModal = (e) => {
-    e.preventDefault();
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-    setForm({ pass: "", email: "" });
-    setError({ pass: false, email: false });
-  };
+  const {
+    open,
+    checkForm,
+    checkError,
+    openModal,
+    closeModal,
+    formData,
+    error,
+  } = useLogin();
 
   return (
     <div>
@@ -74,7 +47,7 @@ const Login = () => {
           name="email"
           error={error.email}
           helperText={error.email ? "Incorrect email." : ""}
-          value={form.email}
+          value={formData.email}
         />
         <br />
         <TextField
@@ -87,7 +60,7 @@ const Login = () => {
           required
           name="pass"
           error={error.pass}
-          value={form.pass}
+          value={formData.pass}
           helperText={
             error.pass
               ? "Must contain 8 or more characters, at least one  number, one uppercase and lowercase letter."
