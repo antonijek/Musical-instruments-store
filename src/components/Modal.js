@@ -1,24 +1,40 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { style } from "../utils";
-import { TextField } from "@mui/material";
+import { React, useState } from "react";
+import { TextField, Modal, Typography, Button, Box } from "@mui/material";
+import { style, checkEmail } from "../utils";
 
 const BasicModal = ({ closeModal }) => {
-  const handleClose = () => closeModal();
+  const [email, setEmail] = useState(true);
+  const [error, setError] = useState(false);
 
+  const handleClose = () => {
+    if (checkEmail(email) === true) {
+      closeModal();
+    } else {
+      setError(true);
+    }
+  };
+
+  const handleEmail = (letter) => {
+    setEmail(letter);
+    setError(false);
+  };
   return (
     <div>
-      <Modal open onClose={handleClose}>
+      <Modal open onClose={closeModal}>
         <Box sx={style}>
-          <TextField variant="standard" fullWidth label="Email"></TextField>
+          <TextField
+            variant="standard"
+            fullWidth
+            label="Email"
+            error={error}
+            helperText={"Invalid email."}
+            onChange={(e) => handleEmail(e.target.value)}
+          ></TextField>
           <Typography sx={{ mt: 2 }}>
-            Please insert your email address.
+            To request password reset link, please enter your email address.
           </Typography>
           <Button
-            onClick={closeModal}
+            onClick={handleClose}
             variant="contained"
             fullWidth
             sx={{ display: "block", mx: "auto", my: 2 }}

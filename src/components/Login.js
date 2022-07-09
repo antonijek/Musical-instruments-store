@@ -5,9 +5,9 @@ import useLogin from "../hooks/useLogin";
 
 const Login = () => {
   const {
-    open,
+    openModalForgotPassword,
     checkForm,
-    checkError,
+    handleInputs,
     openModal,
     closeModal,
     formData,
@@ -37,8 +37,8 @@ const Login = () => {
           Login
         </Typography>
         <TextField
-          onChange={(e) => checkError(e)}
-          sx={{ mb: { xs: "10%", md: "6%" } }}
+          onChange={(e) => handleInputs(e)}
+          sx={{ my: { xs: "5%", md: "6%" } }}
           fullWidth
           type="email"
           label="Email"
@@ -46,12 +46,12 @@ const Login = () => {
           required
           name="email"
           error={error.email}
-          helperText={error.email ? "Incorrect email." : ""}
+          helperText={"Incorrect email."}
           value={formData.email}
         />
         <br />
         <TextField
-          onChange={(e) => checkError(e)}
+          onChange={(e) => handleInputs(e)}
           sx={{ mb: "5%" }}
           fullWidth
           type="password"
@@ -94,7 +94,7 @@ const Login = () => {
           {"Sign up"}
         </Link>
       </Box>
-      {open && <Modal closeModal={closeModal} />}
+      {openModalForgotPassword && <Modal closeModal={closeModal} />}
     </div>
   );
 };
