@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { checkEmail, checkPass } from "../utils";
+
 const useLogin = () => {
   const [formData, setFormData] = useState({ email: "", pass: "" });
   const [error, setError] = useState({ email: false, pass: false });
-  const [open, setOpen] = useState(false);
+  const [openModalForgotPassword, setOpenModalForgotPassword] = useState(false);
 
   const checkForm = (e) => {
     e.preventDefault();
@@ -14,25 +15,25 @@ const useLogin = () => {
     });
   };
 
-  const checkError = (e) => {
+  const handleInputs = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError({ ...error, [e.target.name]: false });
   };
 
   const openModal = (e) => {
     e.preventDefault();
-    setOpen(true);
+    setOpenModalForgotPassword(true);
   };
 
   const closeModal = () => {
-    setOpen(false);
+    setOpenModalForgotPassword(false);
     setFormData({ pass: "", email: "" });
     setError({ pass: false, email: false });
   };
   return {
-    open,
+    openModalForgotPassword,
     checkForm,
-    checkError,
+    handleInputs,
     openModal,
     closeModal,
     formData,
