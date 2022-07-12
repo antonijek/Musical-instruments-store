@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 
 const useRegister = () => {
 
@@ -53,11 +53,8 @@ const useRegister = () => {
     
 
     return {
-        initialValues,
         formValues,
         formErrors,
-        isSubmit,
-        validate,
         handleChange,
         handleSubmit
     }
