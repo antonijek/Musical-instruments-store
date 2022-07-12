@@ -1,0 +1,32 @@
+.logo-img {
+  width: 20%;
+}
+.menu-item {
+  margin: 2%;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-family: "Roboto", sans-serif;
+}
+.menu-item:hover {
+  color: orange;
+  font-family: "Roboto", sans-serif;
+}
+.login-signup {
+  margin-left: 10%;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-family: "Roboto", sans-serif;
+}
+.login-signup:hover {
+  color: orange;
+  font-family: "Roboto", sans-serif;
+}
+@media screen and (min-width: 600px) {
+  .logo-img {
+    width: 10%;
+  }
+}
