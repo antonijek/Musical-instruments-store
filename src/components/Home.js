@@ -1,9 +1,9 @@
 import React from "react";
-
+import Slider from "./Slider";
 const Home = () => {
   return (
     <div>
-      <p>Empty page for now. Go to /login and /register</p>
+      <Slider />
     </div>
   );
 };
