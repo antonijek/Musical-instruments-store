@@ -70,6 +70,8 @@ const Header = () => {
                     to={
                       page === "Sign up"
                         ? "Sign-up"
+                        : page === "Home"
+                        ? "/"
                         : page === "About us"
                         ? "About-us"
                         : page
