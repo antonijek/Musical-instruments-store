@@ -1,6 +1,6 @@
 import { React } from "react";
 import useRegister from '../hooks/useRegister.js';
-import Paper from '@mui/material/Paper';
+import { Paper } from '@mui/material';
 import { Typography, Grid } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
