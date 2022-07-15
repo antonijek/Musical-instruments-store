@@ -3,6 +3,7 @@ import Slider from "./Slider";
 import Articles from "./Articles";
 import Categories from "./Categories";
 import Newsletter from "./Newsletter";
+import Delivery from "./Delivery";
 const Home = () => {
   return (
     <div>
@@ -10,6 +11,7 @@ const Home = () => {
       <Articles />
       <Categories />
       <Newsletter />
+      <Delivery />
     </div>
   );
 };

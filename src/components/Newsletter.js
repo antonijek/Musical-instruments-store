@@ -24,6 +24,7 @@ const Newsletter = () => {
       </label>
       <div className="div-news">
         <TextField
+          placeholder="Your email"
           InputProps={{ style: { height: 40 } }}
           sx={{
             ml: { xs: 0, md: "15%" },
