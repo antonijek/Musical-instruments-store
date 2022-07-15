@@ -1,0 +1,47 @@
+.newsletter {
+  background-color: gray;
+  padding: 5%;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.newsletter h1 {
+  margin: 0;
+}
+.label-news {
+  font-size: 1rem;
+  width: 20%;
+}
+.button-news {
+  padding: 1%;
+  min-width: 5%;
+}
+
+.input-news {
+  min-width: 60%;
+  padding: 1%;
+}
+@media screen and (min-width: 600px) {
+  .input-news {
+    min-width: 40%;
+    padding: 1%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .newsletter {
+    text-align: start;
+  }
+
+  .input-news {
+    margin-left: 20%;
+    min-width: 30%;
+  }
+
+  .div-news {
+    display: inline;
+  }
+}

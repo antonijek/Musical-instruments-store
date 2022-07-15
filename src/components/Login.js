@@ -46,7 +46,7 @@ const Login = () => {
           required
           name="email"
           error={error.email}
-          helperText={"Incorrect email."}
+          helperText={error.email ? "Incorrect email." : ""}
           value={formData.email}
         />
         <br />
