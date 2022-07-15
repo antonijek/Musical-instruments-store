@@ -92,7 +92,13 @@ const Header = () => {
           <Box sx={{ width: "60%", display: { xs: "none", sm: "flex" } }}>
             {pages.map((page) => (
               <NavLink
-                to={page === "About us" ? "About-us" : page}
+                to={
+                  page === "About us"
+                    ? "About-us"
+                    : page === "Home"
+                    ? "/"
+                    : page
+                }
                 key={page}
                 className="menu-item"
                 onClick={handleCloseNavMenu}
