@@ -1,9 +1,7 @@
 import { React, useState } from "react";
 import "../styles/Newsletter.css";
-import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import SendIcon from "@mui/icons-material/Send";
-
-import { Button, Input, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { checkEmail } from "../utils";
 
 const Newsletter = () => {
