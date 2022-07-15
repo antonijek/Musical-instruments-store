@@ -12,7 +12,7 @@ function ArticleCard() {
 
 
   return (
-     <Card sx={{ maxWidth: '95%'}}> 
+     <Card sx={{ maxWidth: '100%', margin:'2%'}}> 
     <CardMedia
       component="img"
       height="100%"

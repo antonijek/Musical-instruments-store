@@ -6,17 +6,13 @@ import { Typography, Box } from '@mui/material';
 const Article = () => {
 
   const gridContainerStyle = {
-
-    padding:'20px',
-    marginTop:'10px'
+    padding:'0px',
+    marginTop:'10px',
   }
 
   const gridItemsStyle = {
-    // backgroundColor:'red',
     paddingBottom:'3vh',
   }
-
-
 
   return (
     <>
@@ -37,7 +33,6 @@ const Article = () => {
         <Grid items xs={12} sm={6} md={3} sx={gridItemsStyle}>
           <ArticleCard />
         </Grid>
-        
       </Grid>
     </>
   )
