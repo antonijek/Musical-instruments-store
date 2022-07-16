@@ -1,0 +1,9 @@
+.img-slider {
+  height: 50vw;
+}
+
+@media screen and (min-width: 600px) {
+  .slider {
+    margin-top: 2%;
+  }
+}
