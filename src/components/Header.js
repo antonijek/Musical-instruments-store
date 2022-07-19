@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -9,15 +9,25 @@ import {
   Menu,
   Container,
   MenuItem,
+  Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import "../styles/Header.css";
 
-const pages = ["Home", "Menu", "About us", "Contact"];
+const menuItems = ["Home", "Menu", "About us", "Contact"];
+const menuItemsSmallScreens = [
+  "Home",
+  "Menu",
+  "About us",
+  "Contact",
+  "Login",
+  "Sign up",
+];
 
 const Header = () => {
   const [burger, setBurger] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -30,6 +40,11 @@ const Header = () => {
     color: isActive ? "orange" : "",
     fontWeight: isActive ? "bold" : "",
   });
+  const logout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -60,7 +75,7 @@ const Header = () => {
                 },
               }}
             >
-              {pages.concat(["Login", "Sign up"]).map((page) => (
+              {menuItemsSmallScreens.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <NavLink
                     style={({ isActive }) => ({
@@ -90,7 +105,7 @@ const Header = () => {
           </NavLink>
 
           <Box sx={{ width: "60%", display: { xs: "none", sm: "flex" } }}>
-            {pages.map((page) => (
+            {menuItems.map((page) => (
               <NavLink
                 to={
                   page === "About us"
@@ -115,13 +130,28 @@ const Header = () => {
               display: { xs: "none", sm: "flex" },
             }}
           >
-            <NavLink
-              to={"Login"}
-              className="login-signup"
-              style={changeStyleOnActiveMenuItem}
-            >
-              Login
-            </NavLink>
+            {token ? (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <NavLink
+                  to={"Login"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                  onClick={logout}
+                >
+                  Logout
+                </NavLink>
+                <Avatar />
+              </Box>
+            ) : (
+              <NavLink
+                to={"Login"}
+                className="login-signup"
+                style={changeStyleOnActiveMenuItem}
+              >
+                Login
+              </NavLink>
+            )}
+
             <NavLink
               to={"Sign-up"}
               className="login-signup"

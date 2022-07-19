@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 
 function App() {
+  console.log("test");
   return (
     <BrowserRouter>
       <Header />
