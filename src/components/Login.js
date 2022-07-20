@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, TextField, Button, Typography, Link } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Link,
+  CircularProgress,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import Modal from "./Modal";
 import useLogin from "../hooks/useLogin";
 
@@ -12,6 +21,7 @@ const Login = () => {
     closeModal,
     formData,
     error,
+    loading,
   } = useLogin();
 
   return (
@@ -75,6 +85,20 @@ const Login = () => {
           sx={{ mt: "5%", mb: "3%" }}
           fullWidth
         >
+          {loading ? (
+            <div>
+              <CircularProgress color="warning" size={20} sx={{ mr: 1 }} />
+              <Snackbar
+                open={true}
+                autoHideDuration={6000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              >
+                <Alert severity="success" sx={{ width: "100%" }}>
+                  welcome!
+                </Alert>
+              </Snackbar>
+            </div>
+          ) : null}
           Log in
         </Button>
 

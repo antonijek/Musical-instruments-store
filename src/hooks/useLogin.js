@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { checkEmail, checkPass } from "../utils";
-
+import { fetchLogin } from "../api/index";
 const useLogin = () => {
   const [formData, setFormData] = useState({ email: "", pass: "" });
   const [error, setError] = useState({ email: false, pass: false });
   const [openModalForgotPassword, setOpenModalForgotPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const checkForm = (e) => {
     e.preventDefault();
-    //kad bude server gotov, ispitati checkPass i checkEmail i ako su true napraviti api call, ako nisu onda setovati error
-    setError({
-      pass: !checkPass(formData.pass),
-      email: !checkEmail(formData.email),
-    });
+
+    if (checkPass(formData.pass) && checkEmail(formData.email)) {
+      fetchLogin(formData.email, formData.pass, setLoading);
+    } else {
+      setError({
+        pass: !checkPass(formData.pass),
+        email: !checkEmail(formData.email),
+      });
+    }
   };
 
   const handleInputs = (e) => {
@@ -30,6 +35,7 @@ const useLogin = () => {
     setFormData({ pass: "", email: "" });
     setError({ pass: false, email: false });
   };
+
   return {
     openModalForgotPassword,
     checkForm,
@@ -38,6 +44,7 @@ const useLogin = () => {
     closeModal,
     formData,
     error,
+    loading,
   };
 };
 
