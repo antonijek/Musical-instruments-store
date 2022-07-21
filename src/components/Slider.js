@@ -5,13 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 
 const Slider = () => {
   return (
-    <Carousel
-      className="slider"
-      axis="vertical"
-      infiniteLoop
-      autoPlay
-      showThumbs={false}
-    >
+    <Carousel className="slider" infiniteLoop autoPlay showThumbs={false}>
       <div>
         <img src="images/guitars.jpg" alt="img" className="img-slider" />
         <p className="legend">Guitars</p>

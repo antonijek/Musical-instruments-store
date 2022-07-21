@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 import {
   Box,
   TextField,
@@ -6,13 +8,13 @@ import {
   Typography,
   Link,
   CircularProgress,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import Modal from "./Modal";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
+
   const {
     openModalForgotPassword,
     checkForm,
@@ -22,7 +24,13 @@ const Login = () => {
     formData,
     error,
     loading,
+    person,
+    loginMessage,
   } = useLogin();
+
+  useEffect(() => {
+    setUser(person);
+  }, [person]);
 
   return (
     <div>
@@ -80,24 +88,14 @@ const Login = () => {
         <br />
         <Button
           onClick={checkForm}
+          href={"/"}
           type="submit"
           variant="contained"
           sx={{ mt: "5%", mb: "3%" }}
           fullWidth
         >
           {loading ? (
-            <div>
-              <CircularProgress color="warning" size={20} sx={{ mr: 1 }} />
-              <Snackbar
-                open={true}
-                autoHideDuration={6000}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-              >
-                <Alert severity="success" sx={{ width: "100%" }}>
-                  welcome!
-                </Alert>
-              </Snackbar>
-            </div>
+            <CircularProgress color="warning" size={20} sx={{ mr: 1 }} />
           ) : null}
           Log in
         </Button>
@@ -117,6 +115,17 @@ const Login = () => {
         >
           {"Sign up"}
         </Link>
+        <p
+          className="login-message"
+          style={
+            loginMessage.success
+              ? { color: "#4caf50", fontSize: 24 }
+              : { color: "#ef5350", fontSize: 24 }
+          }
+        >
+          {" "}
+          {loginMessage.message}
+        </p>
       </Box>
       {openModalForgotPassword && <Modal closeModal={closeModal} />}
     </div>
