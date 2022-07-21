@@ -50,9 +50,13 @@ const Header = () => {
   useEffect(() => {
     user
       ? setMenu(
-          [<Avatar sx={{ width: 30, height: 30, ml: 0 }} />, "Logout"].concat(
-            menuItems
-          )
+          [
+            <Avatar
+              src="../images/Ana.jpg"
+              sx={{ width: 30, height: 30, ml: 0 }}
+            />,
+            "Logout",
+          ].concat(menuItems)
         )
       : setMenu(menuItemsSmallScreens);
   }, [user]);
@@ -165,7 +169,10 @@ const Header = () => {
                 >
                   Logout
                 </NavLink>
-                <Avatar sx={{ ml: 2, width: 30, height: 30 }} />
+                <Avatar
+                  sx={{ ml: 2, width: 30, height: 30 }}
+                  src="../images/Ana.jpg"
+                />
               </Box>
             ) : (
               <>

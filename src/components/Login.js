@@ -30,7 +30,7 @@ const Login = () => {
 
   useEffect(() => {
     setUser(person);
-  }, [person]);
+  }, [person, setUser]);
 
   return (
     <div>
