@@ -1,18 +1,44 @@
 import { useState } from "react";
 import { checkEmail, checkPass } from "../utils";
+import { login } from "../api/index";
+import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", pass: "" });
   const [error, setError] = useState({ email: false, pass: false });
   const [openModalForgotPassword, setOpenModalForgotPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [person, setPerson] = useState("");
+  const [loginMessage, setloginMessage] = useState("");
+
+  const handleToken = async () => {
+    setLoading(true);
+    try {
+      const res = await login(formData.email, formData.pass);
+      console.log(res);
+      setloginMessage(res.data);
+      setPerson(res.data.user);
+      localStorage.setItem("token", res.data.access_token.plainTextToken);
+      setTimeout(() => navigate("/"), 1000);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
 
   const checkForm = (e) => {
     e.preventDefault();
-    //kad bude server gotov, ispitati checkPass i checkEmail i ako su true napraviti api call, ako nisu onda setovati error
-    setError({
-      pass: !checkPass(formData.pass),
-      email: !checkEmail(formData.email),
-    });
+    if (checkPass(formData.pass) && checkEmail(formData.email)) {
+      handleToken();
+      setTimeout(() => setloginMessage(""), 3000);
+    } else {
+      setError({
+        pass: !checkPass(formData.pass),
+        email: !checkEmail(formData.email),
+      });
+    }
   };
 
   const handleInputs = (e) => {
@@ -30,6 +56,7 @@ const useLogin = () => {
     setFormData({ pass: "", email: "" });
     setError({ pass: false, email: false });
   };
+
   return {
     openModalForgotPassword,
     checkForm,
@@ -38,6 +65,9 @@ const useLogin = () => {
     closeModal,
     formData,
     error,
+    loading,
+    person,
+    loginMessage,
   };
 };
 

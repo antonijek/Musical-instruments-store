@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 import {
   AppBar,
@@ -9,15 +10,26 @@ import {
   Menu,
   Container,
   MenuItem,
+  Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import "../styles/Header.css";
 
-const pages = ["Home", "Menu", "About us", "Contact"];
+const menuItems = ["Home", "Menu", "About us", "Contact"];
+const menuItemsSmallScreens = [
+  "Home",
+  "Menu",
+  "About us",
+  "Contact",
+  "Login",
+  "Sign up",
+];
 
 const Header = () => {
+  const { user, setUser } = useContext(UserContext);
   const [burger, setBurger] = useState(null);
+  const [menu, setMenu] = useState(menuItemsSmallScreens);
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -30,6 +42,24 @@ const Header = () => {
     color: isActive ? "orange" : "",
     fontWeight: isActive ? "bold" : "",
   });
+  const logout = () => {
+    setUser("");
+    localStorage.removeItem("token");
+  };
+  useEffect(() => {
+    user
+      ? setMenu(
+          [
+            <Avatar
+              src="../images/Ana.jpg"
+              sx={{ width: 30, height: 30, ml: 0 }}
+            />,
+            "Logout",
+          ].concat(menuItems)
+        )
+      : setMenu(menuItemsSmallScreens);
+  }, [user]);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -60,7 +90,7 @@ const Header = () => {
                 },
               }}
             >
-              {pages.concat(["Login", "Sign up"]).map((page) => (
+              {menu.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <NavLink
                     style={({ isActive }) => ({
@@ -74,11 +104,19 @@ const Header = () => {
                         ? "/"
                         : page === "About us"
                         ? "About-us"
+                        : page === "Logout"
+                        ? "Login"
                         : page
                     }
                     className="menu-item"
                   >
-                    {page}
+                    {page === "Logout" ? (
+                      <p style={{ margin: 0, padding: 0 }} onClick={logout}>
+                        Logout
+                      </p>
+                    ) : (
+                      page
+                    )}
                   </NavLink>
                 </MenuItem>
               ))}
@@ -90,7 +128,7 @@ const Header = () => {
           </NavLink>
 
           <Box sx={{ width: "60%", display: { xs: "none", sm: "flex" } }}>
-            {pages.map((page) => (
+            {menuItems.map((page) => (
               <NavLink
                 to={
                   page === "About us"
@@ -115,20 +153,46 @@ const Header = () => {
               display: { xs: "none", sm: "flex" },
             }}
           >
-            <NavLink
-              to={"Login"}
-              className="login-signup"
-              style={changeStyleOnActiveMenuItem}
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to={"Sign-up"}
-              className="login-signup"
-              style={changeStyleOnActiveMenuItem}
-            >
-              Sign up
-            </NavLink>
+            {user ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <NavLink
+                  to={"Login"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                  onClick={logout}
+                >
+                  Logout
+                </NavLink>
+                <NavLink to={"/Profile"}>
+                  <Avatar
+                    sx={{ ml: 2, width: 30, height: 30 }}
+                    src="../images/Ana.jpg"
+                  />
+                </NavLink>
+              </Box>
+            ) : (
+              <>
+                <NavLink
+                  to={"Login"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  to={"Sign-up"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  Sign up
+                </NavLink>{" "}
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
