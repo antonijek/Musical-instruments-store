@@ -1,5 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 import {
   AppBar,
@@ -26,8 +28,9 @@ const menuItemsSmallScreens = [
 ];
 
 const Header = () => {
+  const { user, setUser } = useContext(UserContext);
   const [burger, setBurger] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [menu, setMenu] = useState(menuItemsSmallScreens);
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -41,9 +44,18 @@ const Header = () => {
     fontWeight: isActive ? "bold" : "",
   });
   const logout = () => {
-    setToken("");
+    setUser("");
     localStorage.removeItem("token");
   };
+  useEffect(() => {
+    user
+      ? setMenu(
+          [<Avatar sx={{ width: 30, height: 30, ml: 0 }} />, "Logout"].concat(
+            menuItems
+          )
+        )
+      : setMenu(menuItemsSmallScreens);
+  }, [user]);
 
   return (
     <AppBar position="static">
@@ -75,7 +87,7 @@ const Header = () => {
                 },
               }}
             >
-              {menuItemsSmallScreens.map((page) => (
+              {menu.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <NavLink
                     style={({ isActive }) => ({
@@ -89,11 +101,19 @@ const Header = () => {
                         ? "/"
                         : page === "About us"
                         ? "About-us"
+                        : page === "Logout"
+                        ? "Login"
                         : page
                     }
                     className="menu-item"
                   >
-                    {page}
+                    {page === "Logout" ? (
+                      <p style={{ margin: 0, padding: 0 }} onClick={logout}>
+                        Logout
+                      </p>
+                    ) : (
+                      page
+                    )}
                   </NavLink>
                 </MenuItem>
               ))}
@@ -130,8 +150,13 @@ const Header = () => {
               display: { xs: "none", sm: "flex" },
             }}
           >
-            {token ? (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+            {user ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <NavLink
                   to={"Login"}
                   className="login-signup"
@@ -140,25 +165,26 @@ const Header = () => {
                 >
                   Logout
                 </NavLink>
-                <Avatar />
+                <Avatar sx={{ ml: 2, width: 30, height: 30 }} />
               </Box>
             ) : (
-              <NavLink
-                to={"Login"}
-                className="login-signup"
-                style={changeStyleOnActiveMenuItem}
-              >
-                Login
-              </NavLink>
+              <>
+                <NavLink
+                  to={"Login"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  to={"Sign-up"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  Sign up
+                </NavLink>{" "}
+              </>
             )}
-
-            <NavLink
-              to={"Sign-up"}
-              className="login-signup"
-              style={changeStyleOnActiveMenuItem}
-            >
-              Sign up
-            </NavLink>
           </Box>
         </Toolbar>
       </Container>
