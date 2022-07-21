@@ -95,7 +95,7 @@ const Login = () => {
           fullWidth
         >
           {loading ? (
-            <CircularProgress color="warning" size={20} sx={{ mr: 1 }} />
+            <CircularProgress color="inherit" size={20} sx={{ mr: 1 }} />
           ) : null}
           Log in
         </Button>
@@ -123,7 +123,6 @@ const Login = () => {
               : { color: "#ef5350", fontSize: 24 }
           }
         >
-          {" "}
           {loginMessage.message}
         </p>
       </Box>

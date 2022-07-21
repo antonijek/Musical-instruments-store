@@ -8,20 +8,12 @@ export const login = (email, password) => {
     password,
   });
 };
-export const register = (
-  firtName,
-  lastName,
-  userName,
-  email,
-  password,
-  confPass
-) => {
+export const register = (firstName, lastName, username, email, password) => {
   return axios.post(`${baseUrl}/register`, {
-    firtName,
-    lastName,
-    userName,
+    first_name: firstName,
+    last_name: lastName,
+    username,
     email,
     password,
-    confPass,
   });
 };

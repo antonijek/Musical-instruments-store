@@ -1,6 +1,8 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { register } from "../api/index";
 const useRegister = () => {
+  const navigate = useNavigate();
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -12,6 +14,8 @@ const useRegister = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const validate = (values) => {
     const errors = {};
@@ -52,6 +56,37 @@ const useRegister = () => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+    checkregisterForm();
+  };
+
+  const registerUser = async () => {
+    const { firstName, lastName, username, email, password } = formValues;
+    try {
+      setLoading(true);
+      const res = await register(
+        firstName,
+        lastName,
+        username,
+        email,
+        password
+      );
+      console.log(res);
+      setUser(res.data);
+      setLoading(false);
+      //localStorage.setItem("token", res.data.access_token.plainTextToken);
+      setTimeout(() => navigate("/"), 500);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  const checkregisterForm = () => {
+    if (Object.keys(validate(formValues)).length === 0) {
+      registerUser();
+    } else {
+      console.log("nije prazan objekat");
+    }
   };
 
   return {
@@ -59,6 +94,9 @@ const useRegister = () => {
     formErrors,
     handleChange,
     handleSubmit,
+    checkregisterForm,
+    user,
+    loading,
   };
 };
 export default useRegister;
