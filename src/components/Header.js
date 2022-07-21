@@ -1,6 +1,5 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 import { UserContext } from "./UserContext";
 
 import {
@@ -50,9 +49,13 @@ const Header = () => {
   useEffect(() => {
     user
       ? setMenu(
-          [<Avatar sx={{ width: 30, height: 30, ml: 0 }} />, "Logout"].concat(
-            menuItems
-          )
+          [
+            <Avatar
+              src="../images/Ana.jpg"
+              sx={{ width: 30, height: 30, ml: 0 }}
+            />,
+            "Logout",
+          ].concat(menuItems)
         )
       : setMenu(menuItemsSmallScreens);
   }, [user]);
@@ -165,7 +168,12 @@ const Header = () => {
                 >
                   Logout
                 </NavLink>
-                <Avatar sx={{ ml: 2, width: 30, height: 30 }} />
+                <NavLink to={"/Profile"}>
+                  <Avatar
+                    sx={{ ml: 2, width: 30, height: 30 }}
+                    src="../images/Ana.jpg"
+                  />
+                </NavLink>
               </Box>
             ) : (
               <>

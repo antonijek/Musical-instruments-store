@@ -20,11 +20,10 @@ const useLogin = () => {
       setloginMessage(res.data);
       setPerson(res.data.user);
       localStorage.setItem("token", res.data.access_token.plainTextToken);
-      setTimeout(() => navigate("/"), 200);
+      setTimeout(() => navigate("/"), 1000);
       setLoading(false);
     } catch (err) {
       console.log(err);
-
       setLoading(false);
     }
   };
