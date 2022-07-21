@@ -30,9 +30,7 @@ function ArticleCard() {
       </Typography>
     </CardContent>
     <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
-      </IconButton>
+
       <Button size="big">Buy</Button>
       <Typography>5.0</Typography>
     </CardActions>
