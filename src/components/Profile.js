@@ -10,7 +10,7 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
-import CategoriesCard from "./CategoriesCard";
+
 const Profile = () => {
   const { user } = useContext(UserContext);
   console.log(user);

@@ -9,6 +9,19 @@ export const style = {
   boxShadow: 24,
   p: { xs: 2, md: 4 },
 };
+export const styleModal = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: { xs: "80%", sm: "60%" },
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: { xs: 1, sm: 4 },
+  display: { xs: "block", sm: "grid" },
+  gridTemplateColumns: "1fr 1fr",
+};
 
 export const checkEmail = (email) => {
   let patern =
