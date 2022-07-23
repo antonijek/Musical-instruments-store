@@ -1,0 +1,16 @@
+.img-modal {
+  width: 100%;
+}
+
+.instrument-details {
+  color: black;
+  font-size: 4vw;
+}
+.instrument-modal {
+}
+@media screen and (min-width: 600px) {
+  .instrument-details {
+    color: black;
+    font-size: 2vw;
+  }
+}

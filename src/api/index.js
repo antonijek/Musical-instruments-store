@@ -29,3 +29,6 @@ export const getCategories = () => {
 export const getCategory = (category) => {
   return axios.get(`${baseUrl}/instrument/instrument-category/${category}`)
 }
+export const getOneInstrument = (id) => {
+  return axios(`${baseUrl}/instrument/${id}`);
+};
