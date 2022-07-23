@@ -7,36 +7,35 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from '@mui/material/Button';
+import { CardActionArea } from '@mui/material';
 
-function ArticleCard() {
+function ArticleCard({instrument}) {
 
 
   return (
      <Card sx={{ maxWidth: '100%', margin:'2%'}}> 
-    <CardMedia
-      component="img"
-      height="100%"
-      image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
-      alt="img"
-    />
-    <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
-        Instrument
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        This impressive paella is a perfect party dish and a fun meal to cook
-        together with your guests. Add 1 cup of frozen peas along with the mussels,
-        if you like.
-      </Typography>
-    </CardContent>
-    <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
-      </IconButton>
-      <Button size="big">Buy</Button>
-      <Typography>5.0</Typography>
-    </CardActions>
-  </Card>
+      <CardActionArea>
+      <CardMedia
+        component="img"
+        height="100%"
+        image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
+        alt="img"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Instrument name
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Description...
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+
+        <Button size="big">Buy</Button>
+        <Typography>5.0</Typography>
+      </CardActions>
+      </CardActionArea>
+    </Card>
   )
 }
 
