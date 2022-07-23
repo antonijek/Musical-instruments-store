@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
+import OneInstrument from "./components/OneInstrument";
+import Instruments from "./components/Instruments";
 
 function App() {
   const [user, setUser] = useState("");
@@ -23,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/Sign-up" element={<Register />} />
             <Route path="/Profile" element={<Profile />} />
+            <Route exact path="instruments" element={<Instruments />} />
           </Routes>
         </Container>
         <Footer />

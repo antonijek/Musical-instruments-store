@@ -17,3 +17,7 @@ export const register = (firstName, lastName, username, email, password) => {
     password,
   });
 };
+
+export const getOneInstrument = (id) => {
+  return axios(`${baseUrl}/instrument/${id}`);
+};
