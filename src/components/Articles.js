@@ -21,16 +21,16 @@ const Article = () => {
       </Box>
 
       <Grid container justify='center' sx={gridContainerStyle}>
-        <Grid items xs={12} sm={6} md={3} sx={gridItemsStyle}>
+        <Grid item xs={12} sm={6} md={3} sx={gridItemsStyle}>
           <ArticleCard />
         </Grid>
-        <Grid items xs={12} sm={6} md={3} sx={gridItemsStyle}>
+        <Grid item xs={12} sm={6} md={3} sx={gridItemsStyle}>
           <ArticleCard />
         </Grid>
-        <Grid items xs={12} sm={6} md={3} sx={gridItemsStyle}>
+        <Grid item xs={12} sm={6} md={3} sx={gridItemsStyle}>
           <ArticleCard />
         </Grid>
-        <Grid items xs={12} sm={6} md={3} sx={gridItemsStyle}>
+        <Grid item xs={12} sm={6} md={3} sx={gridItemsStyle}>
           <ArticleCard />
         </Grid>
       </Grid>

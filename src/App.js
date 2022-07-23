@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 import Header from "./components/Header";
+import Menu from "./components/menu/Menu";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/Sign-up" element={<Register />} />
             <Route path="/Profile" element={<Profile />} />
+            <Route path="/Menu" element={<Menu />} />
           </Routes>
         </Container>
         <Footer />

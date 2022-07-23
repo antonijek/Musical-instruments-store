@@ -1,38 +1,64 @@
-import React from 'react'
+import { React, useContext, useState, useEffect } from 'react'
 import SearchBar from './SearchBar';
-import ArticleCard from "../ArticleCard";
-import { Typography, Box, Stack, Grid, CategoriesCard } from '@mui/material';
-import Pagination from '@mui/material/Pagination';
+import Category from './Category'
+import Feed from './Feed'
+import { getInstruments } from "../../api/index"
+import Typography from '@mui/material/Typography';
+import { Box, Stack } from '@mui/material';
 
 const Menu = () => {
 
-  const GridContainerStyle = {
-    marginTop:'5vh'
+  const [instruments, setInstruments] = useState([]);
+  const [categoryId, setCategoryId] = useState(0);
 
+  const getInstrumentsApi = async () => {
+    try {
+      const res = await getInstruments();
+      setInstruments(res.data.data)
+      // console.log(res.data.data);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getInstrumentsApi();
+  }, [])
+
+  fetch(`http://localhost:8000/api/instrument-category/${categoryId}`)
+  .then(data => {
+    return data.json();
+  })
+  .then(post => {
+    console.log(post.data[0].has_many_instruments);
+  });
+  
+ 
+
+  const headerStyle = {
+    width:'100%',
+    height:'20vh',
+    marginTop:'5vh'
 }
  
   return (
     <>
-     <SearchBar />
+      <Box sx={headerStyle}>
+        <Stack spacing={2} direction="row" justifyContent="space-around" alignItems="center">
+          <SearchBar />
+          <Category categoryId={categoryId} setCategoryId={setCategoryId}/>
+        </Stack>
+      </Box>
+     
       
-     <Grid container justify='center' sx={GridContainerStyle}>
-        <Grid items xs={12} sm={6}>
-            <ArticleCard />
-        </Grid>
-        <Grid items xs={12} sm={6} md={6}>
-            <ArticleCard />
-        </Grid>
-        <Grid items xs={12} sm={6} md={6}>
-            <ArticleCard />
-        </Grid>
-        <Grid items xs={12} sm={6} md={6}>
-            <ArticleCard />
-        </Grid>
-      </Grid>
+    { 
+      instruments.length ? (
+        <Feed instruments={instruments} />
+      ) : ( 
+        <Typography>No instruments</Typography>
+        )
+    }
 
-      <Stack sx={{p:'5%'}} justifyContent="center" alignItems="center">
-        <Pagination count={10} color="primary" />
-      </Stack>
     </>
   )
 }
