@@ -10,20 +10,12 @@ import { getCategories } from "../../api/index"
 
 function Category({categoryId, setCategoryId}) {
 
-  // fetch('http://localhost:8000/api/instrument-category')
-  // .then(data => {
-  //   return data.json();
-  // })
-  // .then(post => {
-  //   console.log(post.data);
-  //   setInstrumentArr(post.data);
-  // });
-
   const [instrumentTitle, setInstrumentTitle] = useState('');
 
   const handleChange = (event) => {
     setInstrumentTitle(event.target.value);
-    setCategoryId(instruments.indexOf(event.target.value));
+    setCategoryId(instruments.indexOf(event.target.value) + 1);
+    console.log(instruments.indexOf(event.target.value) + 1)
   };
   
   const instruments = [
@@ -53,7 +45,6 @@ function Category({categoryId, setCategoryId}) {
             
           ))}
           
-
         </Select>
       </FormControl>
     </Box>
