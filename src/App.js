@@ -15,6 +15,7 @@ import Instruments from "./components/Instruments";
 
 function App() {
   const [user, setUser] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
 
   return (
     <BrowserRouter>
@@ -22,11 +23,23 @@ function App() {
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Home categoryId={categoryId} setCategoryId={setCategoryId} />
+              }
+            />
             <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/menu" element={<Menu />} />
+            <Route path="/Sign-up" element={<Register />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route
+              path="/Menu"
+              element={
+                <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
+              }
+            />
+
             <Route exact path="instruments" element={<Instruments />} />
           </Routes>
         </Container>
