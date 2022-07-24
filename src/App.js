@@ -24,9 +24,9 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/Sign-up" element={<Register />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/Menu" element={<Menu />} />
+            <Route path="/sign-up" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/menu" element={<Menu />} />
             <Route exact path="instruments" element={<Instruments />} />
           </Routes>
         </Container>
