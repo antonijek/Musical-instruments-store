@@ -20,11 +20,13 @@ const Menu = ({categoryId, setCategoryId}) => {
     } catch(e) {
       console.log(e);
     }
-  }
+  };
+
+  console.log(instruments);
 
   useEffect(() => {
     getInstrumentsApi();
-  }, [])
+  }, []);
 
   // const getCategoryApi = async () => {
   //   try {
@@ -59,31 +61,32 @@ const Menu = ({categoryId, setCategoryId}) => {
  
 
   const headerStyle = {
-    width:'100%',
-    height:'20vh',
-    marginTop:'5vh'
-}
- 
+    width: "100%",
+    height: "20vh",
+    marginTop: "5vh",
+  };
+
   return (
     <>
       <Box sx={headerStyle}>
-        <Stack spacing={2} direction="row" justifyContent="space-around" alignItems="center">
+        <Stack
+          spacing={2}
+          direction="row"
+          justifyContent="space-around"
+          alignItems="center"
+        >
           <SearchBar />
-          <Category categoryId={categoryId} setCategoryId={setCategoryId}/>
+          <Category categoryId={categoryId} setCategoryId={setCategoryId} />
         </Stack>
       </Box>
-     
-      
-    { 
-      instruments.length ? (
+
+      {instruments.length ? (
         <Feed instruments={instruments} />
-      ) : ( 
+      ) : (
         <Typography>No instruments</Typography>
-        )
-    }
-
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

@@ -1,14 +1,15 @@
-import React from 'react'
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import React from "react";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Button from "@mui/material/Button";
+import { CardActionArea } from "@mui/material";
 
-function InstrumentCard({instrument}) {
-
-
+function InstrumentCard({ instrument }) {
   return (
     <Card sx={{ maxWidth: '100%', margin:'2%'}}> 
       <CardMedia
@@ -33,4 +34,4 @@ function InstrumentCard({instrument}) {
   )
 }
 
-export default InstrumentCard
+export default InstrumentCard;
