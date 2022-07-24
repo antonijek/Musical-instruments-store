@@ -7,14 +7,14 @@ import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
 import { getOneInstrument } from "../api/index";
 
-const OneInstrument = ({ handleClose }) => {
+const OneInstrument = ({ handleClose, id }) => {
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
 
   const handleModalForInstrument = async () => {
     try {
-      const res = await getOneInstrument(1);
+      const res = await getOneInstrument(id);
       console.log(res.data.data);
       setInstrument(res.data.data[0]);
     } catch (err) {
