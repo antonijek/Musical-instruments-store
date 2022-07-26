@@ -13,11 +13,11 @@ function ArticleCard({instrument}) {
 
 
   return (
-     <Card sx={{ maxWidth: '100%', margin:'2%'}}> 
+     <Card sx={{ maxWidth:{xs:'80%', sm:'100%'}, margin:'0 auto'}}> 
       <CardActionArea>
       <CardMedia
         component="img"
-        height="100%"
+        height="240"
         image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
         alt="img"
       />
@@ -29,10 +29,9 @@ function ArticleCard({instrument}) {
           Description...
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-
-        <Button size="big">Buy</Button>
-        <Typography>5.0</Typography>
+      <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
+        <Typography> Rate: 5.0 </Typography>
+        <Typography> Price: 250 </Typography>
       </CardActions>
       </CardActionArea>
     </Card>

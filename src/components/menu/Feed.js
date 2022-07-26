@@ -30,13 +30,12 @@ const Feed = ({ instruments }) => {
 
   return (
     <>
-      <Grid container justify="center" sx={GridContainerStyle}>
+      <Grid container spacing={5} sx={GridContainerStyle}>
         {instruments.map((instrument) => (
           <Grid
-            onClick={(e) => handleModal(instrument.id)}
             item
+            onClick={(e) => handleModal(instrument.id)}
             key={instrument.id}
-            items
             xs={12}
             sm={6}
             md={6}

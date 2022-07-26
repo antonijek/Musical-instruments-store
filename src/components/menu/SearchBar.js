@@ -20,10 +20,9 @@ const SearchBar = () => {
     <>
 
           <Paper
-
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:{xs:'80%', sm:'30%'}}}
           >
-            <form onSubmit={ handleSubmit }>
+            {/* <form onSubmit={ handleSubmit } sx={{widt:'100%'}}> */}
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Search"
@@ -39,7 +38,7 @@ const SearchBar = () => {
 
                 <SearchIcon />
               </IconButton>
-            </form>
+            {/* </form> */}
           </Paper>
 
 
