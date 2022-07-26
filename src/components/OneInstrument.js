@@ -29,7 +29,31 @@ const OneInstrument = ({ handleClose, id }) => {
   const decrease = () => {
     com > 1 ? setCom(com - 1) : setCom(1);
   };
+  const increase = () => {
+    com > instrument.quantity - 1
+      ? setCom(instrument.quantity)
+      : setCom(com + 1);
+  };
 
+  const style = {
+    fontSize: { xs: "4vw", sm: "1.5vw" },
+    color: "orange",
+    mb: { xs: "2%", sm: "5%" },
+    display: "flex",
+    justifyContent: "space-between",
+  };
+  const itemNumber = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: { xs: "10vw", sm: "4vw" },
+    height: { xs: "10vw", sm: "4vw" },
+    borderRadius: "50%",
+    border: "3px solid orange",
+    marginTop: "1vw",
+    fontWeight: "bold",
+    fontSize: { xs: "5vw", sm: "2vw" },
+  };
   return (
     <div>
       <Modal open={true} onClose={handleClose}>
@@ -42,117 +66,87 @@ const OneInstrument = ({ handleClose, id }) => {
                 alt="pianos"
               />
             </Box>
-            <Box sx={{ textAlign: "start" }}>
-              <Typography sx={{ fontSize: { xs: "4vw", sm: "2vw" } }}>
-                SKY Accordion Purple Color 7 Button 2 Bass Kid Music Instrument
-                Easy to PlayGREAT GIFT
-              </Typography>
-
+            <Box sx={{ textAlign: "start", mb: "5%" }}>
               <Typography
                 sx={{
-                  fontSize: { xs: "5vw", sm: "3vw" },
+                  fontSize: { xs: "5vw", sm: "2vw" },
                   fontWeight: "semibold",
+                  mb: "5%",
                 }}
               >
                 {instrument.name}
+              </Typography>
+              <Typography sx={{ fontSize: { xs: "3vw", sm: "1.2vw" } }}>
+                SKY Accordion Purple Color 7 Button 2 Bass Kid Music Instrument
+                Easy to PlayGREAT GIFT
               </Typography>
             </Box>
           </Box>
           <Box sx={{ width: "100%" }}>
             <Box sx={{ pl: { xs: 0, sm: 2 } }}>
-              <Typography
-                sx={{
-                  fontSize: { xs: "4vw", sm: "2vw" },
-                  color: "orange",
-                  mb: "2%",
-                }}
-              >
+              <Typography sx={style}>
                 <span className="instrument-details">Price: </span>
-                {instrument.price} €
+                <span> € {instrument.price}</span>
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xs: "4vw", sm: "2vw" },
-                  color: "orange",
-                  mb: "2%",
-                }}
-              >
+              <Typography sx={style}>
                 <span className="instrument-details">Quantity: </span>
-                {instrument.quantity}
+                <span> {instrument.quantity}</span>
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xs: "4vw", sm: "2vw" },
-                  color: "orange",
-                  mb: "2%",
-                }}
-              >
+              <Typography sx={style}>
                 <span className="instrument-details">Color: </span>
-                black
+                <span> black</span>
               </Typography>
 
-              <Typography
-                sx={{
-                  fontSize: { xs: "4vw", sm: "2vw" },
-                  color: "orange",
-                  mb: "2%",
-                }}
-              >
-                <span className="instrument-details">Item Weight:</span>
-                112 kg
+              <Typography sx={style}>
+                <span className="instrument-details">Weight:</span>
+                <span>kg 112 </span>
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xs: "4vw", sm: "2vw" },
-                  color: "orange",
-                  mb: "2%",
-                }}
-              >
-                <span className="instrument-details">Item Dimensions:</span>
-                105/130/88
+              <Typography sx={style}>
+                <span className="instrument-details">Dimensions:</span>
+                <span> 105/130/88</span>
               </Typography>
             </Box>
 
-            <Box sx={{ textAlign: "center", mt: { xs: 3, sm: "15%" } }}>
+            <Box
+              sx={{
+                textAlign: "center",
+                mt: { xs: "4vw", sm: "15%" },
+              }}
+            >
               <Box
                 sx={{
                   "& > legend": { mt: 2 },
+                  width: "100%",
                 }}
               >
                 <Rating
                   name="simple-controlled"
                   value={value}
+                  size="large"
                   onChange={(event, newValue) => {
                     setValue(newValue);
                   }}
                 />
               </Box>
-              <Box sx={{ my: "5%", display: "flex", justifyContent: "center" }}>
+              <Box sx={{ mt: "5%", display: "flex", justifyContent: "center" }}>
                 <Button>
-                  <RemoveIcon fontSize="large" onClick={decrease} />
+                  <RemoveIcon
+                    sx={{ fontSize: { xs: "10vw", sm: "5vw" } }}
+                    onClick={decrease}
+                  />
                 </Button>
-                <span
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "30px",
-                    height: "30px",
-                    borderRadius: "50%",
-                    border: "2px solid orange",
-                    marginTop: "4px",
-                  }}
-                >
-                  {com}
-                </span>
+                <Box sx={itemNumber}>{com}</Box>
 
                 <Button>
-                  <AddIcon fontSize="large" onClick={() => setCom(com + 1)} />
+                  <AddIcon
+                    sx={{ fontSize: { xs: "10vw", sm: "5vw" } }}
+                    onClick={increase}
+                  />
                 </Button>
               </Box>
             </Box>
 
-            <Box sx={{ mt: { xs: 3, sm: "20%" } }}>
+            <Box sx={{ mt: { xs: 3, sm: "10%" } }}>
               <Button
                 fullWidth
                 variant="contained"

@@ -39,7 +39,6 @@ function App() {
                 <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
               }
             />
-
             <Route exact path="instruments" element={<Instruments />} />
           </Routes>
         </Container>
