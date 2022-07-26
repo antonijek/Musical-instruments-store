@@ -32,34 +32,37 @@ function Categories({categoryId, setCategoryId}) {
         marginTop:'5%',
     }
     const StackTypographyStyle = {
-        paddingTop:'5%',
-        color:'text.secondary'
+        paddingTop:{xs:'15%', sm:'5%'},
+        color:'text.secondary',
+        fontSize:{xs:'2.3em', sm:'3em'}
     }
     const StackButtonStyle = {
         float:{xs:'center', sm:'right'},
         display:{xs:'block'},
         marginTop:'3vh',
         borderRadius: 0,
-        padding: '10px'
+        padding: '10px',
+        width:{xs:'80vw', sm:'100%'}
     }
     const GridContainerStyle = {
-        marginTop:'5vh'
+        marginTop:{xs:'0vh', md:'3vh'},
+        marginBottom:'10vh'
     }
 
   return (
     <>
         <Stack direction={{ xs:'column', sm:'row' }} justifyContent='space-between' alignItems={{xs:'center'}} sx={StackStyle}>
             <Box>
-                <Typography variant='h3' sx={StackTypographyStyle}>CATEGORIES</Typography>
+                <Typography variant='h3' sx={StackTypographyStyle}> TOP CATEGORIES</Typography>
             </Box>
             <Box>
-            <Link to={'./menu'}><Button variant='contained' sx={StackButtonStyle}>ALL CATEGORIES</Button></Link>
+            <Link to={'./menu'} style={{textDecoration: 'none'}}><Button variant='contained' sx={StackButtonStyle}>ALL CATEGORIES</Button></Link>
             </Box>  
         </Stack>
-        <Grid container justify='center' sx={GridContainerStyle}>
+        <Grid container spacing={5} sx={GridContainerStyle}>
             { categories.map((category) => (
-                <Grid key={category.id} item xs={12} sm={6} md={6}>
-                    <Link to={'./menu'}>
+                <Grid key={category.id}  item xs={12} sm={6} md={6}> 
+                    <Link to={'./menu'} style={{textDecoration: 'none'}}>
                         <CategoriesCard category={category} categoryId={categoryId} setCategoryId={setCategoryId} />
                     </Link>
                 </Grid>

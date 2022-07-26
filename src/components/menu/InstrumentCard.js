@@ -11,10 +11,10 @@ import { CardActionArea } from "@mui/material";
 
 function InstrumentCard({ instrument }) {
   return (
-    <Card sx={{ maxWidth: '100%', margin:'2%'}}> 
+    <Card sx={{  maxWidth:{xs:'80%', sm:'90%'}, margin:'0 auto'}}> 
       <CardMedia
         component="img"
-        height="100%"
+        height="350"
         image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
         alt="img"
       />
@@ -26,9 +26,9 @@ function InstrumentCard({ instrument }) {
           { instrument.description }
         </Typography>
       </CardContent>
-      <CardActions >
+      <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
         <Typography>Rate: 4.7 </Typography>
-        <Typography> Price: 250</Typography>
+        <Typography> Price: {instrument.price}</Typography>
       </CardActions>
     </Card>
   )
