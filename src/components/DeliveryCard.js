@@ -8,7 +8,7 @@ const DeliveryCard = ({ icon, title, description }) => {
         width: "90%",
         textAlign: "center",
         mt: 3,
-        height: { xs: "60vw", sm: "25vw" },
+        height: { xs: "60vw", sm: "20vw" },
       }}
     >
       <CardActionArea color="secondary">

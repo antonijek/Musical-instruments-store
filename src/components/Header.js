@@ -99,13 +99,13 @@ const Header = () => {
                     })}
                     to={
                       page === "Sign up"
-                        ? "Sign-up"
+                        ? "sign-up"
                         : page === "Home"
                         ? "/"
                         : page === "About us"
-                        ? "About-us"
+                        ? "about-us"
                         : page === "Logout"
-                        ? "Login"
+                        ? "/login"
                         : page
                     }
                     className="menu-item"
@@ -132,7 +132,7 @@ const Header = () => {
               <NavLink
                 to={
                   page === "About us"
-                    ? "About-us"
+                    ? "about-us"
                     : page === "Home"
                     ? "/"
                     : page

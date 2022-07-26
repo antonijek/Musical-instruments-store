@@ -5,10 +5,10 @@
 @media screen and (min-width: 600px) {
   .slider {
     margin-top: 2%;
-    margin-left: 10%;
-    width: 80%;
+
+    width: 100%;
   }
   .img-slider {
-    height: 35vw;
+    height: 40vw;
   }
 }
