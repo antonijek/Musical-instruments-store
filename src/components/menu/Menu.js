@@ -1,17 +1,16 @@
-import { React, useContext, useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 import SearchBar from './SearchBar';
 import Category from './Category';
 import Feed from './Feed';
 import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
+import axios from "axios";
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
-import axios from "axios";
 
 const Menu = ({categoryId, setCategoryId}) => {
 
   const [instruments, setInstruments] = useState([]);
-  // const [categoryId, setCategoryId] = useState(0);
 
   const getInstrumentsApi = async () => {
     try {
@@ -21,8 +20,6 @@ const Menu = ({categoryId, setCategoryId}) => {
       console.log(e);
     }
   };
-
-  console.log(instruments);
 
   useEffect(() => {
     getInstrumentsApi();
@@ -42,7 +39,6 @@ const Menu = ({categoryId, setCategoryId}) => {
   const getCategoryApi = async () => {
     try {
       fetch(`http://localhost:8000/api/instrument-category/${categoryId}`)
-
       .then(data => {
         return data.json();
       })
@@ -66,12 +62,21 @@ const Menu = ({categoryId, setCategoryId}) => {
     marginTop: "5vh",
   };
 
+  const noInstrumentTextStyle = {
+    display:'flex',
+    justifyContent:'center',
+    alignContent:'center',
+    paddingTop:'10vw',
+    paddingBottom:'15vw',
+    fontSize:'1.5em'
+  }
+
   return (
     <>
       <Box sx={headerStyle}>
         <Stack
           spacing={2}
-          direction="row"
+          direction={{xs:'column', md:'row'}}
           justifyContent="space-around"
           alignItems="center"
         >
@@ -83,7 +88,7 @@ const Menu = ({categoryId, setCategoryId}) => {
       {instruments.length ? (
         <Feed instruments={instruments} />
       ) : (
-        <Typography>No instruments</Typography>
+        <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
       )}
     </>
   );

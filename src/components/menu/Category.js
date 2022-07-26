@@ -30,8 +30,8 @@ function Category({categoryId, setCategoryId}) {
   return (
 
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Instruments</InputLabel>
+      <FormControl sx={{width:'40vh',}}>
+        <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
           
           labelId="demo-simple-select-label"

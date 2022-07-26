@@ -2,38 +2,36 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Grid } from '@mui/material';
 import { CardActionArea } from '@mui/material';
 
 function CategoriesCard({category, categoryId, setCategoryId}) {
 
-  const setCategId = () => {
+  const setIdHandler = () => {
     setCategoryId(category.id);
-    console.log(category.id);
-    console.log('categoryId: ' + categoryId)
+
   }
 
   return (
-    <>
-      <Button onClick={setCategId}>
-        <Card sx={{ maxWidth: '100%', margin:'5%' }}>
-            <CardActionArea>
-                <CardMedia
-                component="img"
-                height="260"
-                image="images/guitars.jpg"
-                alt="img"
-            />
-            <CardContent sx={{textAlign:'center'}}>
-            <Typography gutterBottom variant="h4" component="div">
+
+    <Card sx={{ maxWidth:{xs:'90%', sm:'100%'}, margin:'0 auto', borderRadius:'0'}}>
+      <Grid onClick={setIdHandler}>
+        <CardActionArea>
+          <CardMedia
+          component="img"
+          height="260"
+          image="images/guitars.jpg"
+          alt="img"
+        />
+          <CardContent sx={{textAlign:'center'}}>
+            <Typography variant="h5" component="div">
                 { category.name }
             </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Grid>
+    </Card>
 
-            </CardContent>
-            </CardActionArea>
-        </Card>
-      </Button>
-    </>
   )
 }
 
