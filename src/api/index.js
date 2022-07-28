@@ -19,16 +19,24 @@ export const register = (firstName, lastName, username, email, password) => {
 };
 
 export const getInstruments = () => {
-  return axios.get(`${baseUrl}/instrument/`)
-}
+  return axios.get(`${baseUrl}/instrument/`);
+};
 
 export const getCategories = () => {
-  return axios.get(`${baseUrl}/instrument-category`)
-}
+  return axios.get(`${baseUrl}/instrument-category`);
+};
 
 export const getCategory = (categoryId) => {
-  return axios.get(`${baseUrl}/instrument-category/${categoryId}`)
-}
+  return axios.get(`${baseUrl}/instrument-category/${categoryId}`);
+};
 export const getOneInstrument = (id) => {
   return axios(`${baseUrl}/instrument/${id}`);
+};
+
+export const getUser = (token) => {
+  return axios(`${baseUrl}/user/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

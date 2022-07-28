@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -10,13 +10,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-import OneInstrument from "./components/OneInstrument";
+
 import Instruments from "./components/Instruments";
+import AdminPanel from "./components/AdminPanel";
+import { getUser } from "./api";
 
 function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
+  let token = localStorage.getItem("token");
 
+  const handleUser = async () => {
+    const res = await getUser(token);
+    setUser(res.data);
+  };
+  useEffect(() => {
+    if (token) {
+      handleUser();
+    }
+  }, []);
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
@@ -40,6 +52,7 @@ function App() {
               }
             />
             <Route exact path="instruments" element={<Instruments />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </Container>
         <Footer />
