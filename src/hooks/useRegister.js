@@ -70,10 +70,10 @@ const useRegister = () => {
         email,
         password
       );
-      console.log(res.data.data);
+      console.log(res);
       setUser(res.data.data);
       setLoading(false);
-      //localStorage.setItem("token", res.data.access_token.plainTextToken);
+      localStorage.setItem("token", res.data.access_token.plainTextToken);
       setTimeout(() => navigate("/"), 500);
     } catch (err) {
       console.log(err);

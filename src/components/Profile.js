@@ -1,66 +1,74 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import { UserContext } from "./UserContext";
+import ItemInCart from "./ItemInCart";
 import "../styles/Profile.css";
-import {
-  Button,
-  Typography,
-  Stack,
-  CardActionArea,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
+import { Button, Typography, Box, Divider } from "@mui/material";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   console.log(user);
   return (
-    <div className="profile">
+    <Box className="profile">
+      <Typography
+        sx={{ mb: "2vw", fontSize: { xs: "8vw", sm: "5vw" } }}
+        color="text.secondary"
+      >
+        Account Profile
+      </Typography>
+      <Button sx={{ textTransform: "capitalize" }}></Button>
+      <Divider
+        sx={{
+          width: { xs: "100%", sm: "70vw" },
+          mx: "auto",
+          backgroundColor: "black",
+        }}
+      />
       <img className="profile-img" src="../images/ana.jpg" alt="img" />
-      <Typography variant="h4">
+      <Typography
+        sx={{ color: "text.secondary", fontSize: { xs: "6vw", sm: "3vw" } }}
+      >
         {user.first_name} {user.last_name}
       </Typography>
-      <Typography variant="h6">Preostali iznos: {user.funds} Euro</Typography>
-
-      <Typography variant="h6">See your previus orders:</Typography>
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        alignItems={{ xs: "center" }}
-        sx={{ my: 3 }}
+      <Typography
+        sx={{ color: "text.secondary", fontSize: { xs: "5vw", sm: "2vw" } }}
       >
-        <Card sx={{ maxWidth: "100%", margin: "1%" }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="100"
-              image="images/pianos.jpg"
-              alt="img"
-            />
-            <CardContent sx={{ textAlign: "center" }}>
-              <Typography gutterBottom variant="h6" component="div">
-                Piano
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Card sx={{ maxWidth: "100%", margin: "5%" }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="100"
-              image="images/guitars.jpg"
-              alt="img"
-            />
-            <CardContent sx={{ textAlign: "center" }}>
-              <Typography gutterBottom variant="h6" component="div">
-                Guitar
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Stack>
-      <Button variant="contained">Logout</Button>
-    </div>
+        Remaining balance: {user.funds} Euro
+      </Typography>
+      <Box>
+        <Typography
+          sx={{
+            color: "text.secondary",
+            mt: "10%",
+            mb: { xs: "10%", sm: "5%" },
+            fontSize: { xs: "5vw", sm: "2vw" },
+          }}
+        >
+          Your previus orders:
+        </Typography>
+      </Box>
+      <Divider />
+      <ItemInCart
+        desc="SKY Accordion Purple Color 7 Button 2 Bass Kid Music Instrument
+                Easy to PlayGREAT GIFT"
+        color="Blue"
+        price={31}
+        quantity={1}
+        name="Guitar"
+        img={"images/guitars.jpg"}
+      />
+      <Divider sx={{ mb: 1 }} />
+      <Divider />
+      <ItemInCart
+        desc="Purple Color 7 Button 2 Bass Kid Music Instrument
+                Easy"
+        color="Red"
+        price={210}
+        quantity={1}
+        name="Piano"
+        img={"images/piano.jpg"}
+      />
+      <Divider />
+    </Box>
   );
 };
 
