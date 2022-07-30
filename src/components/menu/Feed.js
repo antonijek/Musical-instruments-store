@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import InstrumentCard from "./InstrumentCard";
 import { UserContext } from "../UserContext";
 import {
@@ -42,6 +42,7 @@ const Feed = ({ instruments }) => {
           >
             <InstrumentCard instrument={instrument} />
           </Grid>
+
         ))}
       </Grid>
 

@@ -19,12 +19,13 @@ function Category({categoryId, setCategoryId}) {
   };
   
   const instruments = [
-    'gitare',
-    'klaviri',
-    'bubnjevi',
-    'harmonike',
-    'trube',
-    'tambure',
+    'Drums',
+    'Electronic instruments',
+    'Equipment',
+    'Guitars',
+    'Pianos',
+    'Strings',
+    'Wind'
   ];
 
   return (
