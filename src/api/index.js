@@ -40,3 +40,26 @@ export const getUser = (token) => {
     },
   });
 };
+
+export const rating = (token, id, num) => {
+  let rate = { grade: num };
+  return axios.post(`${baseUrl}/instrument/${id}/rate`, rate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const getOrders = (token) => {
+  return axios(`${baseUrl}/purchases`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const getOneOrder = (token, id) => {
+  return axios(`${baseUrl}/purchases/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
