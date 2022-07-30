@@ -10,11 +10,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-<<<<<<< HEAD
 import axios from "axios";
-=======
 import { CartContext } from "./components/CartContext";
->>>>>>> main
 import Instruments from "./components/Instruments";
 import Cart from './components/cart/Cart';
 
@@ -66,11 +63,8 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
-<<<<<<< HEAD
         <button onClick={buy}>buy</button>;
-=======
       <CartContext.Provider value={{addToCart, setAddToCart}}>
->>>>>>> main
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Routes>
