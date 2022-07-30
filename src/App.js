@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -14,12 +14,26 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from './components/cart/Cart';
 
+// import Instruments from "./components/Instruments";
+import AdminPanel from "./components/AdminPanel";
+import { getUser } from "./api";
+
 function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [addToCart, setAddToCart] = useState([]);
 
+  let token = localStorage.getItem("token");
 
+  const handleUser = async () => {
+    const res = await getUser(token);
+    setUser(res.data);
+  };
+  useEffect(() => {
+    if (token) {
+      handleUser();
+    }
+  }, []);
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
@@ -46,6 +60,7 @@ function App() {
 
             <Route exact path="instruments" element={<Instruments />} />
             <Route path="/Cart" element={<Cart/>} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </Container>
         <Footer />
