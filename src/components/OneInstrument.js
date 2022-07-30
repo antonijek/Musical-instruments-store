@@ -1,22 +1,24 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { Modal, Typography, Button, Box, Rating } from "@mui/material";
 import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
 import { getOneInstrument } from "../api/index";
+import { CartContext } from './CartContext';
 
 const OneInstrument = ({ handleClose, id }) => {
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
+  const {addToCart, setAddToCart} = useContext(CartContext); 
 
   const handleModalForInstrument = async () => {
     try {
       const res = await getOneInstrument(id);
-      console.log(res.data.data);
       setInstrument(res.data.data[0]);
+      // console.log(res.data.data[0])
     } catch (err) {
       console.log(err);
     }
@@ -34,6 +36,28 @@ const OneInstrument = ({ handleClose, id }) => {
       ? setCom(instrument.quantity)
       : setCom(com + 1);
   };
+
+    const handleAddToCart = (inst) => {
+      
+      const instrumentExist = addToCart.find((item) => item.id === inst.id);
+      if (instrumentExist) {
+        setAddToCart(
+          addToCart.map((item) => item.id === inst.id ? { ...instrumentExist, quantity: instrumentExist.quantity + 1 } : item)
+        )
+      } else {
+        setAddToCart([...addToCart, {...inst, quantity:com}])
+      }
+    };
+
+
+
+    // console.log(addToCart[0]);
+
+    // console.log('kvant: ' + instrument.quantity);
+    // console.log('com: ' + com);
+
+
+
 
   const style = {
     fontSize: { xs: "4vw", sm: "1.5vw" },
@@ -54,6 +78,7 @@ const OneInstrument = ({ handleClose, id }) => {
     fontWeight: "bold",
     fontSize: { xs: "5vw", sm: "2vw" },
   };
+
   return (
     <div>
       <Modal open={true} onClose={handleClose}>
@@ -148,9 +173,12 @@ const OneInstrument = ({ handleClose, id }) => {
 
             <Box sx={{ mt: { xs: 3, sm: "10%" } }}>
               <Button
+                onClick={() => handleAddToCart(instrument)}
                 fullWidth
                 variant="contained"
-                startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }} />}
+                disabled={false}
+                startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }}
+                />}
               >
                 Add to Cart
               </Button>

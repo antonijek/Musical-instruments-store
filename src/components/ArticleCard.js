@@ -1,4 +1,4 @@
-import React from 'react'
+import { React } from 'react'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import { CardActionArea } from '@mui/material';
 
 function ArticleCard({instrument}) {
-
 
   return (
      <Card sx={{ maxWidth:{xs:'80%', sm:'100%'}, margin:'0 auto'}}> 

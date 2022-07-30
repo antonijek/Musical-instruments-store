@@ -15,7 +15,8 @@ const Menu = ({categoryId, setCategoryId}) => {
   const getInstrumentsApi = async () => {
     try {
       const res = await getInstruments();
-      setInstruments(res.data.data)
+      setInstruments(res.data.data.data)
+      // console.log(JSON.stringify(res.data.data));
     } catch(e) {
       console.log(e);
     }
@@ -43,7 +44,7 @@ const Menu = ({categoryId, setCategoryId}) => {
         return data.json();
       })
       .then(post => {
-        setInstruments(post.data[0].has_many_instruments)
+        setInstruments(post.data[0].has_many_instruments) 
       });
     } catch(e) {
       console.log(e);
@@ -90,6 +91,8 @@ const Menu = ({categoryId, setCategoryId}) => {
       ) : (
         <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
       )}
+
+      
     </>
   );
 };

@@ -15,7 +15,7 @@ function InstrumentCard({ instrument }) {
       <CardMedia
         component="img"
         height="350"
-        image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
+        image={'http://localhost:8000'+instrument.photo}
         alt="img"
       />
       <CardContent>
