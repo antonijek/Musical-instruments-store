@@ -1,18 +1,44 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+<<<<<<< HEAD
+import { React, useState, useEffect } from "react";
+import {
+  Modal,
+  Typography,
+  Button,
+  Box,
+  Rating,
+  CircularProgress,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import { styleModal } from "../utils";
+import "../styles/OneInstrument.css";
+import { getOneInstrument } from "../api/index";
+import { rating } from "../api/index";
+=======
 import { React, useState, useEffect, useContext } from "react";
 import { Modal, Typography, Button, Box, Rating } from "@mui/material";
 import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
 import { getOneInstrument } from "../api/index";
 import { CartContext } from './CartContext';
+>>>>>>> main
 
 const OneInstrument = ({ handleClose, id }) => {
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
+<<<<<<< HEAD
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
+  let token = localStorage.getItem("token");
+=======
   const {addToCart, setAddToCart} = useContext(CartContext); 
+>>>>>>> main
 
   const handleModalForInstrument = async () => {
     try {
@@ -21,6 +47,20 @@ const OneInstrument = ({ handleClose, id }) => {
       // console.log(res.data.data[0])
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const rateInstrument = async (num) => {
+    setLoading(true);
+    try {
+      const res = await rating(token, id, num);
+      console.log(res);
+      setOpen(true);
+      setMessage(res.data.message);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
     }
   };
 
@@ -84,14 +124,10 @@ const OneInstrument = ({ handleClose, id }) => {
       <Modal open={true} onClose={handleClose}>
         <Box sx={styleModal}>
           <Box>
-            <Box>
-              <img
-                className="img-modal"
-                src="../images/piano.jpg"
-                alt="pianos"
-              />
+            <Box className="img-modal">
+              <img src={instrument.photo} alt="pianos" />
             </Box>
-            <Box sx={{ textAlign: "start", mb: "5%" }}>
+            <Box sx={{ textAlign: "center", mb: "5%" }}>
               <Typography
                 sx={{
                   fontSize: { xs: "5vw", sm: "2vw" },
@@ -101,9 +137,13 @@ const OneInstrument = ({ handleClose, id }) => {
               >
                 {instrument.name}
               </Typography>
-              <Typography sx={{ fontSize: { xs: "3vw", sm: "1.2vw" } }}>
-                SKY Accordion Purple Color 7 Button 2 Bass Kid Music Instrument
-                Easy to PlayGREAT GIFT
+              <Typography
+                sx={{
+                  fontSize: { xs: "3vw", sm: "1.2vw" },
+                  textAlign: "start",
+                }}
+              >
+                {instrument.description}
               </Typography>
             </Box>
           </Box>
@@ -119,18 +159,21 @@ const OneInstrument = ({ handleClose, id }) => {
               </Typography>
               <Typography sx={style}>
                 <span className="instrument-details">Color: </span>
-                <span> black</span>
+                <span> {instrument.color}</span>
               </Typography>
 
               <Typography sx={style}>
                 <span className="instrument-details">Weight:</span>
-                <span>kg 112 </span>
+                <span>kg {instrument.weight} </span>
               </Typography>
               <Typography sx={style}>
                 <span className="instrument-details">Dimensions:</span>
-                <span> 105/130/88</span>
+                <span> {instrument.dimensions}</span>
               </Typography>
             </Box>
+            {loading ? (
+              <CircularProgress sx={{ ml: { xs: "40%", sm: 0 } }} />
+            ) : null}
 
             <Box
               sx={{
@@ -150,6 +193,7 @@ const OneInstrument = ({ handleClose, id }) => {
                   size="large"
                   onChange={(event, newValue) => {
                     setValue(newValue);
+                    rateInstrument(newValue);
                   }}
                 />
               </Box>
@@ -171,7 +215,7 @@ const OneInstrument = ({ handleClose, id }) => {
               </Box>
             </Box>
 
-            <Box sx={{ mt: { xs: 3, sm: "10%" } }}>
+            <Box sx={{ mt: { xs: 3, sm: "25%" } }}>
               <Button
                 onClick={() => handleAddToCart(instrument)}
                 fullWidth
@@ -186,6 +230,17 @@ const OneInstrument = ({ handleClose, id }) => {
           </Box>
         </Box>
       </Modal>
+      <Snackbar
+        sx={{ color: "red" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={6000}
+        handleClose={setTimeout((e) => {
+          setOpen(false);
+        }, 6000)}
+      >
+        <Alert severity="success">{message}</Alert>
+      </Snackbar>
     </div>
   );
 };

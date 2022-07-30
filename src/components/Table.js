@@ -1,25 +1,24 @@
-import * as React from "react";
+import { React, useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { getInstruments } from "../api";
+import { Box, Typography } from "@mui/material";
 
-const columns = [
+const usersColumns = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "firstName", headerName: "First name", width: 130 },
   { field: "lastName", headerName: "Last name", width: 130 },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
+  { field: "email", headerName: "Email", width: 130 },
+  { field: "username", headerName: "Username", width: 130 },
+  { field: "delete", headerName: "Delete", width: 60 },
+];
+const instrumentsColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "name", headerName: "Name", width: 130 },
+  { field: "color", headerName: "Color", width: 130 },
+  { field: "price", headerName: "Price", width: 130 },
+  { field: "quantity", headerName: "Quantity", width: 130 },
+  { field: "update", headerName: "Update", width: 130 },
+  { field: "delete", headerName: "Delete", width: 60 },
 ];
 
 const rows = [
@@ -34,15 +33,33 @@ const rows = [
   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
-export default function DataTable() {
+export default function Table({
+  title,
+  setTitle,
+  instruments,
+  setInstruments,
+}) {
+  const test = (e) => {
+    console.log(e);
+  };
+
   return (
     <div style={{ height: 400, width: "100%" }}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: "center", my: "5%", color: "text.secondary" }}
+      >
+        {title}
+      </Typography>
       <DataGrid
-        rows={rows}
-        columns={columns}
+        rows={instruments}
+        columns={instrumentsColumns}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        /* paginationMode="server"
+        rowCount={31} */
+        onRowClick={test}
       />
     </div>
   );

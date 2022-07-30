@@ -10,8 +10,16 @@ import MusicNoteOutlinedIcon from "@mui/icons-material/MusicNoteOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import ShowChartSharpIcon from "@mui/icons-material/ShowChartSharp";
 import PianoSharpIcon from "@mui/icons-material/PianoSharp";
+import { getInstruments } from "../api";
 
-const Dashboard = () => {
+const Dashboard = ({ title, setTitle, instruments, setInstruments }) => {
+  const getAllInstruments = async () => {
+    const res = await getInstruments();
+    console.log(res);
+    setInstruments(res.data.data);
+    setTitle("Instruments");
+  };
+
   return (
     <Box
       sx={{
@@ -34,7 +42,7 @@ const Dashboard = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding sx={{ mb: "10%" }}>
-            <ListItemButton>
+            <ListItemButton onClick={getAllInstruments}>
               <ListItemIcon>
                 <MusicNoteOutlinedIcon sx={{ color: "white" }} />
               </ListItemIcon>

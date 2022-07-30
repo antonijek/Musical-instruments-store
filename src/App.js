@@ -10,13 +10,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
+<<<<<<< HEAD
+import axios from "axios";
+=======
 import { CartContext } from "./components/CartContext";
+>>>>>>> main
 import Instruments from "./components/Instruments";
 import Cart from './components/cart/Cart';
 
 // import Instruments from "./components/Instruments";
 import AdminPanel from "./components/AdminPanel";
 import { getUser } from "./api";
+
+const baseUrl = "http://localhost:8000/api";
 
 function App() {
   const [user, setUser] = useState("");
@@ -26,18 +32,45 @@ function App() {
   let token = localStorage.getItem("token");
 
   const handleUser = async () => {
-    const res = await getUser(token);
-    setUser(res.data);
+    try {
+      const res = await getUser(token);
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   useEffect(() => {
     if (token) {
       handleUser();
     }
   }, []);
+
+  const buy = async () => {
+    const res = await axios.post(
+      `${baseUrl}/buy`,
+      {
+        items: {
+          11: 1,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res);
+  };
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
+<<<<<<< HEAD
+        <button onClick={buy}>buy</button>;
+=======
       <CartContext.Provider value={{addToCart, setAddToCart}}>
+>>>>>>> main
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Routes>

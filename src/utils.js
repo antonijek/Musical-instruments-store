@@ -35,3 +35,11 @@ export const checkPass = (password) => {
   let res = patern.test(password);
   return res;
 };
+export const pad_with_zeroes = (number, length) => {
+  var my_string = "" + number;
+  while (my_string.length < length) {
+    my_string = "0" + my_string;
+  }
+
+  return my_string;
+};
