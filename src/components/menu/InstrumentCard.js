@@ -15,7 +15,7 @@ function InstrumentCard({ instrument }) {
       <CardMedia
         component="img"
         height="350"
-        image={'http://localhost:8000'+instrument.photo}
+        image={instrument.photo}
         alt="img"
       />
       <CardContent>

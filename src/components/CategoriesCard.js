@@ -20,7 +20,7 @@ function CategoriesCard({category, categoryId, setCategoryId}) {
           <CardMedia
           component="img"
           height="260"
-          image={'http://localhost:8000'+category.photo}
+          image={category.photo}
           alt="img"
         />
           <CardContent sx={{textAlign:'center'}}>

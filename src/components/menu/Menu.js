@@ -15,7 +15,7 @@ const Menu = ({categoryId, setCategoryId}) => {
   const getInstrumentsApi = async () => {
     try {
       const res = await getInstruments();
-      setInstruments(res.data.data.data)
+      setInstruments(res.data.data)
       // console.log(JSON.stringify(res.data.data));
     } catch(e) {
       console.log(e);
