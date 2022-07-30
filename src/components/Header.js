@@ -1,7 +1,9 @@
 import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "./UserContext";
-
+import { CartContext } from './CartContext';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Cart from '../components/cart/Cart';
 import {
   AppBar,
   Box,
@@ -173,6 +175,13 @@ const Header = () => {
                     sx={{ ml: 2, width: 30, height: 30 }}
                     src="../images/Ana.jpg"
                   />
+                </NavLink>
+                <NavLink
+                  to={"Cart"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  <ShoppingCartIcon />
                 </NavLink>
               </Box>
             ) : (
