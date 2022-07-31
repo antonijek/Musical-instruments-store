@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import { CartContext } from './CartContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from "@material-ui/core";
 import Cart from '../components/cart/Cart';
 import {
   AppBar,
@@ -32,6 +33,7 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const [burger, setBurger] = useState(null);
   const [menu, setMenu] = useState(menuItemsSmallScreens);
+  const { addToCart } = useContext(CartContext); 
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -181,7 +183,9 @@ const Header = () => {
                   className="login-signup"
                   style={changeStyleOnActiveMenuItem}
                 >
-                  <ShoppingCartIcon />
+                  <Badge overlap="rectangular" badgeContent={addToCart.length} color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
                 </NavLink>
               </Box>
             ) : (

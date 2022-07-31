@@ -25,6 +25,7 @@ function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [addToCart, setAddToCart] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   let token = localStorage.getItem("token");
 
@@ -64,7 +65,7 @@ function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <button onClick={buy}>buy</button>;
-      <CartContext.Provider value={{addToCart, setAddToCart}}>
+      <CartContext.Provider value={{addToCart, setAddToCart, totalQuantity, setTotalQuantity}}>
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Routes>

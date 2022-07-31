@@ -44,6 +44,7 @@ function Footer() {
   return (
     <footer>
         <Box
+            sx={{position:'relative'}}
             mt={{xs:'3%', sm:'5%'}}
             bgcolor="primary.main"
             color="#FFF"
