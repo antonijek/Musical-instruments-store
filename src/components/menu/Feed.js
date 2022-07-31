@@ -1,14 +1,6 @@
 import { React, useState, useContext } from "react";
 import InstrumentCard from "./InstrumentCard";
-import { UserContext } from "../UserContext";
-import {
-  Typography,
-  Box,
-  Stack,
-  Grid,
-  CategoriesCard,
-  Button,
-} from "@mui/material";
+import {Stack, Grid } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import OneInstrument from "../OneInstrument";
 
@@ -24,7 +16,6 @@ const Feed = ({ instruments }) => {
 
   const handleModal = (e) => {
     handleOpen();
-
     setId(e);
   };
 

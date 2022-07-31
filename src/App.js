@@ -10,11 +10,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-<<<<<<< HEAD
 import axios from "axios";
-=======
 import { CartContext } from "./components/CartContext";
->>>>>>> main
 import Instruments from "./components/Instruments";
 import Cart from './components/cart/Cart';
 
@@ -28,6 +25,7 @@ function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [addToCart, setAddToCart] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   let token = localStorage.getItem("token");
 
@@ -66,11 +64,8 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
-<<<<<<< HEAD
         <button onClick={buy}>buy</button>;
-=======
-      <CartContext.Provider value={{addToCart, setAddToCart}}>
->>>>>>> main
+      <CartContext.Provider value={{addToCart, setAddToCart, totalQuantity, setTotalQuantity}}>
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
           <Routes>

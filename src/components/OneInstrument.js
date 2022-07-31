@@ -1,8 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-<<<<<<< HEAD
-import { React, useState, useEffect } from "react";
+// import { React, useState, useEffect } from "react";
 import {
   Modal,
   Typography,
@@ -17,28 +16,23 @@ import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
 import { getOneInstrument } from "../api/index";
 import { rating } from "../api/index";
-=======
 import { React, useState, useEffect, useContext } from "react";
-import { Modal, Typography, Button, Box, Rating } from "@mui/material";
-import { styleModal } from "../utils";
+// import { Modal, Typography, Button, Box, Rating } from "@mui/material";
+// import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
-import { getOneInstrument } from "../api/index";
+// import { getOneInstrument } from "../api/index";
 import { CartContext } from './CartContext';
->>>>>>> main
 
 const OneInstrument = ({ handleClose, id }) => {
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
-<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
 
   let token = localStorage.getItem("token");
-=======
   const {addToCart, setAddToCart} = useContext(CartContext); 
->>>>>>> main
 
   const handleModalForInstrument = async () => {
     try {

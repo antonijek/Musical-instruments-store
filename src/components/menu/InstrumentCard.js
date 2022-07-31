@@ -27,8 +27,8 @@ function InstrumentCard({ instrument }) {
         </Typography>
       </CardContent>
       <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
-        <Typography>Rate: 4.7 </Typography>
-        <Typography> Price: {instrument.price}</Typography>
+        <Typography>Rate: {instrument.rate} </Typography>
+        <Typography> Price: {instrument.price}&euro;</Typography>
       </CardActions>
     </Card>
   )
