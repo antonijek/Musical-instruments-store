@@ -1,9 +1,16 @@
 import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "./UserContext";
+<<<<<<< HEAD
 import { CartContext } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Cart from "../components/cart/Cart";
+=======
+import { CartContext } from './CartContext';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from "@material-ui/core";
+import Cart from '../components/cart/Cart';
+>>>>>>> 39954be361aa29eccf9cc6c893574edd348bae42
 import {
   AppBar,
   Box,
@@ -32,6 +39,7 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const [burger, setBurger] = useState(null);
   const [menu, setMenu] = useState(menuItemsSmallScreens);
+  const { addToCart } = useContext(CartContext); 
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -185,6 +193,7 @@ const Header = () => {
                     src="../images/Ana.jpg"
                   />
                 </NavLink>
+<<<<<<< HEAD
                 {user.verified === 1 ? (
                   <NavLink
                     to={"Cart"}
@@ -194,6 +203,17 @@ const Header = () => {
                     <ShoppingCartIcon />
                   </NavLink>
                 ) : null}
+=======
+                <NavLink
+                  to={"Cart"}
+                  className="login-signup"
+                  style={changeStyleOnActiveMenuItem}
+                >
+                  <Badge overlap="rectangular" badgeContent={addToCart.length} color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
+                </NavLink>
+>>>>>>> 39954be361aa29eccf9cc6c893574edd348bae42
               </Box>
             ) : (
               <>

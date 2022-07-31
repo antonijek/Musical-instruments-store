@@ -16,7 +16,7 @@ const Menu = ({categoryId, setCategoryId}) => {
     try {
       const res = await getInstruments();
       setInstruments(res.data.data)
-      // console.log(JSON.stringify(res.data.data));
+      // console.log(res);
     } catch(e) {
       console.log(e);
     }
@@ -44,7 +44,8 @@ const Menu = ({categoryId, setCategoryId}) => {
         return data.json();
       })
       .then(post => {
-        setInstruments(post.data[0].has_many_instruments) 
+        setInstruments(post.data[0].has_many_instruments)
+        // console.log('ovaj: ' + post.data[0]);
       });
     } catch(e) {
       console.log(e);

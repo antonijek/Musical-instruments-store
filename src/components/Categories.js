@@ -5,8 +5,7 @@ import { Typography, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import { getCategories } from "../api/index"
-import Menu from './menu/Menu';
+import { getCategories } from "../api/index";
 
 function Categories({categoryId, setCategoryId}) {
 
@@ -17,6 +16,7 @@ function Categories({categoryId, setCategoryId}) {
         try {
             const res = await getCategories();
             let categoriesArr = res.data.data;
+            // console.log(res.data.bestRatedInstruments);
             let firstFour = categoriesArr.slice(0,4);
             setCategories(firstFour);
         } catch(e) {

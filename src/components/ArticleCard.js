@@ -1,39 +1,45 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from '@mui/material/Button';
 import { CardActionArea } from '@mui/material';
 
-function ArticleCard({instrument}) {
+
+function ArticleCard({elem}) {
 
   return (
-     <Card sx={{ maxWidth:{xs:'80%', sm:'100%'}, margin:'0 auto'}}> 
-      <CardActionArea>
-      <CardMedia
-        component="img"
-        height="240"
-        image="https://europe.yamaha.com/en/files/lineupbg03_202202_b79a9925d0da63c985485493b11b553b.jpg"
-        alt="img"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Instrument name
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Description...
-        </Typography>
-      </CardContent>
-      <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
-        <Typography> Rate: 5.0 </Typography>
-        <Typography> Price: 250 </Typography>
-      </CardActions>
-      </CardActionArea>
-    </Card>
+    <>
+
+        <Card sx={{ maxWidth:{xs:'80%', sm:'100%'}, margin:'0 auto'}}> 
+          <CardActionArea>
+          <CardMedia
+            component="img"
+            height="240"
+            image={elem.photo}
+            alt="img"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+            {(elem.name).length <= 10 ? elem.description : `${(elem.name).slice(0, 17)}...`}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {(elem.description).length <= 25 ? elem.description : `${(elem.description).slice(0, 90)}...`}
+            </Typography>
+          </CardContent>
+          <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
+            <Typography> Rate: {elem.rate} </Typography>
+            <Typography> Price: {elem.price} </Typography>
+          </CardActions>
+          </CardActionArea>
+        </Card>
+
+    </>
   )
 }
 

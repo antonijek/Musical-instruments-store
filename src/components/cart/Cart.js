@@ -8,32 +8,39 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const Cart = () => {
 
-  const {addToCart, setAddToCart} = useContext(CartContext); 
+  let token = localStorage.getItem("token");
+  const { addToCart, setAddToCart } = useContext(CartContext); 
 
   const totalPrice = addToCart.reduce((price, item) => price + item.quantity * item.price, 0);
   const totalQuantity = addToCart.length;
 
   const buyHandler = async () => {
-    // let instId;
-    // let quant;
-    // addToCart.map(elem => (
+      let id = 0; let qty = 0;
+      addToCart.forEach(elem => {
+        id = elem.id;
+        qty = elem.quantity;
+      })
+      // console.log(id);
+      // console.log(qty);
 
-    //     const res = await axios.post(
-    //       'http://localhost:8000/api/buy',
-    //       {
-    //         items: {
-    //           elem.id : elem.quantity,
-    //         },
-    //       },
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //         },
-    //       }
-    //     );
-    //     console.log(res);
-    // ))
+    // const res = await axios.post(
+    //   `http://localhost:8000/api/buy`,
+    //   {
+    //     items: {
+    //       5 : 1,
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    // console.log(res);
+
+    setAddToCart([]);
   }
+    
 
   const handleDelete = (instId) => {
     const deleteInst = addToCart.filter((elem) => elem.id !== instId)
@@ -44,15 +51,15 @@ const Cart = () => {
   return (
     <>
       <Grid container sx={{width:'100%', height:'30vh', marginTop:'5%', marginBottom:'40%'}}>
-        <Grid item xs={12} sm={8} sx={{}}>
-          { addToCart.length ? (<Typography sx={{fontSize:'1.4em', textAlign:'center', color:'primary.main'}}>Your shopping card items:</Typography>) : <Typography sx={{fontSize:'1.4em', textAlign:'center', color:'primary.main'}}>There is no instruments in card</Typography> }
+        <Grid item xs={12} sm={8} sx={{ marginBottom:'20vh'}}>
+          { addToCart.length ? (<Typography sx={{fontSize:'1.4em', textAlign:'center', color:'primary.main'}}>Your shopping card items:</Typography>) : <Typography sx={{fontSize:'1.4em', textAlign:'center', color:'primary.main', mt:'30vh'}}>There is no instruments in card</Typography> }
           
           { addToCart.map((elem) =>(
             <Box sx={{margin:'3%'}} key={elem.id}>
               <Stack  direction='row' justifyContent="space-around" alignItems="center" sx={{width:'100%', height:'20vh', padding:'0%', border:'1px solid black', marginBottom:'2%'}}>
-              <img src='#' alt='img'></img>
-              <Typography>{elem.name}</Typography>
-              <Typography>{elem.price}$</Typography>
+              <img src={elem.photo} alt='img' style={{width:'25%', height:'95%'}}></img>
+              <Typography><b>{elem.name}</b></Typography>
+              <Typography>{elem.price}&euro;</Typography>
               <Typography>X{elem.quantity}</Typography>
               <Button onClick={() => handleDelete(elem.id)}><DeleteIcon /></Button>
             </Stack>

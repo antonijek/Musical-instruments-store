@@ -8,6 +8,12 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
+<<<<<<< HEAD
+=======
+import { UserContext } from "./components/UserContext";
+import axios from "axios";
+import { CartContext } from "./components/CartContext";
+>>>>>>> 39954be361aa29eccf9cc6c893574edd348bae42
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
@@ -21,6 +27,7 @@ function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [addToCart, setAddToCart] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   let token = localStorage.getItem("token");
 
@@ -42,6 +49,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
+<<<<<<< HEAD
         <CartContext.Provider value={{ addToCart, setAddToCart }}>
           <Header />
           <Container maxWidth="lg" sx={{ px: 0 }}>
@@ -62,6 +70,29 @@ function App() {
                   <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
                 }
               />
+=======
+        <button onClick={buy}>buy</button>;
+      <CartContext.Provider value={{addToCart, setAddToCart, totalQuantity, setTotalQuantity}}>
+        <Header />
+        <Container maxWidth="lg" sx={{ px: 0 }}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Home categoryId={categoryId} setCategoryId={setCategoryId} />
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/Sign-up" element={<Register />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route
+              path="/Menu"
+              element={
+                <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
+              }
+            />
+>>>>>>> 39954be361aa29eccf9cc6c893574edd348bae42
 
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
