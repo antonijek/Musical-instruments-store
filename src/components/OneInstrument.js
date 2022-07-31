@@ -1,8 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-<<<<<<< HEAD
-import { React, useState, useEffect } from "react";
+
 import {
   Modal,
   Typography,
@@ -17,28 +16,20 @@ import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
 import { getOneInstrument } from "../api/index";
 import { rating } from "../api/index";
-=======
 import { React, useState, useEffect, useContext } from "react";
-import { Modal, Typography, Button, Box, Rating } from "@mui/material";
-import { styleModal } from "../utils";
 import "../styles/OneInstrument.css";
-import { getOneInstrument } from "../api/index";
-import { CartContext } from './CartContext';
->>>>>>> main
+import { CartContext } from "./CartContext";
 
 const OneInstrument = ({ handleClose, id }) => {
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
-<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
 
   let token = localStorage.getItem("token");
-=======
-  const {addToCart, setAddToCart} = useContext(CartContext); 
->>>>>>> main
+  const { addToCart, setAddToCart } = useContext(CartContext);
 
   const handleModalForInstrument = async () => {
     try {
@@ -77,27 +68,25 @@ const OneInstrument = ({ handleClose, id }) => {
       : setCom(com + 1);
   };
 
-    const handleAddToCart = (inst) => {
-      
-      const instrumentExist = addToCart.find((item) => item.id === inst.id);
-      if (instrumentExist) {
-        setAddToCart(
-          addToCart.map((item) => item.id === inst.id ? { ...instrumentExist, quantity: instrumentExist.quantity + 1 } : item)
+  const handleAddToCart = (inst) => {
+    const instrumentExist = addToCart.find((item) => item.id === inst.id);
+    if (instrumentExist) {
+      setAddToCart(
+        addToCart.map((item) =>
+          item.id === inst.id
+            ? { ...instrumentExist, quantity: instrumentExist.quantity + 1 }
+            : item
         )
-      } else {
-        setAddToCart([...addToCart, {...inst, quantity:com}])
-      }
-    };
+      );
+    } else {
+      setAddToCart([...addToCart, { ...inst, quantity: com }]);
+    }
+  };
 
+  // console.log(addToCart[0]);
 
-
-    // console.log(addToCart[0]);
-
-    // console.log('kvant: ' + instrument.quantity);
-    // console.log('com: ' + com);
-
-
-
+  // console.log('kvant: ' + instrument.quantity);
+  // console.log('com: ' + com);
 
   const style = {
     fontSize: { xs: "4vw", sm: "1.5vw" },
@@ -221,8 +210,7 @@ const OneInstrument = ({ handleClose, id }) => {
                 fullWidth
                 variant="contained"
                 disabled={false}
-                startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }}
-                />}
+                startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }} />}
               >
                 Add to Cart
               </Button>

@@ -63,3 +63,17 @@ export const getOneOrder = (token, id) => {
     },
   });
 };
+export const getUsers = (token) => {
+  return axios.get(`${baseUrl}/users/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const verify = (id, token) => {
+  return axios.post(`${baseUrl}/verify/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

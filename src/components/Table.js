@@ -1,66 +1,98 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { getInstruments } from "../api";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Modal, Checkbox } from "@mui/material";
+import { style } from "../utils";
+import { verify } from "../api";
 
-const usersColumns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
-  { field: "email", headerName: "Email", width: 130 },
-  { field: "username", headerName: "Username", width: 130 },
-  { field: "delete", headerName: "Delete", width: 60 },
-];
-const instrumentsColumns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "name", headerName: "Name", width: 130 },
-  { field: "color", headerName: "Color", width: 130 },
-  { field: "price", headerName: "Price", width: 130 },
-  { field: "quantity", headerName: "Quantity", width: 130 },
-  { field: "update", headerName: "Update", width: 130 },
-  { field: "delete", headerName: "Delete", width: 60 },
-];
+export default function Table({ title, columns, rows }) {
+  const [open, setOpen] = useState(false);
+  const [details, setDetails] = useState({});
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
+  let token = localStorage.getItem("token");
 
-export default function Table({
-  title,
-  setTitle,
-  instruments,
-  setInstruments,
-}) {
-  const test = (e) => {
-    console.log(e);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const showMOreDetails = (e) => {
+    handleOpen();
+    setDetails(e.row);
+    console.log(e.row);
+  };
+
+  const verifyUser = async () => {
+    try {
+      const res = await verify(details.id, token);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <Typography
-        variant="h4"
-        sx={{ textAlign: "center", my: "5%", color: "text.secondary" }}
-      >
-        {title}
-      </Typography>
-      <DataGrid
-        rows={instruments}
-        columns={instrumentsColumns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        /* paginationMode="server"
-        rowCount={31} */
-        onRowClick={test}
-      />
+      <div>
+        <Typography
+          variant="h4"
+          sx={{ textAlign: "center", my: "5%", color: "text.secondary" }}
+        >
+          {title}
+        </Typography>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={8}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+          autoPageSize
+          autoHeight
+          onRowClick={showMOreDetails}
+        />
+      </div>
+
+      <div>
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={style}>
+            {details.email ? (
+              <Box>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  User datails
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {details.first_name}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {details.last_name}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {details.email}
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  {details.id}
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox sx={{ mt: 2 }} onChange={verifyUser} />
+                </Box>
+              </Box>
+            ) : (
+              <Box>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Instrument details
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor
+                  ligula.
+                </Typography>
+              </Box>
+            )}
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 }

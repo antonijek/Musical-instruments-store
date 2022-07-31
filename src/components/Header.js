@@ -1,9 +1,9 @@
 import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "./UserContext";
-import { CartContext } from './CartContext';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Cart from '../components/cart/Cart';
+import { CartContext } from "./CartContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Cart from "../components/cart/Cart";
 import {
   AppBar,
   Box,
@@ -52,6 +52,15 @@ const Header = () => {
     user
       ? setMenu(
           [
+            user.verified === 1 ? (
+              <NavLink
+                to={"Cart"}
+                className="login-signup"
+                style={changeStyleOnActiveMenuItem}
+              >
+                <ShoppingCartIcon sx={{ color: "gray" }} />
+              </NavLink>
+            ) : null,
             <Avatar
               src="../images/Ana.jpg"
               sx={{ width: 30, height: 30, ml: 0 }}
@@ -176,13 +185,15 @@ const Header = () => {
                     src="../images/Ana.jpg"
                   />
                 </NavLink>
-                <NavLink
-                  to={"Cart"}
-                  className="login-signup"
-                  style={changeStyleOnActiveMenuItem}
-                >
-                  <ShoppingCartIcon />
-                </NavLink>
+                {user.verified === 1 ? (
+                  <NavLink
+                    to={"Cart"}
+                    className="login-signup"
+                    style={changeStyleOnActiveMenuItem}
+                  >
+                    <ShoppingCartIcon />
+                  </NavLink>
+                ) : null}
               </Box>
             ) : (
               <>
