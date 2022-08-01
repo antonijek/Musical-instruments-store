@@ -71,7 +71,22 @@ export const getUsers = (token) => {
   });
 };
 export const verify = (id, token) => {
-  return axios.post(`${baseUrl}/verify/${id}`, {
+  return axios.post(`${baseUrl}/verify/${id}`, undefined, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const editInstrument = (id, data, token) => {
+  return axios.put(`${baseUrl}/instrument/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const removeInstrument = (id, token) => {
+  return axios.delete(`${baseUrl}/instrument/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

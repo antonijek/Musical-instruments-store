@@ -1,13 +1,24 @@
 import { React, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Typography, Modal, Checkbox } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Modal,
+  Checkbox,
+  TextField,
+  FormControlLabel,
+  Button,
+} from "@mui/material";
 import { style } from "../utils";
 import { verify } from "../api";
+import { editInstrument, removeInstrument } from "../api";
 
 export default function Table({ title, columns, rows }) {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
+  const [form, setForm] = useState({});
 
+  console.log(form);
   let token = localStorage.getItem("token");
 
   const handleOpen = () => setOpen(true);
@@ -16,12 +27,76 @@ export default function Table({ title, columns, rows }) {
   const showMOreDetails = (e) => {
     handleOpen();
     setDetails(e.row);
-    console.log(e.row);
+    e.row.email
+      ? setForm({
+          first_name: e.row.first_name,
+          last_name: e.row.last_name,
+          email: e.row.email,
+          funds: e.row.funds,
+        })
+      : setForm({
+          name: e.row.name,
+          instrument_category_id: e.row.instrument_category_id,
+          price: e.row.price,
+          quantity: e.row.quantity,
+          description: e.row.description,
+          color: e.row.color,
+          weight: e.row.weight,
+          dimensions: e.row.dimensions,
+        });
   };
 
   const verifyUser = async () => {
     try {
       const res = await verify(details.id, token);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleForm = (e) => {
+    console.log(e);
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleEditInstrument = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await editInstrument(details.id, form, token);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const validate = (e) => {
+    const {
+      name,
+      instrument_category_id,
+      price,
+      quantity,
+      description,
+      color,
+      weight,
+      dimensions,
+    } = form;
+    name &&
+    instrument_category_id &&
+    price &&
+    quantity &&
+    description &&
+    color &&
+    weight &&
+    dimensions
+      ? handleEditInstrument(e)
+      : alert("All fields must be filled");
+  };
+
+  const deleteInstrument = async () => {
+    try {
+      const res = await removeInstrument(31, token);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -54,40 +129,188 @@ export default function Table({ title, columns, rows }) {
           <Box sx={style}>
             {details.email ? (
               <Box>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  User datails
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {details.first_name}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {details.last_name}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {details.email}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {details.id}
-                </Typography>
+                <Box>
+                  <Typography
+                    sx={{ textAlign: "center" }}
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Edit user datails
+                  </Typography>
+                  <TextField
+                    required
+                    value={form.first_name}
+                    sx={{ mt: 2 }}
+                    name="first_name"
+                    onChange={(e) => handleForm(e)}
+                  />
+                  <TextField
+                    required
+                    value={form.last_name}
+                    sx={{ mt: 2 }}
+                    name="last_name"
+                    onChange={(e) => handleForm(e)}
+                  />
+                  <TextField
+                    required
+                    type="email"
+                    value={form.email}
+                    sx={{ mt: 2 }}
+                    name="email"
+                    onChange={(e) => handleForm(e)}
+                  />
+                  <TextField
+                    required
+                    type="number"
+                    value={form.funds}
+                    sx={{ mt: 2 }}
+                    name="funds"
+                    onChange={(e) => handleForm(e)}
+                  />
+                </Box>
                 <Box
                   sx={{
                     display: "flex",
-
+                    justifyContent: "space-between",
                     alignItems: "center",
+                    mt: "5%",
                   }}
                 >
-                  <Checkbox sx={{ mt: 2 }} onChange={verifyUser} />
+                  <Button
+                    onClick={handleEditInstrument}
+                    type="submit"
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                  <Box sx={{ textAlign: "end", display: "block" }}>
+                    <FormControlLabel
+                      control={<Checkbox onChange={verifyUser} />}
+                      label="Verified"
+                    />
+                  </Box>
+                </Box>
+                <Box textAlign="end">
+                  <Button variant="outlined" color="error">
+                    Remove user
+                  </Button>
                 </Box>
               </Box>
             ) : (
               <Box>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Instrument details
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </Typography>
+                <form action="">
+                  <Box>
+                    <Typography
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h2"
+                      sx={{ textAlign: "center" }}
+                    >
+                      Edit instrument datails
+                    </Typography>
+                    <TextField
+                      required
+                      label="Name"
+                      variant="standard"
+                      value={form.name}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="name"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      type="number"
+                      label="Category id"
+                      variant="standard"
+                      value={form.instrument_category_id}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="instrument_category_id"
+                      onChange={(e) => handleForm(e)}
+                    />
+
+                    <TextField
+                      required
+                      type="number"
+                      label="Price"
+                      variant="standard"
+                      value={form.price}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="price"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      type="number"
+                      label="Quantity"
+                      variant="standard"
+                      value={form.quantity}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="quantity"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      label="Description"
+                      variant="standard"
+                      value={form.description}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="description"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      label="Color"
+                      variant="standard"
+                      value={form.color}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="color"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      type="number"
+                      label="Weight"
+                      variant="standard"
+                      value={form.weight}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="weight"
+                      onChange={(e) => handleForm(e)}
+                    />
+                    <TextField
+                      required
+                      helperText={
+                        form.dimensions === ""
+                          ? "Dimensions are required!"
+                          : " "
+                      }
+                      label="Dimensions"
+                      variant="standard"
+                      value={form.dimensions}
+                      sx={{ mt: 2, width: "80%" }}
+                      name="dimensions"
+                      onChange={(e) => handleForm(e)}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      mt: "5%",
+                    }}
+                  >
+                    <Button
+                      onClick={validate}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Submit
+                    </Button>
+                  </Box>
+                  <Box textAlign="end">
+                    <Button variant="outlined" color="error">
+                      Remove instrument
+                    </Button>
+                  </Box>
+                </form>
               </Box>
             )}
           </Box>
