@@ -1,12 +1,9 @@
 import { React, useState } from 'react'
-import { useTheme } from '@mui/material/styles';
-import { Typography, Box, Stack } from '@mui/material';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import { Box } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { getCategories } from "../../api/index"
 
 function Category({categoryId, setCategoryId}) {
 

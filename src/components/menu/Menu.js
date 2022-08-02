@@ -8,18 +8,23 @@ import { getSearchedInstrument } from "../../api/index";
 import axios from "axios";
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Menu = ({categoryId, setCategoryId}) => {
 
   const [instruments, setInstruments] = useState([]);
   const [searchedString, setSearchedString] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getInstrumentsApi = async () => {
+    setLoading(true);
     try {
       const res = await getInstruments();
-      setInstruments(res.data.data)
+      setInstruments(res.data.data);
+      setLoading(false);
     } catch(e) {
       console.log(e);
+      setLoading(false);
     }
   };
 
@@ -29,11 +34,14 @@ const Menu = ({categoryId, setCategoryId}) => {
 
 
   const getCategoryApi = async () => {
+    setLoading(true);
     try {
       const res = await getCategory(categoryId);
       setInstruments(res.data.data[0].has_many_instruments);
+      setLoading(false);
     } catch(e) {
       console.log(e);
+      setLoading(false);
     }
   }
 
@@ -43,11 +51,14 @@ const Menu = ({categoryId, setCategoryId}) => {
 
 
   const getSearchedApi = async () => {
+    setLoading(true);
     try {
       const res = await getSearchedInstrument(searchedString);
-      setInstruments(res.data.data)
+      setInstruments(res.data.data);
+      setLoading(false);
     } catch(e) {
       console.log(e);
+      setLoading(false);
     }
   }
 
@@ -73,7 +84,7 @@ const Menu = ({categoryId, setCategoryId}) => {
 
   return (
     <>
-      <Box sx={headerStyle}>
+        <Box sx={{margin:'5%'}}>
         <Stack
           spacing={2}
           direction={{xs:'column', md:'row'}}
@@ -85,11 +96,23 @@ const Menu = ({categoryId, setCategoryId}) => {
         </Stack>
       </Box>
 
-      {instruments.length ? (
-        <Feed instruments={instruments} />
-      ) : (
-        <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
-      )}
+      {
+        loading ? (
+          <CircularProgress sx={{ marginLeft:'32%', marginTop:'15%', position:'absolute'}} />
+        ) : null
+      }
+
+      
+      {
+        instruments.length ? (
+          <Feed instruments={instruments} />
+        ) : (
+          <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
+        )
+      }
+
+      
+
 
       
     </>
