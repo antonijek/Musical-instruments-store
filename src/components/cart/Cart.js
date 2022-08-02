@@ -15,20 +15,25 @@ const Cart = () => {
   const totalQuantity = addToCart.length;
 
   const buyHandler = async () => {
-      let id = 0; let qty = 0;
-      addToCart.forEach(elem => {
-        id = elem.id;
-        qty = elem.quantity;
-      })
-      // console.log(id);
-      // console.log(qty);
+      // let id = 0; let qty = 0;
+      // addToCart.map(elem => {
+      //   id = elem.id;
+      //   qty = elem.quantity;
+      // })
+      // // console.log(id);
+      // // console.log(qty);
+      // let v1 = 4;
+      // let v2 = 1;
+      // const finalObj = Object.assign({ items:{v1 : v2} })
+      // console.log(finalObj);
 
     // const res = await axios.post(
     //   `http://localhost:8000/api/buy`,
     //   {
-    //     items: {
-    //       5 : 1,
-    //     },
+    //     // items : {
+    //     //   "2" : 1,
+    //     // }
+    //     finalObj
     //   },
     //   {
     //     headers: {
@@ -38,7 +43,7 @@ const Cart = () => {
     // );
     // console.log(res);
 
-    setAddToCart([]);
+    // setAddToCart([]);
   }
     
 

@@ -64,7 +64,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
-        <button onClick={buy}>buy</button>;
+        {/* <button onClick={buy}>buy</button>; */}
       <CartContext.Provider value={{addToCart, setAddToCart, totalQuantity, setTotalQuantity}}>
         <Header />
         <Container maxWidth="lg" sx={{ px: 0 }}>
