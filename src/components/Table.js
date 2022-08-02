@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import AlertDialog from "./AlertDialog";
 import {
   Box,
   Typography,
@@ -13,10 +14,20 @@ import { style } from "../utils";
 import { verify } from "../api";
 import { editInstrument, removeInstrument } from "../api";
 
-export default function Table({ title, columns, rows }) {
+export default function Table({ title, columns, rows, setRows }) {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   const [form, setForm] = useState({});
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [confirmationDelete, setConfirmationDelete] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpenAlertDialog(true);
+  };
+
+  const closeAlertDialog = () => {
+    setOpenAlertDialog(false);
+  };
 
   console.log(form);
   let token = localStorage.getItem("token");
@@ -96,8 +107,11 @@ export default function Table({ title, columns, rows }) {
 
   const deleteInstrument = async () => {
     try {
-      const res = await removeInstrument(31, token);
-      console.log(res);
+      const res = await removeInstrument(details.id, token);
+      const restInstruments = rows.filter((ins) => ins.id !== details.id);
+      setConfirmationDelete(true);
+      setRows(restInstruments);
+      setTimeout(closeAlertDialog, 3000);
     } catch (err) {
       console.log(err);
     }
@@ -112,6 +126,11 @@ export default function Table({ title, columns, rows }) {
         >
           {title}
         </Typography>
+        {title === "Instruments" ? (
+          <Button sx={{ mb: 1, ml: 1 }} variant="outlined">
+            Add new instrument
+          </Button>
+        ) : null}
         <DataGrid
           rows={rows}
           columns={columns}
@@ -306,7 +325,11 @@ export default function Table({ title, columns, rows }) {
                     </Button>
                   </Box>
                   <Box textAlign="end">
-                    <Button variant="outlined" color="error">
+                    <Button
+                      onClick={handleClickOpen}
+                      variant="outlined"
+                      color="error"
+                    >
                       Remove instrument
                     </Button>
                   </Box>
@@ -316,6 +339,14 @@ export default function Table({ title, columns, rows }) {
           </Box>
         </Modal>
       </div>
+      {openAlertDialog ? (
+        <AlertDialog
+          deleteInstrument={deleteInstrument}
+          closeAlertDialog={closeAlertDialog}
+          confirmationDelete={confirmationDelete}
+          setConfirmationDelete={setConfirmationDelete}
+        />
+      ) : null}
     </div>
   );
 }
