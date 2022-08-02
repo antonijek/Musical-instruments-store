@@ -15,7 +15,6 @@ function Category({categoryId, setCategoryId}) {
   const handleChange = (event) => {
     setInstrumentTitle(event.target.value);
     setCategoryId(instruments.indexOf(event.target.value) + 1);
-    console.log(instruments.indexOf(event.target.value) + 1)
   };
   
   const instruments = [

@@ -4,6 +4,7 @@ import Category from './Category';
 import Feed from './Feed';
 import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
+import { getSearchedInstrument } from "../../api/index";
 import axios from "axios";
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
@@ -11,12 +12,12 @@ import { Box, Stack } from '@mui/material';
 const Menu = ({categoryId, setCategoryId}) => {
 
   const [instruments, setInstruments] = useState([]);
+  const [searchedString, setSearchedString] = useState('');
 
   const getInstrumentsApi = async () => {
     try {
       const res = await getInstruments();
       setInstruments(res.data.data)
-      // console.log(res);
     } catch(e) {
       console.log(e);
     }
@@ -26,27 +27,11 @@ const Menu = ({categoryId, setCategoryId}) => {
     getInstrumentsApi();
   }, []);
 
-  // const getCategoryApi = async () => {
-  //   try {
-  //     const res = await getCategory(categoryId);
-  //     setInstruments(res.data[0].has_many_instruments);
-  //     console.log(res.data[0].has_many_instruments);
-  //   } catch(e) {
-  //     console.log(e);
-  //   }
-  // }
-  // getCategoryApi();
 
   const getCategoryApi = async () => {
     try {
-      fetch(`http://localhost:8000/api/instrument-category/${categoryId}`)
-      .then(data => {
-        return data.json();
-      })
-      .then(post => {
-        setInstruments(post.data[0].has_many_instruments)
-        // console.log('ovaj: ' + post.data[0]);
-      });
+      const res = await getCategory(categoryId);
+      setInstruments(res.data.data[0].has_many_instruments);
     } catch(e) {
       console.log(e);
     }
@@ -55,8 +40,21 @@ const Menu = ({categoryId, setCategoryId}) => {
   useEffect(() => {
     getCategoryApi();
   }, [categoryId])
+
+
+  const getSearchedApi = async () => {
+    try {
+      const res = await getSearchedInstrument(searchedString);
+      setInstruments(res.data.data)
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getSearchedApi();
+  }, [searchedString]);
   
- 
 
   const headerStyle = {
     width: "100%",
@@ -82,7 +80,7 @@ const Menu = ({categoryId, setCategoryId}) => {
           justifyContent="space-around"
           alignItems="center"
         >
-          <SearchBar />
+          <SearchBar setSearchedString={setSearchedString} />
           <Category categoryId={categoryId} setCategoryId={setCategoryId} />
         </Stack>
       </Box>

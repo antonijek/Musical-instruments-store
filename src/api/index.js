@@ -33,6 +33,11 @@ export const getOneInstrument = (id) => {
   return axios(`${baseUrl}/instrument/${id}`);
 };
 
+export const getSearchedInstrument = (searchedStr) => {
+  return axios.get(`http://localhost:8000/api/instrument?instrument_name=${searchedStr}`);
+  //    =${instId}&
+};
+
 export const getUser = (token) => {
   return axios(`${baseUrl}/user/`, {
     headers: {
