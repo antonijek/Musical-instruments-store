@@ -9,17 +9,24 @@ import {
   TextField,
   FormControlLabel,
   Button,
+  Snackbar,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
 import { style } from "../utils";
 import { verify } from "../api";
 import { editInstrument, removeInstrument } from "../api";
+import AddNewInstrument from "./AddNewInstrument";
 
-export default function Table({ title, columns, rows, setRows }) {
+export default function Table({ title, setTitle, columns, rows, setRows }) {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   const [form, setForm] = useState({});
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [confirmationDelete, setConfirmationDelete] = useState(false);
+  const [modalForNewInstrument, setModalForNewInstrument] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const handleClickOpen = () => {
     setOpenAlertDialog(true);
@@ -29,7 +36,6 @@ export default function Table({ title, columns, rows, setRows }) {
     setOpenAlertDialog(false);
   };
 
-  console.log(form);
   let token = localStorage.getItem("token");
 
   const handleOpen = () => setOpen(true);
@@ -67,18 +73,21 @@ export default function Table({ title, columns, rows, setRows }) {
   };
 
   const handleForm = (e) => {
-    console.log(e);
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
   const handleEditInstrument = async (e) => {
+    setloading(true);
     e.preventDefault();
     try {
       const res = await editInstrument(details.id, form, token);
-      console.log(res);
+      setSnackbar(true);
+      setTimeout(handleClose, 3000);
+      setloading(false);
     } catch (err) {
       console.log(err);
+      setloading(false);
     }
   };
 
@@ -106,19 +115,33 @@ export default function Table({ title, columns, rows, setRows }) {
   };
 
   const deleteInstrument = async () => {
+    setloading(true);
     try {
       const res = await removeInstrument(details.id, token);
       const restInstruments = rows.filter((ins) => ins.id !== details.id);
       setConfirmationDelete(true);
       setRows(restInstruments);
       setTimeout(closeAlertDialog, 3000);
+      setTimeout(handleClose, 3000);
+      setloading(false);
     } catch (err) {
       console.log(err);
+      setloading(false);
     }
+  };
+  const handleCloseSnackbar = () => {
+    setSnackbar(false);
   };
 
   return (
     <div style={{ height: 400, width: "100%" }}>
+      {modalForNewInstrument ? (
+        <AddNewInstrument
+          modalForNewInstrument={modalForNewInstrument}
+          setModalForNewInstrument={setModalForNewInstrument}
+        />
+      ) : null}
+
       <div>
         <Typography
           variant="h4"
@@ -127,7 +150,11 @@ export default function Table({ title, columns, rows, setRows }) {
           {title}
         </Typography>
         {title === "Instruments" ? (
-          <Button sx={{ mb: 1, ml: 1 }} variant="outlined">
+          <Button
+            onClick={() => setModalForNewInstrument(true)}
+            sx={{ mb: 1, ml: 1 }}
+            variant="outlined"
+          >
             Add new instrument
           </Button>
         ) : null}
@@ -146,6 +173,16 @@ export default function Table({ title, columns, rows, setRows }) {
       <div>
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
+            <Snackbar
+              width="100%"
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={snackbar}
+              autoHideDuration={4000}
+              handleclose={setTimeout(handleCloseSnackbar, 2000)}
+            >
+              <Alert severity="success">Instrument updated!</Alert>
+            </Snackbar>
+
             {details.email ? (
               <Box>
                 <Box>
@@ -277,6 +314,7 @@ export default function Table({ title, columns, rows, setRows }) {
                       name="description"
                       onChange={(e) => handleForm(e)}
                     />
+                    {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}
                     <TextField
                       required
                       label="Color"
@@ -345,6 +383,7 @@ export default function Table({ title, columns, rows, setRows }) {
           closeAlertDialog={closeAlertDialog}
           confirmationDelete={confirmationDelete}
           setConfirmationDelete={setConfirmationDelete}
+          loading={loading}
         />
       ) : null}
     </div>

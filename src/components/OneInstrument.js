@@ -225,7 +225,6 @@ const OneInstrument = ({ handleClose, id }) => {
       </Modal>
 
       <Snackbar
-        sx={{ color: "red" }}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
         autoHideDuration={6000}
