@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-import axios from "axios";
+
 import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
@@ -23,7 +23,6 @@ function App() {
   const [user, setUser] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [addToCart, setAddToCart] = useState([]);
-  const [totalQuantity, setTotalQuantity] = useState(0);
 
   let token = localStorage.getItem("token");
 
