@@ -1,10 +1,11 @@
 import { React, useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "./UserContext";
-import { CartContext } from './CartContext';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartContext } from "./CartContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@material-ui/core";
-import Cart from '../components/cart/Cart';
+import Cart from "../components/cart/Cart";
+
 import {
   AppBar,
   Box,
@@ -33,7 +34,7 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const [burger, setBurger] = useState(null);
   const [menu, setMenu] = useState(menuItemsSmallScreens);
-  const { addToCart } = useContext(CartContext); 
+  const { addToCart } = useContext(CartContext);
 
   const handleOpenNavMenu = (event) => {
     setBurger(event.currentTarget);
@@ -54,6 +55,15 @@ const Header = () => {
     user
       ? setMenu(
           [
+            user.verified === 1 ? (
+              <NavLink
+                to={"Cart"}
+                className="login-signup"
+                style={changeStyleOnActiveMenuItem}
+              >
+                <ShoppingCartIcon sx={{ color: "gray" }} />
+              </NavLink>
+            ) : null,
             <Avatar
               src="../images/Ana.jpg"
               sx={{ width: 30, height: 30, ml: 0 }}
@@ -178,15 +188,21 @@ const Header = () => {
                     src="../images/Ana.jpg"
                   />
                 </NavLink>
-                <NavLink
-                  to={"Cart"}
-                  className="login-signup"
-                  style={changeStyleOnActiveMenuItem}
-                >
-                  <Badge overlap="rectangular" badgeContent={addToCart.length} color="error">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </NavLink>
+                {user.verified === 1 ? (
+                  <NavLink
+                    to={"Cart"}
+                    className="login-signup"
+                    style={changeStyleOnActiveMenuItem}
+                  >
+                    <Badge
+                      overlap="rectangular"
+                      badgeContent={addToCart.length}
+                      color="error"
+                    >
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </NavLink>
+                ) : null}
               </Box>
             ) : (
               <>
