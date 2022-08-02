@@ -27,6 +27,7 @@ const OneInstrument = ({ handleClose, id }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [addedInCart, setAddedInCart] = useState(0);
 
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
@@ -35,7 +36,6 @@ const OneInstrument = ({ handleClose, id }) => {
     try {
       const res = await getOneInstrument(id);
       setInstrument(res.data.data[0]);
-      // console.log(res.data.data[0])
     } catch (err) {
       console.log(err);
     }
@@ -67,8 +67,9 @@ const OneInstrument = ({ handleClose, id }) => {
       ? setCom(instrument.quantity)
       : setCom(com + 1);
   };
-
+  
   const handleAddToCart = (inst) => {
+    setAddedInCart(addedInCart + com);
     const instrumentExist = addToCart.find((item) => item.id === inst.id);
     if (instrumentExist) {
       setAddToCart(
@@ -81,12 +82,8 @@ const OneInstrument = ({ handleClose, id }) => {
     } else {
       setAddToCart([...addToCart, { ...inst, quantity: com }]);
     }
+   
   };
-
-  // console.log(addToCart[0]);
-
-  // console.log('kvant: ' + instrument.quantity);
-  // console.log('com: ' + com);
 
   const style = {
     fontSize: { xs: "4vw", sm: "1.5vw" },
@@ -214,7 +211,8 @@ const OneInstrument = ({ handleClose, id }) => {
                 onClick={() => handleAddToCart(instrument)}
                 fullWidth
                 variant="contained"
-                disabled={false}
+                
+                disabled={instrument.quantity > addedInCart ? false : true}
                 startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }} />}
               >
                 Add to Cart

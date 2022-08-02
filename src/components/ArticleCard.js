@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from '@mui/material/Button';
 import { CardActionArea } from '@mui/material';
-
+import { Rating } from "@mui/material";
 
 function ArticleCard({elem}) {
 
@@ -32,9 +32,15 @@ function ArticleCard({elem}) {
               {(elem.description).length <= 25 ? elem.description : `${(elem.description).slice(0, 90)}...`}
             </Typography>
           </CardContent>
-          <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
-            <Typography> Rate: {elem.rate} </Typography>
-            <Typography> Price: {elem.price} </Typography>
+          <CardActions sx={{display:'flex', justifyContent: 'space-between'}}>
+            <Rating
+              readOnly 
+              name="simple-controlled"
+              value={elem.rate}
+              size="medium"
+              sx={{marginRight:'15%'}}
+            />
+            <Typography sx={{color:'primary.main', fontSize:'1.2em'}}><b>{elem.price}&euro;</b></Typography>
           </CardActions>
           </CardActionArea>
         </Card>

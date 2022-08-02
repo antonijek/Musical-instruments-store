@@ -3,11 +3,10 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Button from "@mui/material/Button";
-import { CardActionArea } from "@mui/material";
+import { Rating } from "@mui/material";
+
+
 
 function InstrumentCard({ instrument }) {
   return (
@@ -26,9 +25,15 @@ function InstrumentCard({ instrument }) {
           { instrument.description }
         </Typography>
       </CardContent>
-      <CardActions sx={{display:'flex', justifyContent: 'space-around'}}>
-        <Typography>Rate: {instrument.rate} </Typography>
-        <Typography> Price: {instrument.price}&euro;</Typography>
+      <CardActions sx={{display:'flex', justifyContent: 'space-between', padding:'3%'}}>
+        <Rating
+          readOnly 
+          name="simple-controlled"
+          value={instrument.rate}
+          size="medium"
+          sx={{marginRight:'15%'}}
+        />
+        <Typography sx={{color:'primary.main', fontSize:'1.2em'}}><b>{instrument.price}&euro;</b></Typography>
       </CardActions>
     </Card>
   )
