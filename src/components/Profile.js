@@ -75,7 +75,7 @@ const Profile = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: { sm: "space-around", lg: "space-between" },
             p: "2%",
             border: "1px solid black",
             mx: 5,

@@ -11,6 +11,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { style } from "../utils";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddNewInstrument = ({
   modalForNewInstrument,
@@ -79,6 +80,11 @@ const AddNewInstrument = ({
     <div>
       <Modal open={modalForNewInstrument} onClose={handleClose}>
         <Box sx={style}>
+          <CloseIcon
+            onClick={handleClose}
+            sx={{ cursor: "pointer", border: "1px solid black" }}
+            color="warning"
+          />
           <form action="">
             <Typography
               id="modal-modal-title"
@@ -93,7 +99,7 @@ const AddNewInstrument = ({
               label="Name"
               variant="standard"
               value={form.name}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="name"
               onChange={(e) => handleForm(e)}
             />
@@ -102,7 +108,7 @@ const AddNewInstrument = ({
               label="Photo"
               variant="standard"
               value={form.photo}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="photo"
               onChange={(e) => handleForm(e)}
             />
@@ -112,7 +118,7 @@ const AddNewInstrument = ({
               label="Category id"
               variant="standard"
               value={form.instrument_category_id}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="instrument_category_id"
               onChange={(e) => handleForm(e)}
             />
@@ -123,7 +129,7 @@ const AddNewInstrument = ({
               label="Price"
               variant="standard"
               value={form.price}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="price"
               onChange={(e) => handleForm(e)}
             />
@@ -133,17 +139,19 @@ const AddNewInstrument = ({
               label="Quantity"
               variant="standard"
               value={form.quantity}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="quantity"
               onChange={(e) => handleForm(e)}
             />
-            {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}
+            {loading ? (
+              <CircularProgress sx={{ display: "block", mx: "auto" }} />
+            ) : null}
             <TextField
               required
               label="Description"
               variant="standard"
               value={form.description}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="description"
               onChange={(e) => handleForm(e)}
             />
@@ -153,7 +161,7 @@ const AddNewInstrument = ({
               label="Color"
               variant="standard"
               value={form.color}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="color"
               onChange={(e) => handleForm(e)}
             />
@@ -164,7 +172,7 @@ const AddNewInstrument = ({
               label="Weight"
               variant="standard"
               value={form.weight}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="weight"
               onChange={(e) => handleForm(e)}
             />
@@ -176,7 +184,7 @@ const AddNewInstrument = ({
               label="Dimensions"
               variant="standard"
               value={form.dimensions}
-              sx={{ mt: 2, width: "80%" }}
+              sx={{ mt: 1, width: "80%" }}
               name="dimensions"
               onChange={(e) => handleForm(e)}
             />

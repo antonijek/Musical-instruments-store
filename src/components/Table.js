@@ -13,9 +13,10 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { style } from "../utils";
 import { verify } from "../api";
-import { editInstrument, removeInstrument } from "../api";
+import { editInstrument, removeInstrument, editUser } from "../api";
 import AddNewInstrument from "./AddNewInstrument";
 
 export default function Table({ title, setTitle, columns, rows, setRows }) {
@@ -26,6 +27,7 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
   const [confirmationDelete, setConfirmationDelete] = useState(false);
   const [modalForNewInstrument, setModalForNewInstrument] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
+  const [message, setMessage] = useState();
   const [loading, setloading] = useState(false);
 
   const handleClickOpen = () => {
@@ -46,6 +48,7 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
     setDetails(e.row);
     e.row.email
       ? setForm({
+          id: e.row.id,
           first_name: e.row.first_name,
           last_name: e.row.last_name,
           email: e.row.email,
@@ -64,8 +67,13 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
   };
 
   const verifyUser = async () => {
+    setloading(true);
     try {
       const res = await verify(details.id, token);
+      setMessage(res.data.message);
+      setloading(false);
+      setSnackbar(true);
+      setTimeout(handleClose, 2000);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -82,8 +90,25 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
     e.preventDefault();
     try {
       const res = await editInstrument(details.id, form, token);
+      setMessage(res.data.message);
       setSnackbar(true);
       setTimeout(handleClose, 3000);
+      setloading(false);
+    } catch (err) {
+      console.log(err);
+      setloading(false);
+    }
+  };
+
+  const handleEditUser = async (e) => {
+    e.preventDefault();
+    setloading(true);
+
+    try {
+      const res = await editUser(form, token);
+      setMessage(res.data.message);
+      setSnackbar(true);
+      setTimeout(handleClose, 2000);
       setloading(false);
     } catch (err) {
       console.log(err);
@@ -180,11 +205,16 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
               autoHideDuration={4000}
               handleclose={setTimeout(handleCloseSnackbar, 2000)}
             >
-              <Alert severity="success">Instrument updated!</Alert>
+              <Alert severity="success">{message}</Alert>
             </Snackbar>
 
             {details.email ? (
               <Box>
+                <CloseIcon
+                  onClick={handleClose}
+                  sx={{ cursor: "pointer", border: "1px solid black" }}
+                  color="warning"
+                />
                 <Box>
                   <Typography
                     sx={{ textAlign: "center" }}
@@ -216,6 +246,9 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
                     name="email"
                     onChange={(e) => handleForm(e)}
                   />
+                  {loading ? (
+                    <CircularProgress sx={{ display: "block", mx: "auto" }} />
+                  ) : null}
                   <TextField
                     required
                     type="number"
@@ -234,7 +267,7 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
                   }}
                 >
                   <Button
-                    onClick={handleEditInstrument}
+                    onClick={handleEditUser}
                     type="submit"
                     variant="contained"
                   >
@@ -255,6 +288,11 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
               </Box>
             ) : (
               <Box>
+                <CloseIcon
+                  onClick={handleClose}
+                  sx={{ cursor: "pointer", border: "1px solid black" }}
+                  color="warning"
+                />
                 <form action="">
                   <Box>
                     <Typography
@@ -314,7 +352,9 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
                       name="description"
                       onChange={(e) => handleForm(e)}
                     />
-                    {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}
+                    {loading ? (
+                      <CircularProgress sx={{ display: "block", mx: "auto" }} />
+                    ) : null}
                     <TextField
                       required
                       label="Color"

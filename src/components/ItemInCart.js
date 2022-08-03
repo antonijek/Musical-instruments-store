@@ -80,7 +80,7 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
                 mx: { xs: 0, sm: "10%" },
                 display: { xs: "block", sm: "flex" },
                 width: { xs: "50vw", sm: "15vw" },
-                fontSize: { xs: "5vw", sm: "2vw" },
+                fontSize: { xs: "5vw", sm: "1vw" },
               }}
             >
               {name}
