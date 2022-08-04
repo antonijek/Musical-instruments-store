@@ -1,24 +1,27 @@
 import { React, useState } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import { Alert } from "@mui/material";
+import { Alert, CircularProgress } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AlertDialog({
+const AlertDialog = ({
   closeAlertDialog,
   deleteInstrument,
   confirmationDelete,
   setConfirmationDelete,
-}) {
+  loading,
+}) => {
   const handleDelete = () => {
     deleteInstrument();
-    console.log("test");
   };
 
+  const handleClose = () => {
+    setConfirmationDelete(false);
+  };
   return (
     <div>
       <Dialog
@@ -33,6 +36,7 @@ export default function AlertDialog({
             Are you sure you want to delete this instrument?
           </DialogContentText>
         </DialogContent>
+        {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}
         <DialogActions>
           <Button onClick={closeAlertDialog}>No</Button>
           <Button onClick={handleDelete} autoFocus>
@@ -41,16 +45,14 @@ export default function AlertDialog({
         </DialogActions>
       </Dialog>
       <Snackbar
-        sx={{ color: "red" }}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={confirmationDelete}
         autoHideDuration={6000}
-        handleClose={setTimeout((e) => {
-          setConfirmationDelete(false);
-        }, 6000)}
+        handleclose={setTimeout(handleClose, 5500)}
       >
-        <Alert severity="success">Instrument deleted successfully!</Alert>
+        <Alert severity="success">instrument deleted successfully!</Alert>
       </Snackbar>
     </div>
   );
-}
+};
+export default AlertDialog;

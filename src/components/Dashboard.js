@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-import CheckBox from "@mui/material/List";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -17,12 +17,9 @@ import EditSharpIcon from "@mui/icons-material/EditSharp";
 
 const Dashboard = ({ setTitle, setColumns, setRows, rows }) => {
   let token = localStorage.getItem("token");
-  console.log(rows);
+
   const renderRating = () => {
     return <EditSharpIcon />;
-  };
-  const isVerified = (params) => {
-    return <input type="checkbox" checked={params} />;
   };
 
   const usersColumns = [
@@ -50,7 +47,7 @@ const Dashboard = ({ setTitle, setColumns, setRows, rows }) => {
 
   const getAllInstruments = async () => {
     const res = await getInstruments();
-    console.log(res);
+
     setRows(res.data.data);
     setTitle("Instruments");
     setColumns(instrumentsColumns);
@@ -58,7 +55,7 @@ const Dashboard = ({ setTitle, setColumns, setRows, rows }) => {
 
   const getAllUsers = async () => {
     const res = await getUsers(token);
-    console.log(res.data.data);
+
     setRows(res.data.data);
     setTitle("Users");
     setColumns(usersColumns);

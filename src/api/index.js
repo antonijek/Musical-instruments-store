@@ -96,3 +96,10 @@ export const removeInstrument = (id, token) => {
     },
   });
 };
+export const adding = (instrument, token) => {
+  return axios.post(`${baseUrl}/instrument/`, instrument, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
