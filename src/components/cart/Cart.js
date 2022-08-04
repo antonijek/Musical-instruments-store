@@ -19,10 +19,17 @@ const Cart = () => {
   const buyHandler = async () => {
       let items;
       let basket = []
+      let id = 0;
+      let qty = 0;
       addToCart.map(elem => {
-        
+        id = elem.id;
+        qty = elem.quantity;
+        basket = [{id},{qty}]
+        console.log(basket[0])
+        console.log(basket[1])
       });
-      basket = [{5:1, 6:1}]
+      // basket = [{5:1}]
+
       let obj = {item:{}}
       basket.map(item=>{
         for(let key in item){
@@ -30,22 +37,20 @@ const Cart = () => {
         }
       })
       items = obj.item;
-      console.log(items);
+      // console.log(items);
 
-
-
-    const res = await axios.post(
-      `http://localhost:8000/api/buy`,
-      {
-        items
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(res);
+    // const res = await axios.post(
+    //   `http://localhost:8000/api/buy`,
+    //   {
+    //     items
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    // console.log(res);
 
     // setAddToCart([]);
   }
