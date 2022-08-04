@@ -70,6 +70,8 @@ const OneInstrument = ({ handleClose, id }) => {
   
   const handleAddToCart = (inst) => {
     setAddedInCart(addedInCart + com);
+    setOpen(true);
+    setMessage('Added in cart!');
     const instrumentExist = addToCart.find((item) => item.id === inst.id);
     if (instrumentExist) {
       setAddToCart(
@@ -232,6 +234,8 @@ const OneInstrument = ({ handleClose, id }) => {
       >
         <Alert severity="success">{message}</Alert>
       </Snackbar>
+
+
     </div>
   );
 };

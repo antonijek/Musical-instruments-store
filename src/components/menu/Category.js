@@ -13,6 +13,8 @@ function Category({categoryId, setCategoryId}) {
     setInstrumentTitle(event.target.value);
     setCategoryId(instruments.indexOf(event.target.value) + 1);
   };
+
+  // console.log('setovan ID iz Category: '+categoryId)
   
   const instruments = [
     'Drums',

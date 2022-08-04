@@ -9,18 +9,24 @@ import axios from "axios";
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import Pagination from "@mui/material/Pagination";
 
 const Menu = ({categoryId, setCategoryId}) => {
 
   const [instruments, setInstruments] = useState([]);
   const [searchedString, setSearchedString] = useState('');
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState(0);
 
   const getInstrumentsApi = async () => {
     setLoading(true);
     try {
-      const res = await getInstruments();
-      setInstruments(res.data.data);
+      const res = await getInstruments(currentPage);
+      setInstruments(res.data.data.data);
+      setPageInfo(res.data.data);
+      // console.log('res dd1: '+ JSON.stringify(res.data.data))
+      // console.log('b: '+ JSON.stringify(res.data.data));
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -30,14 +36,17 @@ const Menu = ({categoryId, setCategoryId}) => {
 
   useEffect(() => {
     getInstrumentsApi();
-  }, []);
+  }, [currentPage]);
 
 
   const getCategoryApi = async () => {
     setLoading(true);
     try {
-      const res = await getCategory(categoryId);
-      setInstruments(res.data.data[0].has_many_instruments);
+      const res = await getCategory(categoryId, currentPage);
+      setInstruments(res.data.data.data[0].has_many_instruments);
+      setPageInfo(res.data.data);
+      // console.log('res dd2: '+ JSON.stringify(res.data.data))
+      // console.log('tss: '+JSON.stringify(res.data.data.data[0].has_many_instruments))
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -47,14 +56,14 @@ const Menu = ({categoryId, setCategoryId}) => {
 
   useEffect(() => {
     getCategoryApi();
-  }, [categoryId])
+  }, [categoryId, currentPage])
 
 
   const getSearchedApi = async () => {
     setLoading(true);
     try {
       const res = await getSearchedInstrument(searchedString);
-      setInstruments(res.data.data);
+      // setInstruments(res.data.data);
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -64,8 +73,12 @@ const Menu = ({categoryId, setCategoryId}) => {
 
   useEffect(() => {
     getSearchedApi();
-  }, [searchedString]);
+  }, [searchedString, currentPage]);
   
+  const handlePage = (event, page) => {
+    setCurrentPage(page);
+    window.scroll(0,0)
+  }
 
   const headerStyle = {
     width: "100%",
@@ -102,19 +115,19 @@ const Menu = ({categoryId, setCategoryId}) => {
         ) : null
       }
 
-      
-      {
-        instruments.length ? (
+      {  
+        
+        instruments !== 0 ? (
           <Feed instruments={instruments} />
         ) : (
           <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
         )
       }
-
       
+      <Stack sx={{ p: "5%" }} justifyContent="center" alignItems="center">
+        <Pagination count={pageInfo.last_page} onChange={handlePage} color="primary" size='large' />
+      </Stack>
 
-
-      
     </>
   );
 };
