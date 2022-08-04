@@ -18,26 +18,30 @@ export const register = (firstName, lastName, username, email, password) => {
   });
 };
 
-export const getInstruments = () => {
-  return axios.get(`${baseUrl}/instrument/`);
+export const getInstruments = (currentPage) => {
+  return axios.get(`${baseUrl}/instrument?page=${currentPage}`);
 };
 
 export const getCategories = () => {
   return axios.get(`${baseUrl}/instrument-category`);
 };
 
-export const getCategory = (categoryId) => {
-  return axios.get(`${baseUrl}/instrument-category/${categoryId}`);
+export const getCategory = (categoryId, page) => {
+  return axios.get(`${baseUrl}/instrument-category/${categoryId}?page=${page}`);
 };
 export const getOneInstrument = (id) => {
   return axios(`${baseUrl}/instrument/${id}`);
 };
 
 export const getSearchedInstrument = (searchedStr) => {
+<<<<<<< HEAD
   return axios.get(
     `http://localhost:8000/api/instrument?instrument_name=${searchedStr}`
   );
   //    =${instId}&
+=======
+  return axios.get(`http://localhost:8000/api/instrument?instrument_name=${searchedStr}`);
+>>>>>>> main
 };
 
 export const getUser = (token) => {

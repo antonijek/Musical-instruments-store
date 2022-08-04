@@ -1,7 +1,7 @@
 import { React, useState, useContext } from "react";
 import InstrumentCard from "./InstrumentCard";
 import {Stack, Grid } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+
 import OneInstrument from "../OneInstrument";
 
 const Feed = ({ instruments }) => {
@@ -19,11 +19,15 @@ const Feed = ({ instruments }) => {
     setId(e);
   };
 
+  console.log('ii: '+ JSON.stringify(instruments));
+
   return (
     <>
+    {console.log('thus: ' + JSON.stringify(instruments.data)) }
       <Grid container spacing={5} sx={GridContainerStyle}>
-        {instruments.map((instrument) => (
-          <Grid
+      
+        {(instruments).map((instrument) => (
+           <Grid
             item
             onClick={(e) => handleModal(instrument.id)}
             key={instrument.id}
@@ -31,16 +35,12 @@ const Feed = ({ instruments }) => {
             sm={6}
             md={6}
           >
-            <InstrumentCard instrument={instrument} />
+            <InstrumentCard instrument={instrument} />  
           </Grid>
-
         ))}
+
       </Grid>
-
-      <Stack sx={{ p: "5%" }} justifyContent="center" alignItems="center">
-        <Pagination count={10} color="primary" />
-      </Stack>
-
+        
       {openMOdal && <OneInstrument handleClose={handleClose} id={id} />}
     </>
   );

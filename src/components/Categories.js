@@ -16,8 +16,8 @@ function Categories({categoryId, setCategoryId}) {
         try {
             const res = await getCategories();
             let categoriesArr = res.data.data;
-            // console.log(res.data.bestRatedInstruments);
             let firstFour = categoriesArr.slice(0,4);
+            console.log(firstFour)
             setCategories(firstFour);
         } catch(e) {
             console.log(e);

@@ -5,11 +5,13 @@ import Button from "@mui/material/Button";
 import { CartContext } from "../CartContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../UserContext";
+import { lighten } from '@material-ui/core';
 
 const Cart = () => {
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
+<<<<<<< HEAD
 
   const totalPrice = addToCart.reduce(
     (price, item) => price + item.quantity * item.price,
@@ -46,6 +48,47 @@ const Cart = () => {
       }
     );
     console.log(res);
+=======
+  
+  const totalPrice = addToCart.reduce((price, item) => price + item.quantity * item.price, 0);
+  const totalQuantity = addToCart.length;
+
+  const buyHandler = async () => {
+      let items;
+      let basket = []
+      let id = 0;
+      let qty = 0;
+      addToCart.map(elem => {
+        id = elem.id;
+        qty = elem.quantity;
+        basket = [{id},{qty}]
+        console.log(basket[0])
+        console.log(basket[1])
+      });
+      // basket = [{5:1}]
+
+      let obj = {item:{}}
+      basket.map(item=>{
+        for(let key in item){
+          obj.item[key]=item[key]
+        }
+      })
+      items = obj.item;
+      // console.log(items);
+
+    // const res = await axios.post(
+    //   `http://localhost:8000/api/buy`,
+    //   {
+    //     items
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    // console.log(res);
+>>>>>>> main
 
     setAddToCart([]);
   };
