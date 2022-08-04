@@ -9,7 +9,7 @@ import {
   TextField,
   Button,
   CircularProgress,
-  Box
+  Box,
 } from "@mui/material";
 import { UserContext } from "./UserContext";
 
@@ -67,6 +67,10 @@ const Register = () => {
       md: "6% 10% 3% 10%",
       lg: "10% 10% 4% 10%",
     },
+  };
+
+  const test = () => {
+    const data = new FormData();
   };
 
   return (
@@ -142,8 +146,13 @@ const Register = () => {
           />
           <Typography sx={errorText}> {formErrors.confirmPassword} </Typography>
 
-          <Box sx={{width: { xs: "90%", sm: "70%", md: "60%", lg: "70%" },marginTop: "5%"}}>
-            <input type='file'></input>
+          <Box
+            sx={{
+              width: { xs: "90%", sm: "70%", md: "60%", lg: "70%" },
+              marginTop: "5%",
+            }}
+          >
+            <input type="file"> </input>
           </Box>
 
           <Button sx={buttonStyle} variant="contained" type="submit">

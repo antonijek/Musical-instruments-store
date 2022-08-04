@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-
+import Test from "./components/Test.js";
 import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
@@ -30,6 +30,7 @@ function App() {
     try {
       const res = await getUser(token);
       setUser(res.data);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }

@@ -67,7 +67,7 @@ const OneInstrument = ({ handleClose, id }) => {
       ? setCom(instrument.quantity)
       : setCom(com + 1);
   };
-  
+
   const handleAddToCart = (inst) => {
     setAddedInCart(addedInCart + com);
     setOpen(true);
@@ -84,7 +84,6 @@ const OneInstrument = ({ handleClose, id }) => {
     } else {
       setAddToCart([...addToCart, { ...inst, quantity: com }]);
     }
-   
   };
 
   const style = {
@@ -213,7 +212,6 @@ const OneInstrument = ({ handleClose, id }) => {
                 onClick={() => handleAddToCart(instrument)}
                 fullWidth
                 variant="contained"
-                
                 disabled={instrument.quantity > addedInCart ? false : true}
                 startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }} />}
               >

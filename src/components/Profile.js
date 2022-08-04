@@ -3,6 +3,7 @@ import { UserContext } from "./UserContext";
 import ItemInCart from "./ItemInCart";
 import "../styles/Profile.css";
 import { Button, Typography, Box, Divider, Link } from "@mui/material";
+import { Link as LinkR } from "react-router-dom";
 import { getOrders } from "../api";
 import { getOneOrder } from "../api";
 import { pad_with_zeroes } from "../utils";
@@ -45,7 +46,7 @@ const Profile = () => {
           backgroundColor: "black",
         }}
       />
-      <img className="profile-img" src="../images/ana.jpg" alt="img" />
+      <img className="profile-img" src={user.photo} alt="img" />
       <Typography
         sx={{ color: "text.secondary", fontSize: { xs: "6vw", sm: "3vw" } }}
       >
@@ -65,7 +66,13 @@ const Profile = () => {
             fontSize: { xs: "5vw", sm: "2vw" },
           }}
         >
-          Your previus orders:
+          {orders.length > 0 ? (
+            "Your previus orders:"
+          ) : (
+            <LinkR to="/menu">
+              You dont have orders yet, please go to shop.
+            </LinkR>
+          )}
         </Typography>
       </Box>
       <Divider />
@@ -75,7 +82,7 @@ const Profile = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: { sm: "space-around" },
             p: "2%",
             border: "1px solid black",
             mx: 5,
