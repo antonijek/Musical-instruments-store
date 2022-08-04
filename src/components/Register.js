@@ -69,6 +69,10 @@ const Register = () => {
     },
   };
 
+  const test = () => {
+    const data = new FormData();
+  };
+
   return (
     <Grid sx={gridStyle}>
       <Typography variant="h3" color="primary" sx={{ padding: "3px" }}>
@@ -148,7 +152,7 @@ const Register = () => {
               marginTop: "5%",
             }}
           >
-            <input type="file"></input>
+            <input type="file"> </input>
           </Box>
 
           <Button sx={buttonStyle} variant="contained" type="submit">

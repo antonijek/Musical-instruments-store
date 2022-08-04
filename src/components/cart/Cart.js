@@ -5,13 +5,12 @@ import Button from "@mui/material/Button";
 import { CartContext } from "../CartContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../UserContext";
-import { lighten } from '@material-ui/core';
+import { lighten } from "@material-ui/core";
 
 const Cart = () => {
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
-<<<<<<< HEAD
 
   const totalPrice = addToCart.reduce(
     (price, item) => price + item.quantity * item.price,
@@ -20,61 +19,27 @@ const Cart = () => {
   const totalQuantity = addToCart.length;
 
   const buyHandler = async () => {
-    // let id = 0; let qty = 0;
-    // addToCart.map(elem => {
-    //   id = elem.id;
-    //   qty = elem.quantity;
-    // })
-    // // console.log(id);
-    // // console.log(qty);
-    // let v1 = 4;
-    // let v2 = 1;
-    // const finalObj = Object.assign({ items:{v1 : v2} })
-    // console.log(finalObj);
+    let items;
+    let basket = [];
+    let id = 0;
+    let qty = 0;
+    addToCart.map((elem) => {
+      id = elem.id;
+      qty = elem.quantity;
+      basket = [{ id }, { qty }];
+      console.log(basket[0]);
+      console.log(basket[1]);
+    });
+    // basket = [{5:1}]
 
-    const res = await axios.post(
-      `http://localhost:8000/api/buy`,
-      {
-        items: {
-          10: 1,
-          11: 1,
-        },
-        // finalObj
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    let obj = { item: {} };
+    basket.map((item) => {
+      for (let key in item) {
+        obj.item[key] = item[key];
       }
-    );
-    console.log(res);
-=======
-  
-  const totalPrice = addToCart.reduce((price, item) => price + item.quantity * item.price, 0);
-  const totalQuantity = addToCart.length;
-
-  const buyHandler = async () => {
-      let items;
-      let basket = []
-      let id = 0;
-      let qty = 0;
-      addToCart.map(elem => {
-        id = elem.id;
-        qty = elem.quantity;
-        basket = [{id},{qty}]
-        console.log(basket[0])
-        console.log(basket[1])
-      });
-      // basket = [{5:1}]
-
-      let obj = {item:{}}
-      basket.map(item=>{
-        for(let key in item){
-          obj.item[key]=item[key]
-        }
-      })
-      items = obj.item;
-      // console.log(items);
+    });
+    items = obj.item;
+    // console.log(items);
 
     // const res = await axios.post(
     //   `http://localhost:8000/api/buy`,
@@ -88,7 +53,6 @@ const Cart = () => {
     //   }
     // );
     // console.log(res);
->>>>>>> main
 
     setAddToCart([]);
   };

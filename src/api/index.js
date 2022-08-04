@@ -34,14 +34,9 @@ export const getOneInstrument = (id) => {
 };
 
 export const getSearchedInstrument = (searchedStr) => {
-<<<<<<< HEAD
   return axios.get(
     `http://localhost:8000/api/instrument?instrument_name=${searchedStr}`
   );
-  //    =${instId}&
-=======
-  return axios.get(`http://localhost:8000/api/instrument?instrument_name=${searchedStr}`);
->>>>>>> main
 };
 
 export const getUser = (token) => {
