@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import AlertDialog from "./AlertDialog";
+import EditUser from "./EditUser";
+import EditInstrument from "./EditInstrument";
 import {
   Box,
   Typography,
@@ -66,20 +68,6 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
         });
   };
 
-  const verifyUser = async () => {
-    setloading(true);
-    try {
-      const res = await verify(details.id, token);
-      setMessage(res.data.message);
-      setloading(false);
-      setSnackbar(true);
-      setTimeout(handleClose, 2000);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -93,22 +81,6 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
       setMessage(res.data.message);
       setSnackbar(true);
       setTimeout(handleClose, 3000);
-      setloading(false);
-    } catch (err) {
-      console.log(err);
-      setloading(false);
-    }
-  };
-
-  const handleEditUser = async (e) => {
-    e.preventDefault();
-    setloading(true);
-
-    try {
-      const res = await editUser(form, token);
-      setMessage(res.data.message);
-      setSnackbar(true);
-      setTimeout(handleClose, 2000);
       setloading(false);
     } catch (err) {
       console.log(err);
@@ -198,221 +170,22 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
       <div>
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
-            <Snackbar
-              width="100%"
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-              open={snackbar}
-              autoHideDuration={4000}
-              handleclose={setTimeout(handleCloseSnackbar, 2000)}
-            >
-              <Alert severity="success">{message}</Alert>
-            </Snackbar>
-
             {details.email ? (
-              <Box>
-                <CloseIcon
-                  onClick={handleClose}
-                  sx={{ cursor: "pointer", border: "1px solid black" }}
-                  color="warning"
-                />
-                <Box>
-                  <Typography
-                    sx={{ textAlign: "center" }}
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Edit user datails
-                  </Typography>
-                  <TextField
-                    required
-                    value={form.first_name}
-                    sx={{ mt: 2 }}
-                    name="first_name"
-                    onChange={(e) => handleForm(e)}
-                  />
-                  <TextField
-                    required
-                    value={form.last_name}
-                    sx={{ mt: 2 }}
-                    name="last_name"
-                    onChange={(e) => handleForm(e)}
-                  />
-                  <TextField
-                    required
-                    type="email"
-                    value={form.email}
-                    sx={{ mt: 2 }}
-                    name="email"
-                    onChange={(e) => handleForm(e)}
-                  />
-                  {loading ? (
-                    <CircularProgress sx={{ display: "block", mx: "auto" }} />
-                  ) : null}
-                  <TextField
-                    required
-                    type="number"
-                    value={form.funds}
-                    sx={{ mt: 2 }}
-                    name="funds"
-                    onChange={(e) => handleForm(e)}
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mt: "5%",
-                  }}
-                >
-                  <Button
-                    onClick={handleEditUser}
-                    type="submit"
-                    variant="contained"
-                  >
-                    Submit
-                  </Button>
-                  <Box sx={{ textAlign: "end", display: "block" }}>
-                    <FormControlLabel
-                      control={<Checkbox onChange={verifyUser} />}
-                      label="Verified"
-                    />
-                  </Box>
-                </Box>
-                <Box textAlign="end">
-                  <Button variant="outlined" color="error">
-                    Remove user
-                  </Button>
-                </Box>
-              </Box>
+              <EditUser
+                handleClose={handleClose}
+                form={form}
+                handleForm={handleForm}
+                details={details}
+              />
             ) : (
-              <Box>
-                <CloseIcon
-                  onClick={handleClose}
-                  sx={{ cursor: "pointer", border: "1px solid black" }}
-                  color="warning"
-                />
-                <form action="">
-                  <Box>
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
-                      sx={{ textAlign: "center" }}
-                    >
-                      Edit instrument datails
-                    </Typography>
-                    <TextField
-                      required
-                      label="Name"
-                      variant="standard"
-                      value={form.name}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="name"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    <TextField
-                      required
-                      type="number"
-                      label="Category id"
-                      variant="standard"
-                      value={form.instrument_category_id}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="instrument_category_id"
-                      onChange={(e) => handleForm(e)}
-                    />
-
-                    <TextField
-                      required
-                      type="number"
-                      label="Price"
-                      variant="standard"
-                      value={form.price}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="price"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    <TextField
-                      required
-                      type="number"
-                      label="Quantity"
-                      variant="standard"
-                      value={form.quantity}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="quantity"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    <TextField
-                      required
-                      label="Description"
-                      variant="standard"
-                      value={form.description}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="description"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    {loading ? (
-                      <CircularProgress sx={{ display: "block", mx: "auto" }} />
-                    ) : null}
-                    <TextField
-                      required
-                      label="Color"
-                      variant="standard"
-                      value={form.color}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="color"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    <TextField
-                      required
-                      type="number"
-                      label="Weight"
-                      variant="standard"
-                      value={form.weight}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="weight"
-                      onChange={(e) => handleForm(e)}
-                    />
-                    <TextField
-                      required
-                      helperText={
-                        form.dimensions === ""
-                          ? "Dimensions are required!"
-                          : " "
-                      }
-                      label="Dimensions"
-                      variant="standard"
-                      value={form.dimensions}
-                      sx={{ mt: 2, width: "80%" }}
-                      name="dimensions"
-                      onChange={(e) => handleForm(e)}
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      mt: "5%",
-                    }}
-                  >
-                    <Button
-                      onClick={validate}
-                      type="submit"
-                      variant="contained"
-                    >
-                      Submit
-                    </Button>
-                  </Box>
-                  <Box textAlign="end">
-                    <Button
-                      onClick={handleClickOpen}
-                      variant="outlined"
-                      color="error"
-                    >
-                      Remove instrument
-                    </Button>
-                  </Box>
-                </form>
-              </Box>
+              <EditInstrument
+                handleClose={handleClose}
+                form={form}
+                handleForm={handleForm}
+                loading={loading}
+                validate={validate}
+                handleClickOpen={handleClickOpen}
+              />
             )}
           </Box>
         </Modal>

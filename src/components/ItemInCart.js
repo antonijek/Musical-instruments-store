@@ -13,7 +13,7 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
         sx={{
           display: { xs: "block", sm: "flex" },
           justifyContent: "space-between",
-          mb: { xs: "15%", sm: "2%" },
+          mb: { xs: "5%", sm: "2%" },
         }}
       >
         <Box
@@ -32,16 +32,16 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
               image={img}
               alt="img"
               sx={{
-                width: { xs: "35vw", sm: "20vw" },
-                height: { xs: "23vw", sm: "auto" },
+                width: { xs: "35vw", sm: "15vw", lg: "10vw" },
+                height: { xs: "23vw", sm: "15vw", lg: "10vw" },
               }}
             />
-            <Box textAlign="start" sx={{ ml: 1, pt: "2%" }}>
+            <Box textAlign="start" sx={{ ml: 1 }}>
               <Typography
                 sx={{
-                  fontSize: { xs: "3vw", sm: "1.5vw" },
-                  mb: { xs: 0, sm: "5%" },
-                  mt: { xs: 0, sm: "2%" },
+                  fontSize: { xs: "3vw", sm: "1.5vw", lg: "1.2vw" },
+                  mb: { xs: 0, sm: "0%" },
+                  mt: { xs: 0, sm: "0%" },
                 }}
               >
                 {desc.slice(0, 100)}
@@ -49,7 +49,7 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
               <Typography
                 sx={{
                   fontSize: { xs: "4vw", sm: "2vw" },
-                  mb: { xs: 0, sm: "5%" },
+                  mb: { xs: 0, sm: "2%" },
                   color: "black",
                 }}
               >
@@ -58,7 +58,7 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
               <Typography
                 sx={{
                   fontSize: { xs: "4vw", sm: "2vw" },
-                  mb: { xs: 0, sm: "5%" },
+                  mb: { xs: 0, sm: "2%" },
                   color: "black",
                 }}
               >
@@ -72,15 +72,14 @@ const ItemInCart = ({ desc, color, price, quantity, name, img }) => {
 
               justifyContent: "space-between",
               textAlign: "start",
-              pt: "2%",
             }}
           >
             <Typography
               sx={{
                 mx: { xs: 0, sm: "10%" },
                 display: { xs: "block", sm: "flex" },
-                width: { xs: "50vw", sm: "15vw" },
-                fontSize: { xs: "5vw", sm: "1vw" },
+                width: { xs: "50vw", sm: "20vw" },
+                fontSize: { xs: "4vw", sm: "1.8vw" },
               }}
             >
               {name}
