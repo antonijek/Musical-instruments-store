@@ -29,13 +29,14 @@ export const getCategories = () => {
 export const getCategory = (categoryId, page) => {
   return axios.get(`${baseUrl}/instrument-category/${categoryId}?page=${page}`);
 };
+
 export const getOneInstrument = (id) => {
   return axios(`${baseUrl}/instrument/${id}`);
 };
 
 export const getSearchedInstrument = (searchedStr) => {
   return axios.get(
-    `http://localhost:8000/api/instrument?instrument_name=${searchedStr}`
+    `${baseUrl}/instrument?instrument_name=${searchedStr}`
   );
 };
 
