@@ -73,7 +73,7 @@ const useRegister = () => {
       console.log(res);
       setUser(res.data.data);
       setLoading(false);
-      localStorage.setItem("token", res.data.access_token.plainTextToken);
+      localStorage.setItem("token", res.data.access_token);
       setTimeout(() => navigate("/"), 500);
     } catch (err) {
       console.log(err);

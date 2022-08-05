@@ -47,8 +47,8 @@ const AlertDialog = ({
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={confirmationDelete}
-        autoHideDuration={6000}
-        handleclose={setTimeout(handleClose, 5500)}
+        autoHideDuration={5000}
+        handleclose={setTimeout(handleClose, 4500)}
       >
         <Alert severity="success">instrument deleted successfully!</Alert>
       </Snackbar>

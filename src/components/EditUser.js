@@ -1,11 +1,8 @@
 import { React, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import AlertDialog from "./AlertDialog";
 
 import {
   Box,
   Typography,
-  Modal,
   Checkbox,
   TextField,
   FormControlLabel,
@@ -15,12 +12,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { style } from "../utils";
-import { verify } from "../api";
-import { editInstrument, removeInstrument, editUser } from "../api";
-import AddNewInstrument from "./AddNewInstrument";
 
-const EditUser = ({ handleClose, form, handleForm, details }) => {
+import { verify } from "../api";
+import { editUser, removeUser } from "../api";
+
+const EditUser = ({
+  handleClose,
+  form,
+  handleForm,
+  details,
+  rows,
+  setRows,
+}) => {
   const [snackbar, setSnackbar] = useState(false);
   const [message, setMessage] = useState();
   const [loading, setloading] = useState(false);
@@ -61,6 +64,23 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
     }
   };
 
+  const deleteUser = async () => {
+    // e.preventDefault();
+    setloading(true);
+    try {
+      const res = await removeUser(details.id, token);
+      const restUser = rows.filter((user) => user.id !== details.id);
+      setRows(restUser);
+      setMessage(res.data.message);
+      setSnackbar(true);
+      setTimeout(handleClose, 2000);
+      setloading(false);
+    } catch (err) {
+      console.log(err);
+      setloading(false);
+    }
+  };
+
   return (
     <Box>
       <CloseIcon
@@ -96,7 +116,6 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={snackbar}
           autoHideDuration={4000}
-          handleclose={setTimeout(handleCloseSnackbar, 2000)}
         >
           <Alert severity="success">{message}</Alert>
         </Snackbar>

@@ -168,7 +168,7 @@ const Header = () => {
               display: { xs: "none", sm: "flex" },
             }}
           >
-            {user.admin === 1 ? (
+            {user && user.admin === 1 ? (
               <NavLink
                 to="/admin"
                 className="login-signup"

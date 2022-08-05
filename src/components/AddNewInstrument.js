@@ -9,7 +9,6 @@ import {
   Snackbar,
   Alert,
   CircularProgress,
-  formLabelClasses,
 } from "@mui/material";
 
 import { style } from "../utils";
@@ -24,6 +23,7 @@ const AddNewInstrument = ({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [dialog, setDialog] = useState(false);
 
   let token = localStorage.getItem("token");
 
@@ -34,10 +34,6 @@ const AddNewInstrument = ({
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-  };
-  const handleFormForImage = (e) => {
-    const { files } = e.target;
-    setForm({ ...form, photo: files[0] });
   };
 
   const addInstrument = async (e) => {
@@ -72,7 +68,8 @@ const AddNewInstrument = ({
       setTimeout(handleClose, 2000);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      setDialog(true);
+
       setLoading(false);
     }
   };
@@ -224,13 +221,18 @@ const AddNewInstrument = ({
         </Box>
       </Modal>
       <Snackbar
-        sx={{ color: "red" }}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackBar}
         autoHideDuration={4000}
-        handleclose={setTimeout(handleCloseSnackbar, 3000)}
       >
         <Alert severity="success">{message}</Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={dialog}
+        autoHideDuration={4000}
+      >
+        <Alert severity="error">Pravilno popunite sva polja!</Alert>
       </Snackbar>
     </div>
   );

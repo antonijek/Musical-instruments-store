@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-import Test from "./components/Test.js";
+import ChangePassword from "./components/ChangePassword";
 import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
@@ -68,7 +68,13 @@ function App() {
 
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
-              <Route path="/admin" element={<AdminPanel />} />
+              <Route
+                path="/admin"
+                element={
+                  user.verified === 1 ? <AdminPanel /> : <div>Page404</div>
+                }
+              />
+              <Route path="/change-password" element={<ChangePassword />} />
             </Routes>
           </Container>
           <Footer />

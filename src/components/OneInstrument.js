@@ -28,6 +28,7 @@ const OneInstrument = ({ handleClose, id }) => {
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [addedInCart, setAddedInCart] = useState(0);
+  const [dialog, setdialog] = useState(false);
 
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
@@ -50,7 +51,8 @@ const OneInstrument = ({ handleClose, id }) => {
       setMessage(res.data.message);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      setdialog(true);
+      setMessage(err.response.data.message);
       setLoading(false);
     }
   };
@@ -71,7 +73,7 @@ const OneInstrument = ({ handleClose, id }) => {
   const handleAddToCart = (inst) => {
     setAddedInCart(addedInCart + com);
     setOpen(true);
-    setMessage('Added in cart!');
+    setMessage("Added in cart!");
     const instrumentExist = addToCart.find((item) => item.id === inst.id);
     if (instrumentExist) {
       setAddToCart(
@@ -225,15 +227,23 @@ const OneInstrument = ({ handleClose, id }) => {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={5000}
         handleClose={setTimeout((e) => {
           setOpen(false);
-        }, 6000)}
+        }, 4000)}
       >
         <Alert severity="success">{message}</Alert>
       </Snackbar>
-
-
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={dialog}
+        autoHideDuration={5000}
+        handleClose={setTimeout((e) => {
+          setdialog(false);
+        }, 4000)}
+      >
+        <Alert severity="error">{message}</Alert>
+      </Snackbar>
     </div>
   );
 };

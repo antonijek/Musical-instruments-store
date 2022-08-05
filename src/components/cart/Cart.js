@@ -1,11 +1,10 @@
 import { React, useContext } from "react";
 import axios from "axios";
-import { Typography, Box, Grid, Container, Stack } from "@mui/material";
+import { Typography, Box, Grid, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CartContext } from "../CartContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../UserContext";
-import { lighten } from "@material-ui/core";
 
 const Cart = () => {
   let token = localStorage.getItem("token");
@@ -23,14 +22,14 @@ const Cart = () => {
     let basket = [];
     let id = 0;
     let qty = 0;
-    addToCart.map((elem) => {
+    /*  addToCart.map((elem) => {
       id = elem.id;
       qty = elem.quantity;
       basket = [{ id }, { qty }];
       console.log(basket[0]);
       console.log(basket[1]);
-    });
-    // basket = [{5:1}]
+    }); */
+    basket = [{ 5: 1 }];
 
     let obj = { item: {} };
     basket.map((item) => {
@@ -39,20 +38,20 @@ const Cart = () => {
       }
     });
     items = obj.item;
-    // console.log(items);
+    console.log(items);
 
-    // const res = await axios.post(
-    //   `http://localhost:8000/api/buy`,
-    //   {
-    //     items
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-    // console.log(res);
+    const res = await axios.post(
+      `http://localhost:8000/api/buy`,
+      {
+        items,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res);
 
     setAddToCart([]);
   };

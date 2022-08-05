@@ -119,3 +119,17 @@ export const editUser = (form, token) => {
     },
   });
 };
+export const removeUser = (id, token) => {
+  return axios.delete(`${baseUrl}/delete-user/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const changePassword = (form, token) => {
+  return axios.post(`${baseUrl}/change-password`, form, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
