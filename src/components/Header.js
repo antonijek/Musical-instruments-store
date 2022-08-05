@@ -164,9 +164,20 @@ const Header = () => {
             sx={{
               width: "30%",
               justifyContent: "end",
+              alignItems: "center",
               display: { xs: "none", sm: "flex" },
             }}
           >
+            {user.admin === 1 ? (
+              <NavLink
+                to="/admin"
+                className="login-signup"
+                style={changeStyleOnActiveMenuItem}
+              >
+                Admin
+              </NavLink>
+            ) : null}
+
             {user ? (
               <Box
                 sx={{

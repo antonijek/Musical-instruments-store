@@ -34,7 +34,9 @@ export const getOneInstrument = (id) => {
 };
 
 export const getSearchedInstrument = (searchedStr) => {
-  return axios.get(`http://localhost:8000/api/instrument?instrument_name=${searchedStr}`);
+  return axios.get(
+    `http://localhost:8000/api/instrument?instrument_name=${searchedStr}`
+  );
 };
 
 export const getUser = (token) => {
@@ -98,6 +100,20 @@ export const removeInstrument = (id, token) => {
 };
 export const adding = (instrument, token) => {
   return axios.post(`${baseUrl}/instrument/`, instrument, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const getInstrumentsByAdmin = (token) => {
+  return axios.get(`${baseUrl}/admin-instruments/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const editUser = (form, token) => {
+  return axios.post(`${baseUrl}/update-user`, form, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
