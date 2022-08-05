@@ -4,11 +4,10 @@
 
 @media screen and (min-width: 600px) {
   .slider {
-    margin-top: 2%;
-
+    margin-top: 1%;
     width: 100%;
   }
   .img-slider {
-    height: 40vw;
+    height: 42vw;
   }
 }

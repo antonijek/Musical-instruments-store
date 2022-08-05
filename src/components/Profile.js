@@ -19,7 +19,7 @@ const Profile = () => {
     console.log(res);
   };
 
-  const shoeOrder = async (id) => {
+  const showOrder = async (id) => {
     const res = await getOneOrder(token, id);
 
     setInstrumentsPerOrder(res.data.data.has_many_baskets);
@@ -91,7 +91,7 @@ const Profile = () => {
           >
             <Typography sx={{}}> Order number: </Typography>
 
-            <Link onClick={(e) => shoeOrder(item.id)}>
+            <Link onClick={(e) => showOrder(item.id)}>
               <Typography sx={{ cursor: "pointer" }}>
                 {" "}
                 {pad_with_zeroes(item.id, 6)}
