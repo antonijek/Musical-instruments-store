@@ -19,11 +19,8 @@ const Feed = ({ instruments }) => {
     setId(e);
   };
 
-  console.log('ii: '+ JSON.stringify(instruments));
-
   return (
     <>
-    {console.log('thus: ' + JSON.stringify(instruments.data)) }
       <Grid container spacing={5} sx={GridContainerStyle}>
       
         {(instruments).map((instrument) => (

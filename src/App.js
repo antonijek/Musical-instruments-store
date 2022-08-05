@@ -14,6 +14,7 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
+// import CartModal from "./components/cart/CartModal"
 
 import { Container } from "@mui/material";
 
@@ -69,6 +70,7 @@ function App() {
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
               <Route path="/admin" element={<AdminPanel />} />
+              {/* <Route path="/CartModal" element={<CartModal />} /> */}
             </Routes>
           </Container>
           <Footer />

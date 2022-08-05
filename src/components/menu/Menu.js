@@ -16,7 +16,7 @@ const Menu = ({categoryId, setCategoryId}) => {
   const [instruments, setInstruments] = useState([]);
   const [searchedString, setSearchedString] = useState('');
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [pageInfo, setPageInfo] = useState(0);
 
   const getInstrumentsApi = async () => {
@@ -25,8 +25,6 @@ const Menu = ({categoryId, setCategoryId}) => {
       const res = await getInstruments(currentPage);
       setInstruments(res.data.data.data);
       setPageInfo(res.data.data);
-      // console.log('res dd1: '+ JSON.stringify(res.data.data))
-      // console.log('b: '+ JSON.stringify(res.data.data));
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -43,10 +41,8 @@ const Menu = ({categoryId, setCategoryId}) => {
     setLoading(true);
     try {
       const res = await getCategory(categoryId, currentPage);
-      setInstruments(res.data.data.data[0].has_many_instruments);
-      setPageInfo(res.data.data);
-      // console.log('res dd2: '+ JSON.stringify(res.data.data))
-      // console.log('tss: '+JSON.stringify(res.data.data.data[0].has_many_instruments))
+      setInstruments(res.data.data[0].hasManyInstruments.data);
+      setPageInfo(res.data.data[0].hasManyInstruments);
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -63,7 +59,8 @@ const Menu = ({categoryId, setCategoryId}) => {
     setLoading(true);
     try {
       const res = await getSearchedInstrument(searchedString);
-      // setInstruments(res.data.data);
+      setInstruments(res.data.data.data);
+      setPageInfo(res.data.data);
       setLoading(false);
     } catch(e) {
       console.log(e);
@@ -73,10 +70,11 @@ const Menu = ({categoryId, setCategoryId}) => {
 
   useEffect(() => {
     getSearchedApi();
-  }, [searchedString, currentPage]);
+  }, [searchedString]);
   
   const handlePage = (event, page) => {
     setCurrentPage(page);
+    console.log(page);
     window.scroll(0,0)
   }
 
