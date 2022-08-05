@@ -1,36 +1,40 @@
-import { React, useContext } from "react";
+import { React, useContext, useState } from "react";
 import axios from "axios";
-import { Typography, Box, Grid, Container, Stack } from "@mui/material";
+import { Typography, Box, Grid, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CartContext } from "../CartContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../UserContext";
-import { lighten } from "@material-ui/core";
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
   const { user } = useContext(UserContext);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  let navigate = useNavigate();
 
-  const totalPrice = addToCart.reduce(
-    (price, item) => price + item.quantity * item.price,
-    0
-  );
+  const totalPrice = addToCart.reduce((price, item) => price + item.quantity * item.price,0);
+
   const totalQuantity = addToCart.length;
 
   const buyHandler = async () => {
     let items;
     let basket = [];
-    let id = 0;
-    let qty = 0;
-    addToCart.map((elem) => {
-      id = elem.id;
-      qty = elem.quantity;
-      basket = [{ id }, { qty }];
-      console.log(basket[0]);
-      console.log(basket[1]);
+
+    const arr = addToCart.map(item => {
+      let obj = {}
+      obj[item.id] = item.quantity;
+      return obj;
     });
-    // basket = [{5:1}]
+
+    basket = arr;
 
     let obj = { item: {} };
     basket.map((item) => {
@@ -38,29 +42,46 @@ const Cart = () => {
         obj.item[key] = item[key];
       }
     });
+
     items = obj.item;
-    // console.log(items);
 
-    // const res = await axios.post(
-    //   `http://localhost:8000/api/buy`,
-    //   {
-    //     items
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-    // console.log(res);
-
+    const res = await axios.post(
+      `http://localhost:8000/api/buy`,
+      {
+        items
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     setAddToCart([]);
+    navigate('/menu');
   };
 
   const handleDelete = (instId) => {
     const deleteInst = addToCart.filter((elem) => elem.id !== instId);
     setAddToCart(deleteInst);
   };
+
+  const modalStyle = { 
+    display:'flex',
+    flexDirection:'column',
+    justifyConent:'center',
+    alignItems:'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    height:'30vh',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+
+
+  }
 
   return (
     <>
@@ -160,7 +181,7 @@ const Cart = () => {
               Total: <b>{totalPrice}$</b>
             </Typography>
             <Button
-              onClick={buyHandler}
+              onClick={handleOpen} 
               variant="contained"
               sx={{ width: "80%", padding: "4%" }}
             >
@@ -169,6 +190,34 @@ const Cart = () => {
           </Box>
         </Grid>
       </Grid>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={modalStyle}>
+            <Box sx={{marginTop:'11%'}}>
+              <Typography sx={{fontSize:'2em'}} id="transition-modal-title" variant="h6" component="h2">
+                Confirm purchase
+              </Typography>
+            </Box>
+            <Box sx={{marginTop:'5%'}}>
+              <Button variant="outlined" sx={{margin:'15px'}} onClick={buyHandler}>Confirm</Button>
+              <Button variant="outlined" sx={{margin:'15px'}} onClick={handleClose}>Cancel</Button>
+            </Box>
+
+          </Box>
+        </Fade>
+      </Modal>
+      
     </>
   );
 };
