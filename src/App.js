@@ -14,6 +14,7 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
+
 import Statistic from "./components/Statistic";
 // import CartModal from "./components/cart/CartModal"
 
@@ -61,7 +62,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Sign-up" element={<Register />} />
               <Route path="/Profile" element={<Profile />} />
-              <Route path="/statistic" element={<Statistic />} />
+
+              <Route
+                path="/statistic"
+                element={user.admin ? <Statistic /> : <div>Page404</div>}
+              />
               <Route
                 path="/Menu"
                 element={
@@ -73,13 +78,7 @@ function App() {
               <Route path="/Cart" element={<Cart />} />
               <Route
                 path="/admin"
-                element={
-                  user && user.verified === 1 ? (
-                    <AdminPanel />
-                  ) : (
-                    <div>Page404</div>
-                  )
-                }
+                element={user.admin ? <AdminPanel /> : <div>Page404</div>}
               />
               <Route path="/change-password" element={<ChangePassword />} />
             </Routes>

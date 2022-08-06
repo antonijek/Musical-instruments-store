@@ -5,12 +5,12 @@ import "../styles/Profile.css";
 import { Button, Typography, Box, Divider, Link, Avatar } from "@mui/material";
 import { Link as LinkR } from "react-router-dom";
 import { getOrders } from "../api";
-import { getOneOrder } from "../api";
+import { getOneOrder, getUser } from "../api";
 import { pad_with_zeroes } from "../utils";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 
 const Profile = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [orders, setOrders] = useState([]);
   const [instrumentsPerOrder, setInstrumentsPerOrder] = useState([]);
   let token = localStorage.getItem("token");
@@ -26,9 +26,18 @@ const Profile = () => {
 
     setInstrumentsPerOrder(res.data.data.has_many_baskets);
   };
-
+  const handleUser = async () => {
+    try {
+      const res = await getUser(token);
+      setUser(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     handleOrder();
+    handleUser();
   }, []);
 
   return (
@@ -67,7 +76,7 @@ const Profile = () => {
       <Typography
         sx={{ color: "text.secondary", fontSize: { xs: "4vw", sm: "1.5vw" } }}
       >
-        Remaining balance: {user.funds} Euro
+        Remaining balance: {user.funds} €
       </Typography>
 
       <Box sx={{ mt: 2 }}>
@@ -112,8 +121,9 @@ const Profile = () => {
       <Divider />
 
       <Divider />
-      {orders.map((item) => (
+      {orders.map((item, i) => (
         <Box
+          key={i}
           sx={{
             display: "flex",
             justifyContent: { sm: "space-around" },
