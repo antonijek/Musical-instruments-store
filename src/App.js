@@ -14,8 +14,9 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
-// import CartModal from "./components/cart/CartModal"
-
+import Contact from "./components/Contact";
+import About from "./components/About";
+import Page404 from "./components/Page404";
 import { Container } from "@mui/material";
 
 import { getUser } from "./api";
@@ -70,7 +71,9 @@ function App() {
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
               <Route path="/admin" element={<AdminPanel />} />
-              {/* <Route path="/CartModal" element={<CartModal />} /> */}
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/about-us" element={<About />} />
+              <Route path="/*" element={<Page404 />} />
             </Routes>
           </Container>
           <Footer />
