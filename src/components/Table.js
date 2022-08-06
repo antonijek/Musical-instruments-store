@@ -3,25 +3,21 @@ import { DataGrid } from "@mui/x-data-grid";
 import AlertDialog from "./AlertDialog";
 import EditUser from "./EditUser";
 import EditInstrument from "./EditInstrument";
-import {
-  Box,
-  Typography,
-  Modal,
-  Checkbox,
-  TextField,
-  FormControlLabel,
-  Button,
-  Snackbar,
-  Alert,
-  CircularProgress,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Box, Typography, Modal, Button } from "@mui/material";
+
 import { style } from "../utils";
-import { verify } from "../api";
-import { editInstrument, removeInstrument, editUser } from "../api";
+
+import { editInstrument, removeInstrument } from "../api";
 import AddNewInstrument from "./AddNewInstrument";
 
-export default function Table({ title, setTitle, columns, rows, setRows }) {
+export default function Table({
+  title,
+  columns,
+  rows,
+  setRows,
+  getAllUsers,
+  getAllInstruments,
+}) {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   const [form, setForm] = useState({});
@@ -80,6 +76,7 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
       const res = await editInstrument(details.id, form, token);
       setMessage(res.data.message);
       setSnackbar(true);
+      getAllInstruments();
       setTimeout(handleClose, 3000);
       setloading(false);
     } catch (err) {
@@ -176,15 +173,21 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
                 form={form}
                 handleForm={handleForm}
                 details={details}
+                rows={rows}
+                setRows={setRows}
+                getAllUsers={getAllUsers}
               />
             ) : (
               <EditInstrument
                 handleClose={handleClose}
                 form={form}
                 handleForm={handleForm}
-                loading={loading}
                 validate={validate}
                 handleClickOpen={handleClickOpen}
+                loading={loading}
+                message={message}
+                snackbar={snackbar}
+                setSnackbar={setSnackbar}
               />
             )}
           </Box>
@@ -192,7 +195,7 @@ export default function Table({ title, setTitle, columns, rows, setRows }) {
       </div>
       {openAlertDialog ? (
         <AlertDialog
-          deleteInstrument={deleteInstrument}
+          deleteItem={deleteInstrument}
           closeAlertDialog={closeAlertDialog}
           confirmationDelete={confirmationDelete}
           setConfirmationDelete={setConfirmationDelete}

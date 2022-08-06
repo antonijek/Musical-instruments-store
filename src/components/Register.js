@@ -9,14 +9,23 @@ import {
   TextField,
   Button,
   CircularProgress,
-  Box,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { UserContext } from "./UserContext";
 
 const Register = () => {
   const { setUser } = useContext(UserContext);
-  const { formValues, formErrors, handleChange, handleSubmit, user, loading } =
-    useRegister();
+  const {
+    formValues,
+    formErrors,
+    handleChange,
+    handleSubmit,
+    user,
+    loading,
+    message,
+    snackBar,
+  } = useRegister();
 
   useEffect(() => {
     setUser(user);
@@ -67,10 +76,6 @@ const Register = () => {
       md: "6% 10% 3% 10%",
       lg: "10% 10% 4% 10%",
     },
-  };
-
-  const test = () => {
-    const data = new FormData();
   };
 
   return (
@@ -146,18 +151,11 @@ const Register = () => {
           />
           <Typography sx={errorText}> {formErrors.confirmPassword} </Typography>
 
-          <Box
-            sx={{
-              width: { xs: "90%", sm: "70%", md: "60%", lg: "70%" },
-              marginTop: "5%",
-            }}
-          >
-            <input type="file"> </input>
-          </Box>
-
           <Button sx={buttonStyle} variant="contained" type="submit">
             {loading ? (
-              <CircularProgress color="inherit" size={20} sx={{ mr: 1 }} />
+              <CircularProgress
+                sx={{ display: "block", mx: "auto", color: "white" }}
+              />
             ) : null}
             Sign in
           </Button>
@@ -166,6 +164,19 @@ const Register = () => {
           Already have an account? <Link to="/login">Sign in</Link>
         </Typography>
       </Paper>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackBar}
+        autoHideDuration={4000}
+      >
+        <Alert
+          severity={
+            message === "User created successfully!" ? "success" : "error"
+          }
+        >
+          {message}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };

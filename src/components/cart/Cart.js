@@ -5,13 +5,12 @@ import Button from "@mui/material/Button";
 import { CartContext } from "../CartContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "../UserContext";
-import Backdrop from '@mui/material/Backdrop';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-
   let token = localStorage.getItem("token");
   const { addToCart, setAddToCart } = useContext(CartContext);
   const [open, setOpen] = useState(false);
@@ -20,7 +19,10 @@ const Cart = () => {
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
 
-  const totalPrice = addToCart.reduce((price, item) => price + item.quantity * item.price,0);
+  const totalPrice = addToCart.reduce(
+    (price, item) => price + item.quantity * item.price,
+    0
+  );
 
   const totalQuantity = addToCart.length;
 
@@ -28,8 +30,8 @@ const Cart = () => {
     let items;
     let basket = [];
 
-    const arr = addToCart.map(item => {
-      let obj = {}
+    const arr = addToCart.map((item) => {
+      let obj = {};
       obj[item.id] = item.quantity;
       return obj;
     });
@@ -48,7 +50,7 @@ const Cart = () => {
     const res = await axios.post(
       `http://localhost:8000/api/buy`,
       {
-        items
+        items,
       },
       {
         headers: {
@@ -57,7 +59,7 @@ const Cart = () => {
       }
     );
     setAddToCart([]);
-    navigate('/menu');
+    navigate("/menu");
   };
 
   const handleDelete = (instId) => {
@@ -65,23 +67,21 @@ const Cart = () => {
     setAddToCart(deleteInst);
   };
 
-  const modalStyle = { 
-    display:'flex',
-    flexDirection:'column',
-    justifyConent:'center',
-    alignItems:'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+  const modalStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyConent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 600,
-    height:'30vh',
-    bgcolor: 'background.paper',
+    height: "30vh",
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
-
-
-  }
+  };
 
   return (
     <>
@@ -181,7 +181,7 @@ const Cart = () => {
               Total: <b>{totalPrice}$</b>
             </Typography>
             <Button
-              onClick={handleOpen} 
+              onClick={handleOpen}
               variant="contained"
               sx={{ width: "80%", padding: "4%" }}
             >
@@ -204,20 +204,35 @@ const Cart = () => {
       >
         <Fade in={open}>
           <Box sx={modalStyle}>
-            <Box sx={{marginTop:'11%'}}>
-              <Typography sx={{fontSize:'2em'}} id="transition-modal-title" variant="h6" component="h2">
+            <Box sx={{ marginTop: "11%" }}>
+              <Typography
+                sx={{ fontSize: "2em" }}
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
+              >
                 Confirm purchase
               </Typography>
             </Box>
-            <Box sx={{marginTop:'5%'}}>
-              <Button variant="outlined" sx={{margin:'15px'}} onClick={buyHandler}>Confirm</Button>
-              <Button variant="outlined" sx={{margin:'15px'}} onClick={handleClose}>Cancel</Button>
+            <Box sx={{ marginTop: "5%" }}>
+              <Button
+                variant="outlined"
+                sx={{ margin: "15px" }}
+                onClick={buyHandler}
+              >
+                Confirm
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ margin: "15px" }}
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
             </Box>
-
           </Box>
         </Fade>
       </Modal>
-      
     </>
   );
 };

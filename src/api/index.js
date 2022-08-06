@@ -35,9 +35,7 @@ export const getOneInstrument = (id) => {
 };
 
 export const getSearchedInstrument = (searchedStr) => {
-  return axios.get(
-    `${baseUrl}/instrument?instrument_name=${searchedStr}`
-  );
+  return axios.get(`${baseUrl}/instrument?instrument_name=${searchedStr}`);
 };
 
 export const getUser = (token) => {
@@ -115,6 +113,28 @@ export const getInstrumentsByAdmin = (token) => {
 };
 export const editUser = (form, token) => {
   return axios.post(`${baseUrl}/update-user`, form, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const removeUser = (id, token) => {
+  return axios.delete(`${baseUrl}/delete-user/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const changePassword = (form, token) => {
+  return axios.post(`${baseUrl}/change-password`, form, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getStatistic = (token) => {
+  return axios(`${baseUrl}/statistic/`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
