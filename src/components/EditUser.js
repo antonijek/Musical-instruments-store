@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import AlertDialog from "./AlertDialog";
 
 import {
   Box,
@@ -23,15 +24,22 @@ const EditUser = ({
   details,
   rows,
   setRows,
+  getAllUsers,
 }) => {
   const [snackbar, setSnackbar] = useState(false);
   const [message, setMessage] = useState();
   const [loading, setloading] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [confirmationDelete, setConfirmationDelete] = useState(false);
 
   let token = localStorage.getItem("token");
 
   const handleCloseSnackbar = () => {
     setSnackbar(false);
+  };
+
+  const closeAlertDialog = () => {
+    setOpenAlertDialog(false);
   };
 
   const handleEditUser = async (e) => {
@@ -43,6 +51,7 @@ const EditUser = ({
       setMessage(res.data.message);
       setSnackbar(true);
       setTimeout(handleClose, 2000);
+      getAllUsers();
       setloading(false);
     } catch (err) {
       console.log(err);
@@ -61,6 +70,7 @@ const EditUser = ({
       console.log(res);
     } catch (err) {
       console.log(err);
+      setloading(false);
     }
   };
 
@@ -158,10 +168,23 @@ const EditUser = ({
         </Box>
       </Box>
       <Box textAlign="end">
-        <Button variant="outlined" color="error">
+        <Button
+          onClick={() => setOpenAlertDialog(true)}
+          variant="outlined"
+          color="error"
+        >
           Remove user
         </Button>
       </Box>
+      {openAlertDialog ? (
+        <AlertDialog
+          deleteItem={deleteUser}
+          closeAlertDialog={closeAlertDialog}
+          confirmationDelete={confirmationDelete}
+          setConfirmationDelete={setConfirmationDelete}
+          loading={loading}
+        />
+      ) : null}
     </Box>
   );
 };

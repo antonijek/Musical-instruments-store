@@ -10,7 +10,14 @@ import { style } from "../utils";
 import { editInstrument, removeInstrument } from "../api";
 import AddNewInstrument from "./AddNewInstrument";
 
-export default function Table({ title, columns, rows, setRows }) {
+export default function Table({
+  title,
+  columns,
+  rows,
+  setRows,
+  getAllUsers,
+  getAllInstruments,
+}) {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   const [form, setForm] = useState({});
@@ -69,6 +76,7 @@ export default function Table({ title, columns, rows, setRows }) {
       const res = await editInstrument(details.id, form, token);
       setMessage(res.data.message);
       setSnackbar(true);
+      getAllInstruments();
       setTimeout(handleClose, 3000);
       setloading(false);
     } catch (err) {
@@ -167,6 +175,7 @@ export default function Table({ title, columns, rows, setRows }) {
                 details={details}
                 rows={rows}
                 setRows={setRows}
+                getAllUsers={getAllUsers}
               />
             ) : (
               <EditInstrument
@@ -186,7 +195,7 @@ export default function Table({ title, columns, rows, setRows }) {
       </div>
       {openAlertDialog ? (
         <AlertDialog
-          deleteInstrument={deleteInstrument}
+          deleteItem={deleteInstrument}
           closeAlertDialog={closeAlertDialog}
           confirmationDelete={confirmationDelete}
           setConfirmationDelete={setConfirmationDelete}

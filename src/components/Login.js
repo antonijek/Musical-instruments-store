@@ -8,6 +8,8 @@ import {
   Typography,
   Link,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import Modal from "./Modal";
 import useLogin from "../hooks/useLogin";
@@ -26,11 +28,14 @@ const Login = () => {
     loading,
     person,
     loginMessage,
+    snackBar,
   } = useLogin();
 
   useEffect(() => {
     setUser(person);
   }, [person, setUser]);
+
+  console.log(loginMessage);
 
   return (
     <div>
@@ -45,6 +50,15 @@ const Login = () => {
           p: { xs: 2, md: 8 },
         }}
       >
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={snackBar}
+          autoHideDuration={4000}
+        >
+          <Alert severity={loginMessage === "Logged in!" ? "success" : "error"}>
+            {loginMessage}
+          </Alert>
+        </Snackbar>
         <Typography
           align="center"
           color="primary"

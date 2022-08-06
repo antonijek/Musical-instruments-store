@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/index";
+
 const useRegister = () => {
   const navigate = useNavigate();
   const initialValues = {
@@ -16,6 +17,8 @@ const useRegister = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
+  const [snackBar, setSnackBar] = useState(false);
+  const [message, setMessage] = useState("");
 
   const validate = (values) => {
     const errors = {};
@@ -72,9 +75,11 @@ const useRegister = () => {
       );
       console.log(res);
       setUser(res.data.data);
+      setMessage(res.data.message);
+      setSnackBar(true);
       setLoading(false);
       localStorage.setItem("token", res.data.access_token);
-      setTimeout(() => navigate("/"), 500);
+      setTimeout(() => navigate("/"), 3000);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -97,6 +102,8 @@ const useRegister = () => {
     checkregisterForm,
     user,
     loading,
+    message,
+    snackBar,
   };
 };
 export default useRegister;

@@ -9,13 +9,23 @@ import {
   TextField,
   Button,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { UserContext } from "./UserContext";
 
 const Register = () => {
   const { setUser } = useContext(UserContext);
-  const { formValues, formErrors, handleChange, handleSubmit, user, loading } =
-    useRegister();
+  const {
+    formValues,
+    formErrors,
+    handleChange,
+    handleSubmit,
+    user,
+    loading,
+    message,
+    snackBar,
+  } = useRegister();
 
   useEffect(() => {
     setUser(user);
@@ -143,7 +153,9 @@ const Register = () => {
 
           <Button sx={buttonStyle} variant="contained" type="submit">
             {loading ? (
-              <CircularProgress color="inherit" size={20} sx={{ mr: 1 }} />
+              <CircularProgress
+                sx={{ display: "block", mx: "auto", color: "white" }}
+              />
             ) : null}
             Sign in
           </Button>
@@ -152,6 +164,19 @@ const Register = () => {
           Already have an account? <Link to="/login">Sign in</Link>
         </Typography>
       </Paper>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackBar}
+        autoHideDuration={4000}
+      >
+        <Alert
+          severity={
+            message === "User created successfully!" ? "success" : "error"
+          }
+        >
+          {message}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };

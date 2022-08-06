@@ -14,6 +14,7 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
+import Statistic from "./components/Statistic";
 // import CartModal from "./components/cart/CartModal"
 
 import { Container } from "@mui/material";
@@ -60,6 +61,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Sign-up" element={<Register />} />
               <Route path="/Profile" element={<Profile />} />
+              <Route path="/statistic" element={<Statistic />} />
               <Route
                 path="/Menu"
                 element={
@@ -72,7 +74,11 @@ function App() {
               <Route
                 path="/admin"
                 element={
-                  user.verified === 1 ? <AdminPanel /> : <div>Page404</div>
+                  user && user.verified === 1 ? (
+                    <AdminPanel />
+                  ) : (
+                    <div>Page404</div>
+                  )
                 }
               />
               <Route path="/change-password" element={<ChangePassword />} />

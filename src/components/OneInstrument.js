@@ -1,6 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { UserContext } from "./UserContext";
 import {
   Modal,
   Typography,
@@ -19,8 +20,11 @@ import { React, useState, useEffect, useContext } from "react";
 import "../styles/OneInstrument.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { CartContext } from "./CartContext";
+import userEvent from "@testing-library/user-event";
 
 const OneInstrument = ({ handleClose, id }) => {
+  const { user, setUser } = useContext(UserContext);
+
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
   const [com, setCom] = useState(1);
@@ -214,7 +218,7 @@ const OneInstrument = ({ handleClose, id }) => {
                 onClick={() => handleAddToCart(instrument)}
                 fullWidth
                 variant="contained"
-                disabled={instrument.quantity > addedInCart ? false : true}
+                disabled={!user || user.verified === 0 ? true : false}
                 startIcon={<ShoppingCartRoundedIcon sx={{ color: "orange" }} />}
               >
                 Add to Cart

@@ -55,12 +55,16 @@ const AdminPanel = () => {
     setRows(res.data.data);
     setTitle("Users");
     setColumns(usersColumns);
+    return res.data.data;
   };
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
   return (
     <div className="grid-admin">
       <Dashboard
@@ -83,6 +87,8 @@ const AdminPanel = () => {
           setRows={setRows}
           columns={columns}
           setColumns={setColumns}
+          getAllUsers={getAllUsers}
+          getAllInstruments={getAllInstruments}
         />
       </Box>
     </div>

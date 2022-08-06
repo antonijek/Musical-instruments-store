@@ -11,14 +11,17 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const [person, setPerson] = useState("");
   const [loginMessage, setloginMessage] = useState("");
+  const [snackBar, setSnackBar] = useState(false);
 
   const handleToken = async () => {
     setLoading(true);
     try {
       const res = await login(formData.email, formData.pass);
       console.log(res);
-      setloginMessage(res.data);
+      setloginMessage(res.data.message);
+      setSnackBar(true);
       setPerson(res.data.user);
+      setTimeout(() => setSnackBar(false), 2000);
       localStorage.setItem("token", res.data.access_token.plainTextToken);
       setTimeout(() => navigate("/"), 1000);
       setLoading(false);
@@ -68,6 +71,7 @@ const useLogin = () => {
     loading,
     person,
     loginMessage,
+    snackBar,
   };
 };
 

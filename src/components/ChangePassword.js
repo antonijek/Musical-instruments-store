@@ -5,6 +5,7 @@ import {
   Button,
   Link,
   Snackbar,
+  CircularProgress,
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -130,6 +131,9 @@ const ChangePassword = () => {
           error={error.new}
           helperText={error.new}
         />
+        {loading ? (
+          <CircularProgress sx={{ display: "block", mx: "auto" }} />
+        ) : null}
         <TextField
           variant="standard"
           label=" Confirm password"
