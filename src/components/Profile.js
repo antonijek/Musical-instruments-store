@@ -106,7 +106,7 @@ const Profile = () => {
             "Your previus orders:"
           ) : (
             <LinkR
-              to="/menu"
+              to="/shop"
               style={{
                 color: "#42a5f5",
 

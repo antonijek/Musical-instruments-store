@@ -223,6 +223,11 @@ const OneInstrument = ({ handleClose, id }) => {
               >
                 Add to Cart
               </Button>
+              <Typography sx={{ color: "red", textAlign: "center" }}>
+                {!user || user.verified === 0
+                  ? "Only verified users can buy!"
+                  : null}
+              </Typography>
             </Box>
           </Box>
         </Box>
