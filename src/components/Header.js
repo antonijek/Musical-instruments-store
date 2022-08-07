@@ -4,8 +4,6 @@ import { UserContext } from "./UserContext";
 import { CartContext } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@material-ui/core";
-import Cart from "../components/cart/Cart";
-
 import {
   AppBar,
   Box,
@@ -20,14 +18,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import "../styles/Header.css";
 
-const menuItems = ["Home", "Menu", "About us", "Contact"];
+const menuItems = ["home", "shop", "about us", "contact"];
 const menuItemsSmallScreens = [
-  "Home",
-  "Menu",
-  "About us",
-  "Contact",
-  "Login",
-  "Sign up",
+  "home",
+  "shop",
+  "about us",
+  "contact",
+  "login",
+  "sign up",
 ];
 
 const Header = () => {
@@ -57,18 +55,20 @@ const Header = () => {
           [
             user.verified === 1 ? (
               <NavLink
-                to={"Cart"}
+                to={"cart"}
                 className="login-signup"
                 style={changeStyleOnActiveMenuItem}
               >
                 <ShoppingCartIcon sx={{ color: "gray" }} />
               </NavLink>
             ) : null,
-            <Avatar
-              src="../images/Ana.jpg"
-              sx={{ width: 30, height: 30, ml: 0 }}
-            />,
-            "Logout",
+            <NavLink to={"/profile"}>
+              <Avatar
+                src="/broken-image.jpg"
+                sx={{ width: 30, height: 30, ml: 0 }}
+              />
+            </NavLink>,
+            "logout",
           ].concat(menuItems)
         )
       : setMenu(menuItemsSmallScreens);
@@ -104,27 +104,27 @@ const Header = () => {
                 },
               }}
             >
-              {menu.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {menu.map((page, i) => (
+                <MenuItem key={i} onClick={handleCloseNavMenu}>
                   <NavLink
                     style={({ isActive }) => ({
                       color: isActive ? "orange" : "#1976d2",
                       fontWeight: isActive ? "bold" : "",
                     })}
                     to={
-                      page === "Sign up"
+                      page === "sign up"
                         ? "sign-up"
-                        : page === "Home"
+                        : page === "home"
                         ? "/"
-                        : page === "About us"
+                        : page === "about us"
                         ? "about-us"
-                        : page === "Logout"
+                        : page === "logout"
                         ? "/login"
                         : page
                     }
                     className="menu-item"
                   >
-                    {page === "Logout" ? (
+                    {page === "logout" ? (
                       <p style={{ margin: 0, padding: 0 }} onClick={logout}>
                         Logout
                       </p>
@@ -142,16 +142,16 @@ const Header = () => {
           </NavLink>
 
           <Box sx={{ width: "60%", display: { xs: "none", sm: "flex" } }}>
-            {menuItems.map((page) => (
+            {menuItems.map((page, i) => (
               <NavLink
                 to={
-                  page === "About us"
+                  page === "about us"
                     ? "about-us"
-                    : page === "Home"
+                    : page === "home"
                     ? "/"
                     : page
                 }
-                key={page}
+                key={i}
                 className="menu-item"
                 onClick={handleCloseNavMenu}
                 style={changeStyleOnActiveMenuItem}
@@ -186,14 +186,14 @@ const Header = () => {
                 }}
               >
                 <NavLink
-                  to={"Login"}
+                  to={"login"}
                   className="login-signup"
                   style={changeStyleOnActiveMenuItem}
                   onClick={logout}
                 >
                   Logout
                 </NavLink>
-                <NavLink to={"/Profile"}>
+                <NavLink to={"/profile"}>
                   <Avatar
                     sx={{ ml: 2, width: 30, height: 30 }}
                     src="../images/Ana.jpg"
@@ -201,7 +201,7 @@ const Header = () => {
                 </NavLink>
                 {user.verified === 1 ? (
                   <NavLink
-                    to={"Cart"}
+                    to={"cart"}
                     className="login-signup"
                     style={changeStyleOnActiveMenuItem}
                   >
@@ -218,19 +218,19 @@ const Header = () => {
             ) : (
               <>
                 <NavLink
-                  to={"Login"}
+                  to={"login"}
                   className="login-signup"
                   style={changeStyleOnActiveMenuItem}
                 >
                   Login
                 </NavLink>
                 <NavLink
-                  to={"Sign-up"}
+                  to={"sign-up"}
                   className="login-signup"
                   style={changeStyleOnActiveMenuItem}
                 >
                   Sign up
-                </NavLink>{" "}
+                </NavLink>
               </>
             )}
           </Box>

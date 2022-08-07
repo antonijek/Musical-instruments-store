@@ -68,7 +68,7 @@ function App() {
                 element={user.admin ? <Statistic /> : <div>Page404</div>}
               />
               <Route
-                path="/Menu"
+                path="/shop"
                 element={
                   <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
                 }
