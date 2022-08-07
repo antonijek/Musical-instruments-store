@@ -29,7 +29,7 @@ const AlertDialog = ({
         <DialogTitle id="alert-dialog-title">{""}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this instrument?
+            Are you sure?
           </DialogContentText>
         </DialogContent>
         {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}
