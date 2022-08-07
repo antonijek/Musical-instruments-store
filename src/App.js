@@ -14,12 +14,11 @@ import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/AdminPanel";
-
+import Contact from "./components/Contact";
+import About from "./components/About";
+import Page404 from "./components/Page404";
 import Statistic from "./components/Statistic";
-// import CartModal from "./components/cart/CartModal"
-
 import { Container } from "@mui/material";
-
 import { getUser } from "./api";
 
 function App() {
@@ -76,6 +75,10 @@ function App() {
 
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/admin" element={<AdminPanel />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/about-us" element={<About />} />
+              <Route path="/*" element={<Page404 />} />
               <Route
                 path="/admin"
                 element={user.admin ? <AdminPanel /> : <div>Page404</div>}
