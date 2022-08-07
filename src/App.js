@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Menu from "./components/menu/Menu";
 import Footer from "./components/Footer";
 import { UserContext } from "./components/UserContext";
-import Test from "./components/Test.js";
+import ChangePassword from "./components/ChangePassword";
 import { CartContext } from "./components/CartContext";
 import Instruments from "./components/Instruments";
 import Cart from "./components/cart/Cart";
@@ -17,8 +17,8 @@ import AdminPanel from "./components/AdminPanel";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Page404 from "./components/Page404";
+import Statistic from "./components/Statistic";
 import { Container } from "@mui/material";
-
 import { getUser } from "./api";
 
 function App() {
@@ -61,6 +61,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Sign-up" element={<Register />} />
               <Route path="/Profile" element={<Profile />} />
+              <Route path="/statistic" element={<Statistic />} />
               <Route
                 path="/Menu"
                 element={
@@ -70,10 +71,21 @@ function App() {
 
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
-              <Route path="/admin" element={<AdminPanel />} />
+              {/* <Route path="/admin" element={<AdminPanel />} /> */}
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about-us" element={<About />} />
               <Route path="/*" element={<Page404 />} />
+              <Route
+                path="/admin"
+                element={
+                  user && user.verified === 1 ? (
+                    <AdminPanel />
+                  ) : (
+                    <div>Page404</div>
+                  )
+                }
+              />
+              <Route path="/change-password" element={<ChangePassword />} />
             </Routes>
           </Container>
           <Footer />

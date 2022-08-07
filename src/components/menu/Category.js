@@ -1,13 +1,12 @@
-import { React, useState } from 'react'
-import { Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { React, useState } from "react";
+import { Box } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-function Category({categoryId, setCategoryId}) {
-
-  const [instrumentTitle, setInstrumentTitle] = useState('');
+function Category({ categoryId, setCategoryId }) {
+  const [instrumentTitle, setInstrumentTitle] = useState("");
 
   const handleChange = (event) => {
     setInstrumentTitle(event.target.value);
@@ -15,40 +14,36 @@ function Category({categoryId, setCategoryId}) {
   };
 
   // console.log('setovan ID iz Category: '+categoryId)
-  
+
   const instruments = [
-    'Drums',
-    'Electronic instruments',
-    'Equipment',
-    'Guitars',
-    'Pianos',
-    'Strings',
-    'Wind'
+    "Drums",
+    "Electronic instruments",
+    "Equipment",
+    "Guitars",
+    "Pianos",
+    "Strings",
+    "Wind",
   ];
 
   return (
-
     <Box sx={{ minWidth: 120 }}>
-      <FormControl sx={{width:'40vh',}}>
+      <FormControl sx={{ width: "40vh" }}>
         <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
-          
           labelId="demo-simple-select-label"
           value={instrumentTitle}
           label="Instrument"
           onChange={handleChange}
         >
-          { instruments.map(instrument => (
-
-            <MenuItem value={instrument} defaultValue="" key={instrument}>{instrument}</MenuItem>
-            
+          {instruments.map((instrument) => (
+            <MenuItem value={instrument} defaultValue="" key={instrument}>
+              {instrument}
+            </MenuItem>
           ))}
-          
         </Select>
       </FormControl>
     </Box>
-
-  )
+  );
 }
 
-export default Category
+export default Category;

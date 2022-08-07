@@ -1,11 +1,9 @@
 import { React, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import AlertDialog from "./AlertDialog";
 
 import {
   Box,
   Typography,
-  Modal,
   Checkbox,
   TextField,
   FormControlLabel,
@@ -15,20 +13,33 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { style } from "../utils";
-import { verify } from "../api";
-import { editInstrument, removeInstrument, editUser } from "../api";
-import AddNewInstrument from "./AddNewInstrument";
 
-const EditUser = ({ handleClose, form, handleForm, details }) => {
+import { verify } from "../api";
+import { editUser, removeUser } from "../api";
+
+const EditUser = ({
+  handleClose,
+  form,
+  handleForm,
+  details,
+  rows,
+  setRows,
+  getAllUsers,
+}) => {
   const [snackbar, setSnackbar] = useState(false);
   const [message, setMessage] = useState();
   const [loading, setloading] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [confirmationDelete, setConfirmationDelete] = useState(false);
 
   let token = localStorage.getItem("token");
 
   const handleCloseSnackbar = () => {
     setSnackbar(false);
+  };
+
+  const closeAlertDialog = () => {
+    setOpenAlertDialog(false);
   };
 
   const handleEditUser = async (e) => {
@@ -40,6 +51,7 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
       setMessage(res.data.message);
       setSnackbar(true);
       setTimeout(handleClose, 2000);
+      getAllUsers();
       setloading(false);
     } catch (err) {
       console.log(err);
@@ -58,6 +70,24 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
       console.log(res);
     } catch (err) {
       console.log(err);
+      setloading(false);
+    }
+  };
+
+  const deleteUser = async () => {
+    // e.preventDefault();
+    setloading(true);
+    try {
+      const res = await removeUser(details.id, token);
+      const restUser = rows.filter((user) => user.id !== details.id);
+      setRows(restUser);
+      setMessage(res.data.message);
+      setSnackbar(true);
+      setTimeout(handleClose, 2000);
+      setloading(false);
+    } catch (err) {
+      console.log(err);
+      setloading(false);
     }
   };
 
@@ -96,7 +126,6 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={snackbar}
           autoHideDuration={4000}
-          handleclose={setTimeout(handleCloseSnackbar, 2000)}
         >
           <Alert severity="success">{message}</Alert>
         </Snackbar>
@@ -139,10 +168,23 @@ const EditUser = ({ handleClose, form, handleForm, details }) => {
         </Box>
       </Box>
       <Box textAlign="end">
-        <Button variant="outlined" color="error">
+        <Button
+          onClick={() => setOpenAlertDialog(true)}
+          variant="outlined"
+          color="error"
+        >
           Remove user
         </Button>
       </Box>
+      {openAlertDialog ? (
+        <AlertDialog
+          deleteItem={deleteUser}
+          closeAlertDialog={closeAlertDialog}
+          confirmationDelete={confirmationDelete}
+          setConfirmationDelete={setConfirmationDelete}
+          loading={loading}
+        />
+      ) : null}
     </Box>
   );
 };

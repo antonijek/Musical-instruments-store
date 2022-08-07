@@ -1,20 +1,19 @@
-import { React, useState, useEffect } from 'react'
-import SearchBar from './SearchBar';
-import Category from './Category';
-import Feed from './Feed';
+import { React, useState, useEffect } from "react";
+import SearchBar from "./SearchBar";
+import Category from "./Category";
+import Feed from "./Feed";
 import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
 import { getSearchedInstrument } from "../../api/index";
 import axios from "axios";
-import Typography from '@mui/material/Typography';
-import { Box, Stack } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import Typography from "@mui/material/Typography";
+import { Box, Stack } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 
-const Menu = ({categoryId, setCategoryId}) => {
-
+const Menu = ({ categoryId, setCategoryId }) => {
   const [instruments, setInstruments] = useState([]);
-  const [searchedString, setSearchedString] = useState('');
+  const [searchedString, setSearchedString] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageInfo, setPageInfo] = useState(0);
@@ -26,7 +25,7 @@ const Menu = ({categoryId, setCategoryId}) => {
       setInstruments(res.data.data.data);
       setPageInfo(res.data.data);
       setLoading(false);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       setLoading(false);
     }
@@ -36,7 +35,6 @@ const Menu = ({categoryId, setCategoryId}) => {
     getInstrumentsApi();
   }, [currentPage]);
 
-
   const getCategoryApi = async () => {
     setLoading(true);
     try {
@@ -44,16 +42,15 @@ const Menu = ({categoryId, setCategoryId}) => {
       setInstruments(res.data.data[0].hasManyInstruments.data);
       setPageInfo(res.data.data[0].hasManyInstruments);
       setLoading(false);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getCategoryApi();
-  }, [categoryId, currentPage])
-
+  }, [categoryId, currentPage]);
 
   const getSearchedApi = async () => {
     setLoading(true);
@@ -62,21 +59,21 @@ const Menu = ({categoryId, setCategoryId}) => {
       setInstruments(res.data.data.data);
       setPageInfo(res.data.data);
       setLoading(false);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getSearchedApi();
   }, [searchedString]);
-  
+
   const handlePage = (event, page) => {
     setCurrentPage(page);
     console.log(page);
-    window.scroll(0,0)
-  }
+    window.scroll(0, 0);
+  };
 
   const headerStyle = {
     width: "100%",
@@ -85,20 +82,20 @@ const Menu = ({categoryId, setCategoryId}) => {
   };
 
   const noInstrumentTextStyle = {
-    display:'flex',
-    justifyContent:'center',
-    alignContent:'center',
-    paddingTop:'10vw',
-    paddingBottom:'15vw',
-    fontSize:'1.5em'
-  }
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    paddingTop: "10vw",
+    paddingBottom: "15vw",
+    fontSize: "1.5em",
+  };
 
   return (
     <>
-        <Box sx={{margin:'5%'}}>
+      <Box sx={{ margin: "5%" }}>
         <Stack
           spacing={2}
-          direction={{xs:'column', md:'row'}}
+          direction={{ xs: "column", md: "row" }}
           justifyContent="space-around"
           alignItems="center"
         >
@@ -107,25 +104,26 @@ const Menu = ({categoryId, setCategoryId}) => {
         </Stack>
       </Box>
 
-      {
-        loading ? (
-          <CircularProgress sx={{ marginLeft:'32%', marginTop:'15%', position:'absolute'}} />
-        ) : null
-      }
+      {loading ? (
+        <CircularProgress
+          sx={{ marginLeft: "32%", marginTop: "15%", position: "absolute" }}
+        />
+      ) : null}
 
-      {  
-        
-        instruments !== 0 ? (
-          <Feed instruments={instruments} />
-        ) : (
-          <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
-        )
-      }
-      
+      {instruments !== 0 ? (
+        <Feed instruments={instruments} />
+      ) : (
+        <Typography sx={noInstrumentTextStyle}>No instruments</Typography>
+      )}
+
       <Stack sx={{ p: "5%" }} justifyContent="center" alignItems="center">
-        <Pagination count={pageInfo.last_page} onChange={handlePage} color="primary" size='large' />
+        <Pagination
+          count={pageInfo.last_page}
+          onChange={handlePage}
+          color="primary"
+          size="large"
+        />
       </Stack>
-
     </>
   );
 };

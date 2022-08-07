@@ -2,8 +2,21 @@ import React from "react";
 import "../styles/Slider.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { Link, useNavigate } from "react-router-dom";
 
-const Slider = () => {
+const Slider = ({ categoryId, setCategoryId }) => {
+  const navigate = useNavigate();
+
+  const images = [
+    { src: "images/drums.jpg", name: "Drums" },
+    { src: "images/electronic.jpg", name: "Electronic instruments" },
+    { src: "images/equipments.jpg", name: "Music equipment" },
+    { src: "images/guitars.jpg", name: "Guitars" },
+    { src: "images/piano.jpg", name: "Pianos" },
+    { src: "images/String-instruments.jpg", name: "String instruments" },
+    { src: "images/violins.jpg", name: "Wind instruments" },
+  ];
+
   return (
     <Carousel
       className="slider"
@@ -13,27 +26,12 @@ const Slider = () => {
       selectedItem={1}
       showStatus={false}
     >
-      <div>
-        <img src="images/guitars.jpg" alt="img" className="img-slider" />
-        <p className="legend">Guitars</p>
-      </div>
-      <div>
-        <img src="images/piano.jpg" alt="img" className="img-slider" />
-        <p className="legend">Pianos</p>
-      </div>
-      <div>
-        <img
-          src="images/String-instruments.jpg"
-          alt="img"
-          className="img-slider"
-        />
-        <p className="legend">String instruments</p>
-      </div>
-
-      <div>
-        <img src="images/violins.jpg" alt="img" className="img-slider" />
-        <p className="legend">wind instruments</p>
-      </div>
+      {images.map((image, i) => (
+        <div key={i}>
+          <img src={image.src} alt="img" className="img-slider" />
+          <p className="legend">{image.name}</p>
+        </div>
+      ))}
     </Carousel>
   );
 };

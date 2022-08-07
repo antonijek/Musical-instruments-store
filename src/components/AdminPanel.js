@@ -1,16 +1,18 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import Dashboard from "./Dashboard";
 import Table from "./Table";
 import "../styles/admin.css";
 import { Box } from "@mui/material";
 import { getInstrumentsByAdmin, getUsers } from "../api";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
+import { UserContext } from "./UserContext";
 
 const AdminPanel = () => {
   const [title, setTitle] = useState();
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
+  const { user } = useContext(UserContext);
   let token = localStorage.getItem("token");
   const renderRating = () => {
     return <EditSharpIcon />;
@@ -53,12 +55,16 @@ const AdminPanel = () => {
     setRows(res.data.data);
     setTitle("Users");
     setColumns(usersColumns);
+    return res.data.data;
   };
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
+  useEffect(() => {
+    getAllUsers();
+  }, []);
   return (
     <div className="grid-admin">
       <Dashboard
@@ -81,6 +87,8 @@ const AdminPanel = () => {
           setRows={setRows}
           columns={columns}
           setColumns={setColumns}
+          getAllUsers={getAllUsers}
+          getAllInstruments={getAllInstruments}
         />
       </Box>
     </div>

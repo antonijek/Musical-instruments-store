@@ -27,7 +27,14 @@ const EditInstrument = ({
   validate,
   handleClickOpen,
   loading,
+  message,
+  snackbar,
+  setSnackbar,
 }) => {
+  const handleCloseSnackbar = () => {
+    setSnackbar(false);
+  };
+
   return (
     <Box>
       <CloseIcon
@@ -37,6 +44,15 @@ const EditInstrument = ({
       />
       <form action="">
         <Box>
+          <Snackbar
+            width="100%"
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackbar}
+            autoHideDuration={4500}
+            handleclose={setTimeout(handleCloseSnackbar, 4000)}
+          >
+            <Alert severity="success">{message}</Alert>
+          </Snackbar>
           <Typography
             id="modal-modal-title"
             variant="h6"
