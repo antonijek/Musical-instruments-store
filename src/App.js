@@ -65,7 +65,9 @@ function App() {
 
               <Route
                 path="/statistic"
-                element={user.admin ? <Statistic /> : <div>Page404</div>}
+                element={
+                  user && user.admin ? <Statistic /> : <div>Page404</div>
+                }
               />
               <Route
                 path="/shop"
@@ -78,7 +80,9 @@ function App() {
               <Route path="/Cart" element={<Cart />} />
               <Route
                 path="/admin"
-                element={user.admin ? <AdminPanel /> : <div>Page404</div>}
+                element={
+                  user && user.admin ? <AdminPanel /> : <div>Page404</div>
+                }
               />
               <Route path="/change-password" element={<ChangePassword />} />
             </Routes>

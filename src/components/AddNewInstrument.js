@@ -10,13 +10,13 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-
 import { style } from "../utils";
 import CloseIcon from "@mui/icons-material/Close";
 
 const AddNewInstrument = ({
   modalForNewInstrument,
   setModalForNewInstrument,
+  getAllInstruments,
 }) => {
   const [form, setForm] = useState({});
   const [snackBar, setSnackBar] = useState(false);
@@ -28,14 +28,11 @@ const AddNewInstrument = ({
   let token = localStorage.getItem("token");
 
   const handleClose = () => setModalForNewInstrument(false);
-  const handleCloseSnackbar = () => {
-    setSnackBar(false);
-  };
+
   const handleForm = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-
   const addInstrument = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -61,43 +58,15 @@ const AddNewInstrument = ({
       data.append("weight", weight);
       data.append("instrument_category_id", instrument_category_id);
       data.append("price", price);
-
       const res = await adding(data, token);
       setMessage(res.data.message);
       setSnackBar(true);
       setTimeout(handleClose, 2000);
+      getAllInstruments();
       setLoading(false);
     } catch (err) {
       setDialog(true);
-
       setLoading(false);
-    }
-  };
-  console.log(form);
-  const validate = (e) => {
-    const {
-      name,
-      photo,
-      instrument_category_id,
-      price,
-      quantity,
-      description,
-      color,
-      weight,
-      dimensions,
-    } = form;
-    if (
-      name &&
-      photo &&
-      instrument_category_id &&
-      price &&
-      quantity &&
-      description &&
-      color &&
-      weight &&
-      dimensions
-    ) {
-      addInstrument(e);
     }
   };
 
@@ -231,6 +200,9 @@ const AddNewInstrument = ({
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={dialog}
         autoHideDuration={4000}
+        handleClose={setTimeout((e) => {
+          setDialog(false);
+        }, 4000)}
       >
         <Alert severity="error">Pravilno popunite sva polja!</Alert>
       </Snackbar>

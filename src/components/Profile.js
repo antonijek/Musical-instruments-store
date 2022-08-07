@@ -18,19 +18,16 @@ const Profile = () => {
   const handleOrder = async () => {
     const res = await getOrders(token);
     setOrders(res.data.data);
-    console.log(res);
   };
 
   const showOrder = async (id) => {
     const res = await getOneOrder(token, id);
-
     setInstrumentsPerOrder(res.data.data.has_many_baskets);
   };
   const handleUser = async () => {
     try {
       const res = await getUser(token);
       setUser(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }

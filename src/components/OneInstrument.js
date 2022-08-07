@@ -20,10 +20,9 @@ import { React, useState, useEffect, useContext } from "react";
 import "../styles/OneInstrument.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { CartContext } from "./CartContext";
-import userEvent from "@testing-library/user-event";
 
 const OneInstrument = ({ handleClose, id }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [instrument, setInstrument] = useState("");
   const [value, setValue] = useState(2);
@@ -50,7 +49,6 @@ const OneInstrument = ({ handleClose, id }) => {
     setLoading(true);
     try {
       const res = await rating(token, id, num);
-      console.log(res);
       setOpen(true);
       setMessage(res.data.message);
       setLoading(false);

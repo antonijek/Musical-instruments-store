@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert, CircularProgress } from "@mui/material";
@@ -29,7 +29,7 @@ const AlertDialog = ({
         <DialogTitle id="alert-dialog-title">{""}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure?
+            Are you sure you want to delete?
           </DialogContentText>
         </DialogContent>
         {loading ? <CircularProgress sx={{ ml: "40%" }} /> : null}

@@ -1,4 +1,4 @@
-import { React, useEffect, useContext } from "react";
+import { React, useContext } from "react";
 import { UserContext } from "./UserContext";
 import {
   Box,
@@ -19,7 +19,6 @@ import PianoSharpIcon from "@mui/icons-material/PianoSharp";
 
 const Dashboard = ({ getAllUsers, getAllInstruments }) => {
   const { user } = useContext(UserContext);
-  let token = localStorage.getItem("token");
 
   return (
     <Box
