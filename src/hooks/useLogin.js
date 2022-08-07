@@ -17,7 +17,6 @@ const useLogin = () => {
     setLoading(true);
     try {
       const res = await login(formData.email, formData.pass);
-      console.log(res);
       setloginMessage(res.data.message);
       setSnackBar(true);
       setPerson(res.data.user);

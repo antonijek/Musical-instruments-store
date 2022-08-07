@@ -2,11 +2,8 @@ import React from "react";
 import "../styles/Slider.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { Link, useNavigate } from "react-router-dom";
 
-const Slider = ({ categoryId, setCategoryId }) => {
-  const navigate = useNavigate();
-
+const Slider = () => {
   const images = [
     { src: "images/drums.jpg", name: "Drums" },
     { src: "images/electronic.jpg", name: "Electronic instruments" },

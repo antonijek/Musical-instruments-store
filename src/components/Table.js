@@ -4,9 +4,7 @@ import AlertDialog from "./AlertDialog";
 import EditUser from "./EditUser";
 import EditInstrument from "./EditInstrument";
 import { Box, Typography, Modal, Button } from "@mui/material";
-
 import { style } from "../utils";
-
 import { editInstrument, removeInstrument } from "../api";
 import AddNewInstrument from "./AddNewInstrument";
 
@@ -28,6 +26,8 @@ export default function Table({
   const [message, setMessage] = useState();
   const [loading, setloading] = useState(false);
 
+  let token = localStorage.getItem("token");
+
   const handleClickOpen = () => {
     setOpenAlertDialog(true);
   };
@@ -35,8 +35,6 @@ export default function Table({
   const closeAlertDialog = () => {
     setOpenAlertDialog(false);
   };
-
-  let token = localStorage.getItem("token");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -131,12 +129,13 @@ export default function Table({
     <div style={{ height: 400, width: "100%" }}>
       {modalForNewInstrument ? (
         <AddNewInstrument
+          getAllInstruments={getAllInstruments}
           modalForNewInstrument={modalForNewInstrument}
           setModalForNewInstrument={setModalForNewInstrument}
         />
       ) : null}
 
-      <div>
+      <Box>
         <Typography
           variant="h4"
           sx={{ textAlign: "center", my: "5%", color: "text.secondary" }}
@@ -153,18 +152,19 @@ export default function Table({
           </Button>
         ) : null}
         <DataGrid
+          sx={{ pl: "2%" }}
           rows={rows}
           columns={columns}
           pageSize={8}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          //checkboxSelection
           autoPageSize
           autoHeight
           onRowClick={showMOreDetails}
         />
-      </div>
+      </Box>
 
-      <div>
+      <Box>
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
             {details.email ? (
@@ -192,7 +192,7 @@ export default function Table({
             )}
           </Box>
         </Modal>
-      </div>
+      </Box>
       {openAlertDialog ? (
         <AlertDialog
           deleteItem={deleteInstrument}

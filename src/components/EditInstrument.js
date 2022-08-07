@@ -1,24 +1,14 @@
-import { React, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import AlertDialog from "./AlertDialog";
-
+import { React } from "react";
 import {
   Box,
   Typography,
-  Modal,
-  Checkbox,
   TextField,
-  FormControlLabel,
   Button,
   Snackbar,
   Alert,
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { style } from "../utils";
-import { verify } from "../api";
-import { editInstrument, removeInstrument, editUser } from "../api";
-import AddNewInstrument from "./AddNewInstrument";
 
 const EditInstrument = ({
   handleClose,

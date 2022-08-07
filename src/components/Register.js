@@ -31,7 +31,6 @@ const Register = () => {
     setUser(user);
   }, [user, setUser]);
 
-  // Styles
   const gridStyle = {
     display: "flex",
     justifyContent: "center",
@@ -62,7 +61,6 @@ const Register = () => {
   const textFieldStyle = {
     width: { xs: "90%", sm: "70%", md: "60%", lg: "70%" },
     marginTop: "5%",
-    // width:'60%'
   };
   const errorText = {
     color: "red",
