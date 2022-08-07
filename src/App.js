@@ -74,7 +74,6 @@ function App() {
                   <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
                 }
               />
-
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
               <Route path="/admin" element={<AdminPanel />} />
