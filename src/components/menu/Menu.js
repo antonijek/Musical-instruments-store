@@ -23,7 +23,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
     try {
       const res = await getInstruments(currentPage);
       setInstruments(res.data.data.data);
-      console.log('test:: ' + JSON.stringify(res.data.data));
+
       setPageInfo(res.data.data);
       setLoading(false);
     } catch (e) {
