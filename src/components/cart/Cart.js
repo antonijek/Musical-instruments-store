@@ -59,7 +59,7 @@ const Cart = () => {
       }
     );
     setAddToCart([]);
-    navigate("/menu");
+    navigate("/shop");
   };
 
   const handleDelete = (instId) => {

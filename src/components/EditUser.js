@@ -67,6 +67,7 @@ const EditUser = ({
       setloading(false);
       setSnackbar(true);
       setTimeout(handleClose, 2000);
+      //getAllUsers();
       console.log(res);
     } catch (err) {
       console.log(err);
