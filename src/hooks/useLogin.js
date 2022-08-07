@@ -18,6 +18,7 @@ const useLogin = () => {
     try {
       const res = await login(formData.email, formData.pass);
       setloginMessage(res.data.message);
+      console.log(res);
       setSnackBar(true);
       setPerson(res.data.user);
       setTimeout(() => setSnackBar(false), 2000);
