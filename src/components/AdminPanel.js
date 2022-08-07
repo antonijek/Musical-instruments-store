@@ -1,39 +1,38 @@
-import { React, useState, useEffect, useContext } from "react";
+import { React, useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import Table from "./Table";
 import "../styles/admin.css";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { getInstrumentsByAdmin, getUsers } from "../api";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
-import { UserContext } from "./UserContext";
 
 const AdminPanel = () => {
   const [title, setTitle] = useState();
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const { user } = useContext(UserContext);
   let token = localStorage.getItem("token");
   const renderRating = () => {
     return <EditSharpIcon />;
   };
 
   const usersColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "first_name", headerName: "First name", width: 130 },
-    { field: "last_name", headerName: "Last name", width: 130 },
-    { field: "email", headerName: "Email", width: 130 },
+    { field: "id", headerName: "ID", width: 30 },
+    { field: "first_name", headerName: "First name", width: 150 },
+    { field: "last_name", headerName: "Last name", width: 150 },
+    { field: "email", headerName: "Email", width: 200 },
     { field: "funds", headerName: "Funds", width: 130 },
     {
       field: "verified",
       headerName: "verified",
-      width: 60,
+      width: 100,
     },
     { field: "edit", headerName: "Edit", width: 60, renderCell: renderRating },
   ];
   const instrumentsColumns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Name", width: 130 },
+    { field: "id", headerName: "ID", width: 30 },
+    { field: "name", headerName: "Name", width: 280 },
     { field: "color", headerName: "Color", width: 130 },
     { field: "price", headerName: "Price", width: 130 },
     { field: "quantity", headerName: "Quantity", width: 130 },
@@ -42,29 +41,37 @@ const AdminPanel = () => {
   ];
 
   const getAllInstruments = async () => {
-    const res = await getInstrumentsByAdmin(token);
-
-    setRows(res.data.data);
-    setTitle("Instruments");
-    setColumns(instrumentsColumns);
+    setLoading(true);
+    try {
+      const res = await getInstrumentsByAdmin(token);
+      setRows(res.data.data);
+      setTitle("Instruments");
+      setColumns(instrumentsColumns);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   const getAllUsers = async () => {
-    const res = await getUsers(token);
-
-    setRows(res.data.data);
-    setTitle("Users");
-    setColumns(usersColumns);
-    return res.data.data;
+    setLoading(true);
+    try {
+      const res = await getUsers(token);
+      setRows(res.data.data);
+      setTitle("Users");
+      setColumns(usersColumns);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
-  useEffect(() => {
-    getAllUsers();
-  }, []);
   return (
     <div className="grid-admin">
       <Dashboard
@@ -90,6 +97,9 @@ const AdminPanel = () => {
           getAllUsers={getAllUsers}
           getAllInstruments={getAllInstruments}
         />
+        {loading ? (
+          <CircularProgress sx={{ display: "block", mx: "auto" }} />
+        ) : null}
       </Box>
     </div>
   );

@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import AlertDialog from "./AlertDialog";
-
 import {
   Box,
   Typography,
@@ -13,7 +12,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
 import { verify } from "../api";
 import { editUser, removeUser } from "../api";
 
@@ -33,10 +31,6 @@ const EditUser = ({
   const [confirmationDelete, setConfirmationDelete] = useState(false);
 
   let token = localStorage.getItem("token");
-
-  const handleCloseSnackbar = () => {
-    setSnackbar(false);
-  };
 
   const closeAlertDialog = () => {
     setOpenAlertDialog(false);
@@ -67,8 +61,7 @@ const EditUser = ({
       setloading(false);
       setSnackbar(true);
       setTimeout(handleClose, 2000);
-      //getAllUsers();
-      console.log(res);
+      getAllUsers();
     } catch (err) {
       console.log(err);
       setloading(false);
@@ -76,7 +69,6 @@ const EditUser = ({
   };
 
   const deleteUser = async () => {
-    // e.preventDefault();
     setloading(true);
     try {
       const res = await removeUser(details.id, token);

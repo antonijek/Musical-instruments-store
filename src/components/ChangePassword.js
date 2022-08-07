@@ -3,21 +3,18 @@ import {
   Box,
   Typography,
   Button,
-  Link,
   Snackbar,
   CircularProgress,
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
-import { React, useState, useContext, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { checkPass } from "../utils";
 import { changePassword } from "../api";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
 
-  const { user, setUser } = useContext(UserContext);
   const [password, setPassword] = useState({
     oldPassword: "",
     newPassword: "",
@@ -58,7 +55,6 @@ const ChangePassword = () => {
     try {
       const res = await changePassword(form, token);
       setMessage(res.data.message);
-      console.log(res.data.message);
       setSnackBar(true);
       setLoading(false);
       setTimeout(handleCloseSnackbar, 2000);
@@ -77,11 +73,10 @@ const ChangePassword = () => {
     setPassword({ ...password, [name]: value });
     setError({ new: "", confirm: "" });
   };
-  console.log(password);
 
   useEffect(() => {
     if (message === "password has been changed") {
-      setTimeout(() => navigate("/Profile"), 2100);
+      setTimeout(() => navigate("/profile"), 2100);
     }
   }, [message]);
 

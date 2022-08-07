@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie, Bar } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { getStatistic } from "../api";
 import { CircularProgress, Typography, Box, Button } from "@mui/material";
 
