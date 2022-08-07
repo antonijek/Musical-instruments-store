@@ -4,7 +4,7 @@ import { Typography, Grid, Box, TextField, Stack, Button } from "@mui/material";
 const About = () => {
   return (
     <>
-        <Grid sx={{backgroundImage:`url("../images/pianoBckgr.jpg")`, width:'100%', marginTop:'5%', height:'50vh'}} />
+        <Grid sx={{backgroundImage:`url("../images/pianoBckgr.jpg")`, width:'100%', marginTop:'5%', height:'50vh', backgroundPositionX:'50%'}} />
 
         <Grid sx={{bgcolor:'primary.main', width:'100%', height:'12vh'}}>
             <Typography variant='h1' sx={{margin:'0 auto', marginTop:'2%', color:'white', textAlign:'center'}}>About us</Typography>
@@ -21,11 +21,11 @@ const About = () => {
         </Grid>
         <Box sx={{ width:'100%', height:'auto'}}>
             <Typography variant='h3' sx={{margin:'0 auto', color:'text.secondary', textAlign:'center'}}>Our partners:</Typography>
-            <Stack direction={{ xs:'column', sm:'row' }} justifyContent="space-around" alignItems="center" spacing={2} sx={{marginTop:'5%'}}>
-                <img src='../images/logotype1.png' alt='logotype' width={100} height={80}></img>
-                <img src='../images/logotype2.png' alt='logotype' width={100} height={80}></img>
-                <img src='../images/logotype3.png' alt='logotype' width={100} height={70}></img>
-                <img src='../images/logotype4.png' alt='logotype' width={100} height={80}></img>
+            <Stack direction={{ xs:'column', sm:'row' }} justifyContent="space-around" alignItems="center" spacing={0} sx={{marginTop:'5%'}}>
+                <Box sx={{marginBottom:{xs:'13%', sm:'0'}}}><img src='../images/logotype1.png' alt='logotype' width={100} height={80}></img></Box>
+                <Box sx={{marginBottom:{xs:'13%', sm:'0'}}}><img src='../images/logotype2.png' alt='logotype' width={100} height={80}></img></Box>
+                <Box sx={{marginBottom:{xs:'13%', sm:'0'}}}><img src='../images/logotype3.png' alt='logotype' width={100} height={70}></img></Box>
+                <Box sx={{marginBottom:{xs:'13%', sm:'0'}}}><img src='../images/logotype4.png' alt='logotype' width={100} height={80}></img></Box>
             </Stack>
         </Box>
         <Box>

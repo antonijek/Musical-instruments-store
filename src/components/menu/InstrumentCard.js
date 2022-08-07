@@ -10,10 +10,10 @@ import { Rating } from "@mui/material";
 
 function InstrumentCard({ instrument }) {
   return (
-    <Card sx={{  maxWidth:{xs:'80%', sm:'90%'}, margin:'0 auto'}}> 
+    <Card sx={{  maxWidth:{xs:'90%', sm:'90%'}, margin:'0 auto'}}> 
       <CardMedia
         component="img"
-        height="350"
+        height='350'
         image={instrument.photo}
         alt="img"
       />

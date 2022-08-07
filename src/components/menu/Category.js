@@ -13,8 +13,6 @@ function Category({ categoryId, setCategoryId }) {
     setCategoryId(instruments.indexOf(event.target.value) + 1);
   };
 
-  // console.log('setovan ID iz Category: '+categoryId)
-
   const instruments = [
     "Drums",
     "Electronic instruments",
@@ -26,8 +24,9 @@ function Category({ categoryId, setCategoryId }) {
   ];
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl sx={{ width: "40vh" }}>
+    
+    <Box sx={{ minWidth: 80 }}>
+      <FormControl sx={{ width:{xs:'32vh', sm:"40vh"}}}>
         <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
           labelId="demo-simple-select-label"

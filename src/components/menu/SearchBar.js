@@ -21,7 +21,7 @@ const SearchBar = ({setSearchedString}) => {
 
   return (
 
-    <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:{xs:'80%', sm:'30%'}, padding:'5px'}}>
+    <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:{xs:'90%', sm:'36%'}, padding:'5px'}}>
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           placeholder="Search"
