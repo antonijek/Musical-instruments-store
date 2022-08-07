@@ -61,7 +61,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Sign-up" element={<Register />} />
               <Route path="/Profile" element={<Profile />} />
-              <Route path="/statistic" element={<Statistic />} />
+
+              <Route
+                path="/statistic"
+                element={user.admin ? <Statistic /> : <div>Page404</div>}
+              />
               <Route
                 path="/Menu"
                 element={
@@ -77,13 +81,7 @@ function App() {
               <Route path="/*" element={<Page404 />} />
               <Route
                 path="/admin"
-                element={
-                  user && user.verified === 1 ? (
-                    <AdminPanel />
-                  ) : (
-                    <div>Page404</div>
-                  )
-                }
+                element={user.admin ? <AdminPanel /> : <div>Page404</div>}
               />
               <Route path="/change-password" element={<ChangePassword />} />
             </Routes>

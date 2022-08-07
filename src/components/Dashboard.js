@@ -1,18 +1,24 @@
-import { React, useEffect } from "react";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+import { React, useEffect, useContext } from "react";
+import { UserContext } from "./UserContext";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Avatar,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 import MusicNoteOutlinedIcon from "@mui/icons-material/MusicNoteOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import ShowChartSharpIcon from "@mui/icons-material/ShowChartSharp";
 import PianoSharpIcon from "@mui/icons-material/PianoSharp";
 
 const Dashboard = ({ getAllUsers, getAllInstruments }) => {
+  const { user } = useContext(UserContext);
   let token = localStorage.getItem("token");
 
   return (
@@ -21,14 +27,27 @@ const Dashboard = ({ getAllUsers, getAllInstruments }) => {
         width: "100%",
         height: "100vh",
         maxWidth: { xs: "50%", sm: "100%" },
-        bgcolor: "text.secondary",
+        bgcolor: "#1976d2",
         color: "white",
-        borderRadius: "5%",
       }}
     >
       <nav aria-label="main mailbox folders">
-        <List sx={{ mb: 2 }}>
-          <ListItem disablePadding sx={{ mb: "10%" }}>
+        <Divider sx={{ bgcolor: "white" }} />
+        <List sx={{ mb: 4 }}>
+          <Avatar
+            sx={{
+              mx: "auto",
+              mt: "5%",
+              width: { xs: "10vw", sm: "4vw" },
+              height: { xs: "10vw", sm: "4vw" },
+            }}
+            src="/broken-image.jpg"
+          />
+          <Typography sx={{ textAlign: "center", mb: 4, mt: 2 }}>
+            {user.first_name}
+          </Typography>
+          <Divider sx={{ bgcolor: "white" }} />
+          <ListItem disablePadding sx={{ mb: "10%", mt: 8 }}>
             <ListItemButton onClick={getAllUsers}>
               <ListItemIcon>
                 <GroupIcon sx={{ color: "white" }} />
@@ -44,24 +63,32 @@ const Dashboard = ({ getAllUsers, getAllInstruments }) => {
               <ListItemText primary="Instruments" />
             </ListItemButton>
           </ListItem>
-
+          <ListItemButton>
+            <ListItemIcon>
+              <ShowChartSharpIcon sx={{ color: "white" }} />
+            </ListItemIcon>
+            <Link
+              to="/statistic"
+              style={{
+                color: "white",
+                textDecoration: "none",
+                marginBottom: "10%",
+              }}
+            >
+              <ListItemText primary="Statistics" />
+            </Link>
+          </ListItemButton>
           <ListItem disablePadding sx={{ mb: "10%" }}>
             <ListItemButton>
               <ListItemIcon>
                 <PianoSharpIcon sx={{ color: "white" }} />
               </ListItemIcon>
+
               <ListItemText primary="Items" />
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding sx={{ mb: "10%" }}>
-            <ListItemButton>
-              <ListItemIcon>
-                <ShowChartSharpIcon sx={{ color: "white" }} />
-              </ListItemIcon>
-              <ListItemText primary="Statistics" />
-            </ListItemButton>
-          </ListItem>
+          <ListItem disablePadding sx={{ mb: "10%" }}></ListItem>
         </List>
       </nav>
       <Divider sx={{ bgcolor: "white" }} />
