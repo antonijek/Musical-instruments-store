@@ -71,7 +71,7 @@ function App() {
 
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
-              {/* <Route path="/admin" element={<AdminPanel />} /> */}
+              <Route path="/admin" element={<AdminPanel />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about-us" element={<About />} />
               <Route path="/*" element={<Page404 />} />
