@@ -9,13 +9,13 @@ function Contact() {
 
 
     const textFieldStyle = {
-        width:'70%',
+        width:{xs:'90%', sm:'70%'},
     }
 
   return (
     <>
     <Grid container xs={12}>
-        <Typography variant='h1' sx={{margin:'0 auto', marginTop:'  5%'}}>Contact Us</Typography>
+        <Typography variant='h1' sx={{margin:'0 auto', marginTop:'5%', fontSize:{xs:'3em'}}}>Contact Us</Typography>
     </Grid>
     <Grid container xs={12} sx={{ marginTop:'5%', height:'40vh'}}>
         <iframe 
@@ -77,10 +77,10 @@ function Contact() {
             alignItems="center"
             spacing={6}
         >
-            <Stack direction='row' alignItems="flex-start"><LocationOnIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:'15vw'}}> Radosava Burica, Podgorica</Typography></Stack>
-            <Stack direction='row' alignItems="flex-start"><PhoneIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:'15vw'}}> +382 67 236 178</Typography></Stack>
-            <Stack direction='row' alignItems="flex-start"><AccessTimeFilledIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:'15vw'}}> 09:00h - 20:00h</Typography></Stack>
-            <Stack direction='row' alignItems="flex-start"><EmailIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:'15vw'}}> mus.instruments@store.me</Typography></Stack>
+            <Stack direction='row' alignItems="flex-start"><LocationOnIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:{xs:'80vw', sm:'15vw'}}}> Radosava Burica, Podgorica</Typography></Stack>
+            <Stack direction='row' alignItems="flex-start"><PhoneIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:{xs:'80vw', sm:'15vw'}}}> +382 67 236 178</Typography></Stack>
+            <Stack direction='row' alignItems="flex-start"><AccessTimeFilledIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:{xs:'80vw', sm:'15vw'}}}> 09:00h - 20:00h</Typography></Stack>
+            <Stack direction='row' alignItems="flex-start"><EmailIcon fontSize='large'/><Typography sx={{fontSize:'1.2em', fontStyle:'italic', marginLeft:'5px', width:{xs:'80vw', sm:'15vw'}}}> mus.instruments@store.me</Typography></Stack>
             
         </Stack>
 
