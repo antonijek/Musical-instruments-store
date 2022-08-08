@@ -160,8 +160,9 @@ const Profile = () => {
         </Box>
       ))}
       <Divider sx={{ mb: 5 }} />
-      {instrumentsPerOrder.map((item) => (
+      {instrumentsPerOrder.map((item, i) => (
         <ItemInCart
+          key={i}
           desc={item.belongs_to_instrument.description}
           color={item.belongs_to_instrument.color}
           price={item.belongs_to_instrument.price}

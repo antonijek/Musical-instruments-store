@@ -143,7 +143,7 @@ const Statistic = () => {
   return (
     <Box>
       <Box style={{ display: "flex", justifyContent: "center" }}>
-        <Box style={{ width: "50vw" }}>
+        <Box style={{ width: "35vw" }}>
           <Typography
             variant="h4"
             style={{ marginTop: "2%", textAlign: "center", color: "#1565c0" }}

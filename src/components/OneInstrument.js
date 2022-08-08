@@ -50,6 +50,7 @@ const OneInstrument = ({ handleClose, id }) => {
     try {
       const res = await rating(token, id, num);
       setOpen(true);
+      console.log(res);
       setMessage(res.data.message);
       setLoading(false);
     } catch (err) {
