@@ -160,7 +160,7 @@ const OneInstrument = ({ handleClose, id }) => {
 
               <Typography sx={style}>
                 <span className="instrument-details">Weight:</span>
-                <span>kg {instrument.weight} </span>
+                <span>{instrument.weight} kg </span>
               </Typography>
               <Typography sx={style}>
                 <span className="instrument-details">Dimensions:</span>

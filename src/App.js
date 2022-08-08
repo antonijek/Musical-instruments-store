@@ -62,7 +62,6 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Sign-up" element={<Register />} />
               <Route path="/Profile" element={<Profile />} />
-
               <Route
                 path="/statistic"
                 element={user && user.admin ? <Statistic /> : <Page404 />}
@@ -75,15 +74,14 @@ function App() {
               />
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
-
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about-us" element={<About />} />
-              <Route path="/*" element={<Page404 />} />
               <Route
                 path="/admin"
                 element={user && user.admin ? <AdminPanel /> : <Page404 />}
               />
               <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/*" element={<Page404 />} />
             </Routes>
           </Container>
           <Footer />
