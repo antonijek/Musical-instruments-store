@@ -13,7 +13,6 @@ const SearchBar = ({setSearchedString}) => {
     
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(query);
     setSearchedString(query);
   }
 

@@ -5,7 +5,6 @@ import Feed from "./Feed";
 import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
 import { getSearchedInstrument } from "../../api/index";
-import axios from "axios";
 import Typography from "@mui/material/Typography";
 import { Box, Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -23,7 +22,6 @@ const Menu = ({ categoryId, setCategoryId }) => {
     try {
       const res = await getInstruments(currentPage);
       setInstruments(res.data.data.data);
-      console.log('test:: ' + JSON.stringify(res.data.data));
       setPageInfo(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -60,7 +58,6 @@ const Menu = ({ categoryId, setCategoryId }) => {
       setInstruments(res.data.data.data);
       setPageInfo(res.data.data);
       setLoading(false);
-      console.log('okinla se')
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -73,7 +70,6 @@ const Menu = ({ categoryId, setCategoryId }) => {
 
   const handlePage = (event, page) => {
     setCurrentPage(page);
-    console.log(page);
     window.scroll(0, 0);
   };
 

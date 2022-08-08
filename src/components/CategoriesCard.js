@@ -9,8 +9,6 @@ function CategoriesCard({category, categoryId, setCategoryId}) {
 
   const setIdHandler = () => {
     setCategoryId(category.id);
-    // console.log('setovan ID iz CategoriesCard: '+categoryId)
-
   }
 
   return (
