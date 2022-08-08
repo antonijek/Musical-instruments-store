@@ -60,6 +60,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
       setInstruments(res.data.data.data);
       setPageInfo(res.data.data);
       setLoading(false);
+      console.log('okinla se')
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -107,7 +108,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
 
       {loading ? (
         <CircularProgress
-          sx={{ marginLeft: "32%", marginTop: "15%", position: "absolute" }}
+          sx={{ marginLeft: "30%", marginTop: "15%", position: "absolute" }}
         />
       ) : null}
 

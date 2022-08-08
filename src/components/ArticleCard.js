@@ -36,7 +36,7 @@ function ArticleCard({elem}) {
             <Rating
               readOnly 
               name="simple-controlled"
-              value={elem.rate}
+              value={elem.average_rate}
               size="medium"
               sx={{marginRight:'15%'}}
             />
