@@ -19,14 +19,14 @@ const Article = () => {
 
   const getCategoriesApi = async () => {
     try {
-      const res = await getCategories();
-      const bestRatedArr = res.data.bestRatedInstruments;
-
-      setBestRated(bestRatedArr);
-    } catch (e) {
-      console.log(e);
+        const res = await getCategories();
+        const bestRatedArr = res.data.bestRatedInstruments;
+        
+        setBestRated(bestRatedArr);
+    } catch(e) {
+        console.log(e);
     }
-  };
+}
 
   useEffect(() => {
     getCategoriesApi();

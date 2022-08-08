@@ -1,6 +1,6 @@
-import { React, useState, useContext } from "react";
+import { React, useState } from "react";
 import InstrumentCard from "./InstrumentCard";
-import {Stack, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import OneInstrument from "../OneInstrument";
 

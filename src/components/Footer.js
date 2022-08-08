@@ -54,8 +54,8 @@ function Footer() {
             </Stack>
             <Stack direction={{xs:'column', sm:'row'}} spacing={{ xs: 1, sm: 11, md: 20 }}  justifyContent="center" alignItems="center">
                 <NavLink to='/' style={navLinkStyle}><Typography sx={navTextStyle}>Home</Typography></NavLink>
-                <NavLink to='/home' style={navLinkStyle}><Typography sx={navTextStyle}>Menu</Typography></NavLink>
-                <NavLink to='/about' style={navLinkStyle}><Typography sx={navTextStyle}>About us</Typography></NavLink>
+                <NavLink to='/shop' style={navLinkStyle}><Typography sx={navTextStyle}>Shop</Typography></NavLink>
+                <NavLink to='/about-us' style={navLinkStyle}><Typography sx={navTextStyle}>About us</Typography></NavLink>
                 <NavLink to='/contact' style={navLinkStyle}><Typography sx={navTextStyle}>Contact</Typography></NavLink>
             </Stack>
             <Stack direction='row' spacing={8} justifyContent={{xs:"space-around", sm:"center"}} alignItems="center" sx={socialStackStyle}>
@@ -65,7 +65,7 @@ function Footer() {
                 <Link href='#' sx={{color:'#FFF'}}><YouTubeIcon sx={socialIconStyle} /></Link>
             </Stack>
             <Stack justifyContent="center" alignItems="center" sx={copyrightStackStyle}>
-                <Typography > &copy; 2022 Copyright - DevelopersLab</Typography>
+                <Typography > &copy; 2022 Copyright - DevelopersLab - A&E&D</Typography>
             </Stack>
         </Box>
     </footer>

@@ -1,5 +1,4 @@
 import { React, useState } from 'react'
-import { Typography, Box, Stack, Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +12,6 @@ const SearchBar = ({setSearchedString}) => {
     
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(query);
     setSearchedString(query);
   }
 

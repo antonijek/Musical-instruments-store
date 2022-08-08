@@ -40,7 +40,6 @@ const Cart = () => {
     });
 
     basket = arr;
-    console.log('bask: ' + basket);
     let obj = { item: {} };
     basket.map((item) => {
       for (let key in item) {
