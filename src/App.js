@@ -44,6 +44,7 @@ function App() {
     }
   }, []);
 
+  console.log(user.admin === 0);
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
@@ -64,9 +65,7 @@ function App() {
 
               <Route
                 path="/statistic"
-                element={
-                  user && user.admin ? <Statistic /> : <div>Page404</div>
-                }
+                element={user && user.admin ? <Statistic /> : <Page404 />}
               />
               <Route
                 path="/shop"
@@ -74,18 +73,15 @@ function App() {
                   <Menu categoryId={categoryId} setCategoryId={setCategoryId} />
                 }
               />
-
               <Route exact path="instruments" element={<Instruments />} />
               <Route path="/Cart" element={<Cart />} />
-              <Route path="/admin" element={<AdminPanel />} />
+
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about-us" element={<About />} />
               <Route path="/*" element={<Page404 />} />
               <Route
                 path="/admin"
-                element={
-                  user && user.admin ? <AdminPanel /> : <div>Page404</div>
-                }
+                element={user && user.admin ? <AdminPanel /> : <Page404 />}
               />
               <Route path="/change-password" element={<ChangePassword />} />
             </Routes>
