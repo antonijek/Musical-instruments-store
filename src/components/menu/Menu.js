@@ -22,6 +22,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
     try {
       const res = await getInstruments(currentPage);
       setInstruments(res.data.data.data);
+      
       setPageInfo(res.data.data);
       setLoading(false);
     } catch (e) {
