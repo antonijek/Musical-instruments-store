@@ -5,12 +5,14 @@ import "../styles/admin.css";
 import { Box, CircularProgress } from "@mui/material";
 import { getInstrumentsByAdmin, getUsers } from "../api";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
+import Statistic from "./Statistic";
 
 const AdminPanel = () => {
   const [title, setTitle] = useState();
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [statistic, setStatistic] = useState(false);
 
   let token = localStorage.getItem("token");
   const renderRating = () => {
@@ -76,31 +78,36 @@ const AdminPanel = () => {
     <div className="grid-admin">
       <Dashboard
         className="grid-item"
-        title={title}
         setTitle={setTitle}
-        rows={rows}
         setRows={setRows}
-        columns={columns}
         setColumns={setColumns}
         getAllInstruments={getAllInstruments}
         getAllUsers={getAllUsers}
+        setStatistic={setStatistic}
       />
-      <Box>
-        <Table
-          className="grid-item"
-          title={title}
-          setTitle={setTitle}
-          rows={rows}
-          setRows={setRows}
-          columns={columns}
-          setColumns={setColumns}
-          getAllUsers={getAllUsers}
-          getAllInstruments={getAllInstruments}
-        />
-        {loading ? (
-          <CircularProgress sx={{ display: "block", mx: "auto" }} />
-        ) : null}
-      </Box>
+
+      {statistic ? (
+        <Box>
+          <Statistic />
+        </Box>
+      ) : (
+        <Box>
+          <Table
+            className="grid-item"
+            title={title}
+            setTitle={setTitle}
+            rows={rows}
+            setRows={setRows}
+            columns={columns}
+            setColumns={setColumns}
+            getAllUsers={getAllUsers}
+            getAllInstruments={getAllInstruments}
+          />
+          {loading ? (
+            <CircularProgress sx={{ display: "block", mx: "auto" }} />
+          ) : null}
+        </Box>
+      )}
     </div>
   );
 };

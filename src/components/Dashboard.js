@@ -11,14 +11,35 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import MusicNoteOutlinedIcon from "@mui/icons-material/MusicNoteOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import ShowChartSharpIcon from "@mui/icons-material/ShowChartSharp";
 import PianoSharpIcon from "@mui/icons-material/PianoSharp";
 
-const Dashboard = ({ getAllUsers, getAllInstruments }) => {
+const Dashboard = ({
+  getAllUsers,
+  getAllInstruments,
+  setStatistic,
+  setRows,
+  setTitle,
+  setColumns,
+}) => {
   const { user } = useContext(UserContext);
+
+  const handleUsers = () => {
+    setRows([]);
+    setTitle([]);
+    setColumns([]);
+    getAllUsers();
+    setStatistic(false);
+  };
+  const handleInstruments = () => {
+    setRows([]);
+    setTitle([]);
+    setColumns([]);
+    getAllInstruments();
+    setStatistic(false);
+  };
 
   return (
     <Box
@@ -47,7 +68,7 @@ const Dashboard = ({ getAllUsers, getAllInstruments }) => {
           </Typography>
           <Divider sx={{ bgcolor: "white" }} />
           <ListItem disablePadding sx={{ mb: "10%", mt: 8 }}>
-            <ListItemButton onClick={getAllUsers}>
+            <ListItemButton onClick={handleUsers}>
               <ListItemIcon>
                 <GroupIcon sx={{ color: "white" }} />
               </ListItemIcon>
@@ -55,28 +76,21 @@ const Dashboard = ({ getAllUsers, getAllInstruments }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding sx={{ mb: "10%" }}>
-            <ListItemButton onClick={getAllInstruments}>
+            <ListItemButton onClick={handleInstruments}>
               <ListItemIcon>
                 <MusicNoteOutlinedIcon sx={{ color: "white" }} />
               </ListItemIcon>
               <ListItemText primary="Instruments" />
             </ListItemButton>
           </ListItem>
-          <ListItemButton>
-            <ListItemIcon>
-              <ShowChartSharpIcon sx={{ color: "white" }} />
-            </ListItemIcon>
-            <Link
-              to="/statistic"
-              style={{
-                color: "white",
-                textDecoration: "none",
-                marginBottom: "10%",
-              }}
-            >
+          <ListItem disablePadding sx={{ mb: "10%" }}>
+            <ListItemButton onClick={() => setStatistic(true)}>
+              <ListItemIcon>
+                <ShowChartSharpIcon sx={{ color: "white" }} />
+              </ListItemIcon>
               <ListItemText primary="Statistics" />
-            </Link>
-          </ListItemButton>
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding sx={{ mb: "10%" }}>
             <ListItemButton>
               <ListItemIcon>
