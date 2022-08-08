@@ -5,7 +5,6 @@ import Feed from "./Feed";
 import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
 import { getSearchedInstrument } from "../../api/index";
-import axios from "axios";
 import Typography from "@mui/material/Typography";
 import { Box, Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -23,7 +22,6 @@ const Menu = ({ categoryId, setCategoryId }) => {
     try {
       const res = await getInstruments(currentPage);
       setInstruments(res.data.data.data);
-
       setPageInfo(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -72,7 +70,6 @@ const Menu = ({ categoryId, setCategoryId }) => {
 
   const handlePage = (event, page) => {
     setCurrentPage(page);
-    console.log(page);
     window.scroll(0, 0);
   };
 
@@ -107,7 +104,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
 
       {loading ? (
         <CircularProgress
-          sx={{ marginLeft: "32%", marginTop: "15%", position: "absolute" }}
+          sx={{ marginLeft: "30%", marginTop: "15%", position: "absolute" }}
         />
       ) : null}
 

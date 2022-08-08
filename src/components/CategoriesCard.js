@@ -2,15 +2,13 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Typography, Button, Grid } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import { CardActionArea } from '@mui/material';
 
 function CategoriesCard({category, categoryId, setCategoryId}) {
 
   const setIdHandler = () => {
     setCategoryId(category.id);
-    // console.log('setovan ID iz CategoriesCard: '+categoryId)
-
   }
 
   return (
