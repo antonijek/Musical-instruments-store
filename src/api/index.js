@@ -98,14 +98,14 @@ export const removeInstrument = (id, token) => {
   });
 };
 export const adding = (instrument, token) => {
-  return axios.post(`${baseUrl}/instrument/`, instrument, {
+  return axios.post(`${baseUrl}/instrument`, instrument, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
 export const getInstrumentsByAdmin = (token) => {
-  return axios.get(`${baseUrl}/admin-instruments/`, {
+  return axios.get(`${baseUrl}/admin-instruments`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -134,7 +134,7 @@ export const changePassword = (form, token) => {
 };
 
 export const getStatistic = (token) => {
-  return axios(`${baseUrl}/statistic/`, {
+  return axios(`${baseUrl}/statistic`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
