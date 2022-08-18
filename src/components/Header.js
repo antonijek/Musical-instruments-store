@@ -196,7 +196,7 @@ const Header = () => {
                 <NavLink to={"/profile"}>
                   <Avatar
                     sx={{ ml: 2, width: 30, height: 30 }}
-                    src="../images/Ana.jpg"
+                    src="/broken-image.jpg"
                   />
                 </NavLink>
                 {user.verified === 1 ? (

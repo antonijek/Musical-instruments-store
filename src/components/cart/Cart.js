@@ -9,7 +9,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { useNavigate } from "react-router-dom";
-import {Snackbar, Alert} from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 
 const Cart = () => {
   let token = localStorage.getItem("token");
@@ -49,23 +49,25 @@ const Cart = () => {
 
     items = obj.item;
 
-      const res = await axios.post(
-        `http://localhost:8000/api/buy`,
-        {
-          items,
+    const res = await axios.post(
+      `https://phplaravel-816081-2801950.cloudwaysapps.com/api/buy`,
+      {
+        items,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      }
+    );
 
     setOpenSnack(true);
-    setMessage('purchased successfuly');
+    setMessage("purchased successfuly");
 
     setAddToCart([]);
-    setTimeout(() => {navigate("/shop")}, 1000);
+    setTimeout(() => {
+      navigate("/shop");
+    }, 1000);
   };
 
   const handleDelete = (instId) => {
@@ -91,16 +93,24 @@ const Cart = () => {
 
   return (
     <>
-      <Grid container sx={{ width: "100%", height: {xs:'30vh', sm:"70vh"}, marginTop: "5%", marginBottom:{xs:'55vh', sm:'0'} }}>
+      <Grid
+        container
+        sx={{
+          width: "100%",
+          height: { xs: "30vh", sm: "70vh" },
+          marginTop: "5%",
+          marginBottom: { xs: "55vh", sm: "0" },
+        }}
+      >
         <Grid
           item
           xs={12}
           sm={8}
           sx={{
-            height: {xs:'40vh', sm:"80vh"},
+            height: { xs: "40vh", sm: "80vh" },
             overflow: "auto",
             scrollbar: "5px",
-            marginBottom: {xs:'5%', sm:"20vh"},
+            marginBottom: { xs: "5%", sm: "20vh" },
           }}
         >
           {addToCart.length ? (
@@ -116,10 +126,10 @@ const Cart = () => {
           ) : (
             <Typography
               sx={{
-                fontSize: {xs:'1.2', sm:"1.4em"},
+                fontSize: { xs: "1.2", sm: "1.4em" },
                 textAlign: "center",
                 color: "primary.main",
-                mt: {xs:'15vh', sm:"30vh"},
+                mt: { xs: "15vh", sm: "30vh" },
               }}
             >
               There is no instruments in card
@@ -157,15 +167,15 @@ const Cart = () => {
             </Box>
           ))}
         </Grid>
-        <Grid item xs={12} sm={4} >
+        <Grid item xs={12} sm={4}>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: {xs:'1%', sm:"35%"},
-              padding: {xs:'1%', sm:"20%"},
+              marginTop: { xs: "1%", sm: "35%" },
+              padding: { xs: "1%", sm: "20%" },
             }}
           >
             <Typography
@@ -250,10 +260,8 @@ const Cart = () => {
       >
         <Alert severity="success">{message}</Alert>
       </Snackbar>
-
     </>
   );
-
 };
 
 export default Cart;

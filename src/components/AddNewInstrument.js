@@ -18,7 +18,7 @@ const AddNewInstrument = ({
   setModalForNewInstrument,
   getAllInstruments,
 }) => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState();
   const [snackBar, setSnackBar] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -92,7 +92,6 @@ const AddNewInstrument = ({
               required
               label="Name"
               variant="standard"
-              value={form.name}
               sx={{ mt: 1, width: "80%" }}
               name="name"
               onChange={(e) => handleForm(e)}
@@ -109,7 +108,6 @@ const AddNewInstrument = ({
               type="number"
               label="Category id"
               variant="standard"
-              value={form.instrument_category_id}
               sx={{ mt: 1, width: "80%" }}
               name="instrument_category_id"
               onChange={(e) => handleForm(e)}
@@ -120,7 +118,6 @@ const AddNewInstrument = ({
               type="number"
               label="Price"
               variant="standard"
-              value={form.price}
               sx={{ mt: 1, width: "80%" }}
               name="price"
               onChange={(e) => handleForm(e)}
@@ -130,7 +127,6 @@ const AddNewInstrument = ({
               type="number"
               label="Quantity"
               variant="standard"
-              value={form.quantity}
               sx={{ mt: 1, width: "80%" }}
               name="quantity"
               onChange={(e) => handleForm(e)}
@@ -142,7 +138,6 @@ const AddNewInstrument = ({
               required
               label="Description"
               variant="standard"
-              value={form.description}
               sx={{ mt: 1, width: "80%" }}
               name="description"
               onChange={(e) => handleForm(e)}
@@ -152,7 +147,6 @@ const AddNewInstrument = ({
               required
               label="Color"
               variant="standard"
-              value={form.color}
               sx={{ mt: 1, width: "80%" }}
               name="color"
               onChange={(e) => handleForm(e)}
@@ -163,19 +157,14 @@ const AddNewInstrument = ({
               type="number"
               label="Weight"
               variant="standard"
-              value={form.weight}
               sx={{ mt: 1, width: "80%" }}
               name="weight"
               onChange={(e) => handleForm(e)}
             />
             <TextField
               required
-              helperText={
-                form.dimensions === "" ? "Dimensions are required!" : " "
-              }
               label="Dimensions"
               variant="standard"
-              value={form.dimensions}
               sx={{ mt: 1, width: "80%" }}
               name="dimensions"
               onChange={(e) => handleForm(e)}
