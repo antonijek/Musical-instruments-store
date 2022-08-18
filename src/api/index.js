@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8000/api";
+const baseUrl = "https://phplaravel-816081-2801950.cloudwaysapps.com/api";
 
 export const login = (email, password) => {
   return axios.post(`${baseUrl}/login`, {
@@ -39,7 +39,7 @@ export const getSearchedInstrument = (searchedStr) => {
 };
 
 export const getUser = (token) => {
-  return axios(`${baseUrl}/user/`, {
+  return axios(`${baseUrl}/user`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -69,7 +69,7 @@ export const getOneOrder = (token, id) => {
   });
 };
 export const getUsers = (token) => {
-  return axios.get(`${baseUrl}/users/`, {
+  return axios.get(`${baseUrl}/users`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -98,14 +98,14 @@ export const removeInstrument = (id, token) => {
   });
 };
 export const adding = (instrument, token) => {
-  return axios.post(`${baseUrl}/instrument/`, instrument, {
+  return axios.post(`${baseUrl}/instrument`, instrument, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
 export const getInstrumentsByAdmin = (token) => {
-  return axios.get(`${baseUrl}/admin-instruments/`, {
+  return axios.get(`${baseUrl}/admin-instruments`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -134,7 +134,7 @@ export const changePassword = (form, token) => {
 };
 
 export const getStatistic = (token) => {
-  return axios(`${baseUrl}/statistic/`, {
+  return axios(`${baseUrl}/statistic`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

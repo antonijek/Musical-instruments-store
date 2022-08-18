@@ -35,8 +35,6 @@ const Login = () => {
     setUser(person);
   }, [person, setUser]);
 
-  console.log(loginMessage);
-
   return (
     <div>
       <Box
