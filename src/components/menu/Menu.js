@@ -6,7 +6,7 @@ import { getInstruments } from "../../api/index";
 import { getCategory } from "../../api/index";
 import { getSearchedInstrument } from "../../api/index";
 import Typography from "@mui/material/Typography";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 
@@ -20,8 +20,8 @@ const Menu = ({ categoryId, setCategoryId }) => {
   const getInstrumentsApi = async () => {
     setLoading(true);
     try {
-      const res = await getInstruments(currentPage);
-      setInstruments(res.data.data.data);
+      const res = await getInstruments(currentPage, searchedString);
+      setInstruments(res.data.data.data); 
       setPageInfo(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -65,7 +65,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
   };
 
   useEffect(() => {
-    getSearchedApi();
+    if (searchedString) { getSearchedApi(); }
   }, [searchedString]);
 
   const handlePage = (event, page) => {
@@ -90,6 +90,7 @@ const Menu = ({ categoryId, setCategoryId }) => {
 
   return (
     <>
+
       <Box sx={{ margin: "5%" }}>
         <Stack
           spacing={2}

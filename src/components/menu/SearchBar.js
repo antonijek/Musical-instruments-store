@@ -15,8 +15,6 @@ const SearchBar = ({setSearchedString}) => {
     setSearchedString(query);
   }
 
-
-
   return (
 
     <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:{xs:'90%', sm:'36%'}, padding:'5px'}}>

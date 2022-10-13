@@ -6,8 +6,8 @@ const About = () => {
     <>
         <Grid sx={{backgroundImage:`url("../images/pianoBckgr.jpg")`, width:'100%', marginTop:'5%', height:'50vh', backgroundPositionX:'50%'}} />
 
-        <Grid sx={{bgcolor:'primary.main', width:'100%', height:'12vh'}}>
-            <Typography variant='h1' sx={{margin:'0 auto', marginTop:'2%', color:'white', textAlign:'center'}}>About us</Typography>
+        <Grid sx={{bgcolor:'primary.main', width:'100%', height:'8vh'}}>
+            <Typography variant='h2' sx={{margin:'0 auto', marginTop:'2%', color:'white', textAlign:'center'}}>About us</Typography>
         </Grid>
         <Grid sx={{ width:'100%', height:'auto'}}>
             <Typography sx={{color:'text.secondary', fontSize:'1.2em', padding:'2%', letterSpacing: '', lineHeight:'160%'}}>Musical Instrument Store ltd is part of the Euro-Unit group, which is a leading company in the sale of musical instruments and professional audio equipment in this part of Europe. Our company started operating in Montenegro in 2007, and today we also operate in neighboring countries, Serbia, Macedonia, Bosnia and Herzegovina, Kosovo and Albania. <br /><br />
